@@ -104,7 +104,7 @@
         "locales": {
           "pt": {
             "baseHref": "/",
-            "translation": "src/app/messages/messages.pt.json"
+            "translation": "messages/messages.pt.json"
           }
         }
       }
