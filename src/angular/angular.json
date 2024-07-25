@@ -98,6 +98,15 @@
             "scripts": []
           }
         }
+      },
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "pt": {
+            "baseHref": "/",
+            "translation": "src/app/messages/messages.pt.json"
+          }
+        }
       }
     }
   },
