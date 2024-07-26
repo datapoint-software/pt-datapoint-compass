@@ -1,4 +1,8 @@
 {
   "locale": "en",
-  "translations": {}
+  "translations": {
+    "app-maintenance-title": "Service is offline",
+    "app-maintenance-service-unavailable": "Our service is down for maintenance and will be back soon!",
+    "app-maintenance-sorry-for-inconvenience": "We are sorry for the inconvenience."
+  }
 }

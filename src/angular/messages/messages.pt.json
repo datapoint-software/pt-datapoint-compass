@@ -1,4 +1,8 @@
 {
   "locale": "pt",
-  "translations": {}
+  "translations": {
+    "app-maintenance-service-unavailable": "O serviço está em manutenção e regressa em breve!",
+    "app-maintenance-sorry-for-inconvenience": "Lamentamos a inconveniência.",
+    "app-maintenance-title": "Serviço indisponível"
+  }
 }
