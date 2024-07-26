@@ -57,6 +57,13 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "pt": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "localize": [ "pt" ],
+              "baseHref": "/"
             }
           },
           "defaultConfiguration": "production"
@@ -69,6 +76,9 @@
             },
             "development": {
               "buildTarget": "datapoint-compass:build:development"
+            },
+            "pt": {
+              "buildTarget": "datapoint-compass:build:pt"
             }
           },
           "defaultConfiguration": "development"
