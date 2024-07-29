@@ -74,5 +74,4 @@ export class Identity {
     delete this.emailAddress;
     delete this.kind;
   }
-
 }

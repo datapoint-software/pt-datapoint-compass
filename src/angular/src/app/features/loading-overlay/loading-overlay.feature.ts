@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { LoadingOverlayItem } from "@app/features/loading-overlay/loading-overlay.feature.abstractions";
 
-
-
 @Injectable()
 export class LoadingOverlay {
 
