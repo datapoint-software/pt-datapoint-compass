@@ -3,5 +3,6 @@ export enum IdentityKind {
 };
 
 export enum Permission {
-  Workspace = 312983
+  Workspace = 312983,
+  WorkspaceEnrollments = 429881
 };
