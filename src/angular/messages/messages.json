@@ -1,6 +1,14 @@
 {
   "locale": "en",
   "translations": {
+    "error-illustration-alt": "A user looking for an answer",
+    "error-go-to-home-page": "Go to the home page",
+    "error-message-forbidden": "Sorry, you do not have sufficient permissions to access the resource at this location.",
+    "error-message-not-found": "The document you are looking does not exist or may have been moved to a different location.",
+    "error-title-forbidden": "Forbidden",
+    "error-title-not-found": "Document not found",
+    "error-title": "Something went wrong!",
+    "error-description": "We have encountered an unexpected error while attempting to process your last request.",
     "sign-in-title": "Sign In",
     "sign-in-instructions": "Enter your email address and password to sign in",
     "sign-in-authentication-failure": "A user was not found matching the given email address and password.",

@@ -1,6 +1,14 @@
 {
   "locale": "pt",
   "translations": {
+    "error-description": "Ocorreu um erro inesperado durante o processamento da sua última operação.",
+    "error-go-to-home-page": "Voltar à página inicial",
+    "error-illustration-alt": "Um utilizador à procura de respostas.",
+    "error-message-forbidden": "Não tem permissões de acesso suficientes para aceder a este recurso.",
+    "error-message-not-found": "A página ou documento a que tentou aceder não existe ou foi movida para outra localização.",
+    "error-title": "Algo correu mal",
+    "error-title-forbidden": "Acesso negado",
+    "error-title-not-found": "Página não encontrada",
     "sign-in-authentication-failure": "O endereço de correio eletrónico e palavra-passe não correspondem a um perfil existente.",
     "sign-in-email-address": "Correio eletrónico",
     "sign-in-email-address-placeholder": "O seu endereço de correio eletrónico",
