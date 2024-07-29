@@ -1,1 +1,111 @@
-/workspace
+<nav id="mainNavbar" class="navbar navbar-vertical navbar-expand-lg scrollbar bg-dark navbar-dark">
+  <div class="container-fluid">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="./index.html">
+      <img src="assets/datapoint-software-dark.svg" class="navbar-brand-img" alt="Datapoint Software" width="125" />
+    </a>
+
+    <!-- Navbar toggler -->
+    <a href="javascript: void(0);" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#sidenavCollapse"
+      aria-controls="sidenavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </a>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidenavCollapse">
+
+      <!-- Navigation -->
+      <ul class="navbar-nav mb-lg-7">
+        <li class="nav-item">
+          <a [routerLink]="[ '' ]" class="nav-link">
+            <i class="nav-link-icon ms ms-home fs-1"></i>
+            <span i18n="@@workspace-nav-link-home">Home</span>
+          </a>
+        </li>
+        <div class="nav-item">
+          <hr class="my-2" />
+        </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link collapse collapsed" href="#sideNavChildren" data-bs-toggle="collapse" role="button"
+            aria-expanded="false" aria-controls="sideNavChildren">
+            <i class="nav-link-icon ms ms-contract-edit"></i>
+            <span i18n="@@workspace-nav-link-enrollments">Enrollments</span>
+          </a>
+          <div class="collapse" id="sideNavChildren">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a [routerLink]="[ 'enrollments/_' ]" class="nav-link">
+                  <span i18n="@@workspace-nav-link-enrollments-new">New</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="[ 'enrollments' ]" class="nav-link ">
+                  <span i18n="@@workspace-nav-link-enrollments-search">Search</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <!-- End of Navigation -->
+    </div>
+    <!-- End of Collapse -->
+  </div>
+</nav>
+
+<main>
+  <header class="container-fluid d-flex py-6 mb-4">
+
+    <!-- Search -->
+    <form class="d-none d-md-inline-block me-auto">
+      <div class="input-group input-group-merge">
+
+        <!-- Input -->
+        <input type="text" class="form-control bg-light-green border-light-green w-250px"
+          aria-label="Search for any term"
+          placeholder="Quick search..."
+          i18n-aria-label="@@workspace-quick-search-aria-label"
+          i18n-placeholder="@@workspace-quick-search-placeholder" />
+
+        <!-- Button -->
+        <span class="input-group-text bg-light-green border-light-green p-0">
+
+          <!-- Button -->
+          <button class="btn btn-primary rounded-0" type="button" aria-label="Search button">
+            <i class="ms ms-search"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+
+    <!-- Top buttons -->
+    <div class="d-flex align-items-center ms-auto me-n1 me-lg-n2">
+
+      <!-- Button -->
+      <a class="d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm mx-2 mx-lg-4 w-40px h-40px position-relative link-secondary"
+        data-bs-toggle="offcanvas" href="#offcanvasNotifications" role="button" aria-controls="offcanvasNotifications">
+        <svg viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10,21.75a2.087,2.087,0,0,0,4.005,0" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.5"></path>
+          <path d="M12 3L12 0.75" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.5"></path>
+          <path d="M12,3a7.5,7.5,0,0,1,7.5,7.5c0,7.046,1.5,8.25,1.5,8.25H3s1.5-1.916,1.5-8.25A7.5,7.5,0,0,1,12,3Z"
+            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+        </svg>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-success">
+          <i class="ms ms-check"></i>
+        </span>
+      </a>
+
+      <div class="avatar avatar-circle avatar-sm avatar-online mx-2 mx-lg-4">
+        <span class="avatar-title">{{ name | avatarLabel }}</span>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="container-fluid pb-8">
+    <router-outlet></router-outlet>
+  </div>
+</main>
