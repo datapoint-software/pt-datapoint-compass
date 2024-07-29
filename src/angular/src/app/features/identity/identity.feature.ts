@@ -9,6 +9,8 @@ export class Identity {
 
   private readonly _identities = inject(IdentityService);
 
+  private _refreshTimeoutId?: ReturnType<typeof setTimeout>;
+
   anonymous: boolean = true;
   id?: string;
   name?: string;
@@ -19,6 +21,7 @@ export class Identity {
   expiration: Date | null = null;
 
   authenticate(model: IdentityModel): void {
+
     this.anonymous = false;
     this.id = model.id;
     this.name = model.name;
@@ -28,6 +31,16 @@ export class Identity {
     this.expiration = model.expiration
       ? new Date(model.expiration)
       : null;
+
+    if (this._refreshTimeoutId)
+      clearTimeout(this._refreshTimeoutId);
+
+    if (this.expiration) {
+      setTimeout(
+        () => this.refresh(),
+        (this.expiration.getTime() - (new Date()).getTime() - 2500)
+      );
+    }
   }
 
   async refresh(): Promise<void> {
@@ -46,10 +59,15 @@ export class Identity {
 
   reset(): void {
 
+    if (this._refreshTimeoutId)
+      clearTimeout(this._refreshTimeoutId);
+
     this.anonymous = true;
     this.expiration = null;
     this.permissions = new Set();
     this.refreshed = false;
+
+    delete this._refreshTimeoutId;
 
     delete this.id;
     delete this.name;
