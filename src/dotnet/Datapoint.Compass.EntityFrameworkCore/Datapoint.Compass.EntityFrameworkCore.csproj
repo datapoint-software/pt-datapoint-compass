@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.Compass.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Compass.EntityFrameworkCore</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Datapoint.Compass.Enumerations\Datapoint.Compass.Enumerations.csproj" />
+	</ItemGroup>
+
+</Project>

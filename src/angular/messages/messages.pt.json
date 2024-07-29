@@ -1,8 +1,21 @@
 {
   "locale": "pt",
   "translations": {
-    "app-maintenance-service-unavailable": "O serviço está em manutenção e regressa em breve!",
-    "app-maintenance-sorry-for-inconvenience": "Lamentamos a inconveniência.",
-    "app-maintenance-title": "Serviço indisponível"
+    "sign-in-authentication-failure": "O endereço de correio eletrónico e palavra-passe não correspondem a um perfil existente.",
+    "sign-in-email-address": "Correio eletrónico",
+    "sign-in-email-address-placeholder": "O seu endereço de correio eletrónico",
+    "sign-in-forgot-password": "Esqueceu a palavra-passe?",
+    "sign-in-instructions": "Insira o seu endereço de correio eletrónico e palavra-passe para iniciar sessão",
+    "sign-in-no-account-yet": "Não tem acesso?",
+    "sign-in-password": "Palavra-passe",
+    "sign-in-password-placeholder": "A sua palavra-passe",
+    "sign-in-primary-button": "Continuar",
+    "sign-in-remember-me": "Manter a minha sessão iniciada",
+    "sign-in-send-us-message": "Envie-nos uma mensagem",
+    "sign-in-title": "Olá,",
+    "sui-form-group-error": "Este campo é inválido.",
+    "sui-form-group-error-email": "Este campo requere um endereço de correio eletrónico.",
+    "sui-form-group-error-maxlength": "Este campo é demasiado longo.",
+    "sui-form-group-error-required": "Este campo é de preenchimento obrigatório."
   }
 }

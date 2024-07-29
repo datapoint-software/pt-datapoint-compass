@@ -1,8 +1,21 @@
 {
   "locale": "en",
   "translations": {
-    "app-maintenance-title": "Service is offline",
-    "app-maintenance-service-unavailable": "Our service is down for maintenance and will be back soon!",
-    "app-maintenance-sorry-for-inconvenience": "We are sorry for the inconvenience."
+    "sign-in-title": "Sign In",
+    "sign-in-instructions": "Enter your email address and password to sign in",
+    "sign-in-authentication-failure": "A user was not found matching the given email address and password.",
+    "sign-in-email-address": "Email Address",
+    "sign-in-email-address-placeholder": "Your email address",
+    "sign-in-password": "Password",
+    "sign-in-forgot-password": "Forgot your password?",
+    "sign-in-password-placeholder": "Your password",
+    "sign-in-remember-me": "Keep me signed in",
+    "sign-in-primary-button": "Sign in",
+    "sign-in-no-account-yet": "Don't have an account yet?",
+    "sign-in-send-us-message": "Send us a message",
+    "sui-form-group-error-email": "This field requires an email address.",
+    "sui-form-group-error-maxlength": "This field is too long.",
+    "sui-form-group-error-required": "This field is required and can not be empty.",
+    "sui-form-group-error": "This field is invalid."
   }
 }

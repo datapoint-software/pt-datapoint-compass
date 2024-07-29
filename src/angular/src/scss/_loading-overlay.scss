@@ -1,0 +1,26 @@
+@keyframes loading-overlay-keyframes {
+  from { opacity: 0; };
+  to { opacity: 1; };
+}
+
+.loading-overlay {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  animation: loading-overlay-keyframes 500ms ease-in;
+  background: rgba(255, 255, 255, .75);
+  pointer-events: all !important;
+
+  .loading-spinner {
+    font-size: 6em;
+  }
+}
+
+.loading-overlay.show {
+  display: flex;
+}

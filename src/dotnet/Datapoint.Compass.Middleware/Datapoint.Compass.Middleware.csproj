@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.Compass.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Compass.Middleware</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+		<PackageReference Include="Datapoint.Mediator" Version="8.0.0-a.68" />
+		<PackageReference Include="Datapoint.Mediator.FluentValidation" Version="8.0.0-a.68" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Datapoint.Compass.EntityFrameworkCore\Datapoint.Compass.EntityFrameworkCore.csproj" />
+	  <ProjectReference Include="..\Datapoint.Compass.Middleware.Abstractions\Datapoint.Compass.Middleware.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>

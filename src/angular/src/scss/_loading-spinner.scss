@@ -1,0 +1,28 @@
+@keyframes loading-spinner-keyframes {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  box-sizing: border-box;
+  display: block;
+  width: 1em;
+  height: 1em;
+  position: relative;
+  border: .15em solid;
+  border-color: rgba(var(--bs-primary-rgb), 0.35) rgba(var(--bs-primary-rgb), 0.5) rgba(var(--bs-primary-rgb), 0.75) rgba(var(--bs-primary-rgb), 1);
+  border-radius: 50%;
+  animation: loading-spinner-keyframes 1s linear infinite;
+
+  &-xxl {
+    font-size: 6em;
+  }
+
+  &-xl {
+    font-size: 4em;
+  }
+
+  &-lg {
+    font-size: 2em;
+  }
+}

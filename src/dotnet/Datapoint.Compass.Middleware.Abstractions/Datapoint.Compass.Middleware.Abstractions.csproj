@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.Compass.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Compass.Middleware</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Datapoint.Mediator.Abstractions" Version="8.0.0-a.68" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Datapoint.Compass.Enumerations\Datapoint.Compass.Enumerations.csproj" />
+	</ItemGroup>
+
+</Project>

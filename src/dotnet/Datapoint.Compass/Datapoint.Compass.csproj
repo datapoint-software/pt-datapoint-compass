@@ -7,4 +7,15 @@
 		<RootNamespace>Datapoint.Compass</RootNamespace>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Datapoint.AspNetCore.ErrorResponses" Version="8.0.0-a.68" />
+	  <PackageReference Include="Datapoint.Exceptions" Version="8.0.0-a.68" />
+	  <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Datapoint.Compass.Api\Datapoint.Compass.Api.csproj" />
+	  <ProjectReference Include="..\Datapoint.Compass.Middleware\Datapoint.Compass.Middleware.csproj" />
+	</ItemGroup>
+
 </Project>

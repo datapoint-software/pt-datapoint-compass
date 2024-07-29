@@ -3,13 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datapoint.Compass", "Datapoint.Compass\Datapoint.Compass.csproj", "{B8FEC760-E4A4-4A27-974C-9FF10C838ABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Compass", "Datapoint.Compass\Datapoint.Compass.csproj", "{B8FEC760-E4A4-4A27-974C-9FF10C838ABD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5029F05-BC9B-472A-9AD8-443128D0B61D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		Datapoint.Compass.xml = Datapoint.Compass.xml
+		dotnet-tools.json = dotnet-tools.json
+		NuGet.config = NuGet.config
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Compass.EntityFrameworkCore", "Datapoint.Compass.EntityFrameworkCore\Datapoint.Compass.EntityFrameworkCore.csproj", "{B6BB2882-0D54-476A-B166-F84B317BA170}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Compass.Migrator", "Datapoint.Compass.Migrator\Datapoint.Compass.Migrator.csproj", "{9B406D00-83DF-4BF3-A34F-976B2AE56EF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Compass.Enumerations", "Datapoint.Compass.Enumerations\Datapoint.Compass.Enumerations.csproj", "{B550C934-FD4F-48BA-A66B-AE93EB18F949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datapoint.Compass.Middleware.Abstractions", "Datapoint.Compass.Middleware.Abstractions\Datapoint.Compass.Middleware.Abstractions.csproj", "{EE153B42-96AF-4CFE-9714-9AFB58405415}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datapoint.Compass.Middleware", "Datapoint.Compass.Middleware\Datapoint.Compass.Middleware.csproj", "{07C8ED19-7410-4FD9-B8A6-2C1719B7C97C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datapoint.Compass.Api.Abstractions", "Datapoint.Compass.Api.Abstractions\Datapoint.Compass.Api.Abstractions.csproj", "{C307C2C5-145E-4387-80CF-68F2C215862B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datapoint.Compass.Api", "Datapoint.Compass.Api\Datapoint.Compass.Api.csproj", "{14746AB0-40D6-445A-A96F-8995B3C9F824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +37,34 @@ Global
 		{B8FEC760-E4A4-4A27-974C-9FF10C838ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8FEC760-E4A4-4A27-974C-9FF10C838ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FEC760-E4A4-4A27-974C-9FF10C838ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6BB2882-0D54-476A-B166-F84B317BA170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6BB2882-0D54-476A-B166-F84B317BA170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6BB2882-0D54-476A-B166-F84B317BA170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6BB2882-0D54-476A-B166-F84B317BA170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B406D00-83DF-4BF3-A34F-976B2AE56EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B406D00-83DF-4BF3-A34F-976B2AE56EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B406D00-83DF-4BF3-A34F-976B2AE56EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B406D00-83DF-4BF3-A34F-976B2AE56EF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B550C934-FD4F-48BA-A66B-AE93EB18F949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B550C934-FD4F-48BA-A66B-AE93EB18F949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B550C934-FD4F-48BA-A66B-AE93EB18F949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B550C934-FD4F-48BA-A66B-AE93EB18F949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE153B42-96AF-4CFE-9714-9AFB58405415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE153B42-96AF-4CFE-9714-9AFB58405415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE153B42-96AF-4CFE-9714-9AFB58405415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE153B42-96AF-4CFE-9714-9AFB58405415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07C8ED19-7410-4FD9-B8A6-2C1719B7C97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07C8ED19-7410-4FD9-B8A6-2C1719B7C97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07C8ED19-7410-4FD9-B8A6-2C1719B7C97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07C8ED19-7410-4FD9-B8A6-2C1719B7C97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C307C2C5-145E-4387-80CF-68F2C215862B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C307C2C5-145E-4387-80CF-68F2C215862B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C307C2C5-145E-4387-80CF-68F2C215862B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C307C2C5-145E-4387-80CF-68F2C215862B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14746AB0-40D6-445A-A96F-8995B3C9F824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14746AB0-40D6-445A-A96F-8995B3C9F824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14746AB0-40D6-445A-A96F-8995B3C9F824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14746AB0-40D6-445A-A96F-8995B3C9F824}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.Compass.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Compass.Api</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Datapoint.Exceptions" Version="8.0.0-a.68" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Datapoint.Compass.Api.Abstractions\Datapoint.Compass.Api.Abstractions.csproj" />
+		<ProjectReference Include="..\Datapoint.Compass.Middleware.Abstractions\Datapoint.Compass.Middleware.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>

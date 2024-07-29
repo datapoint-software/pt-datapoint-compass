@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Datapoint.AspNetCore.ErrorResponses;
+using Datapoint.Compass.EntityFrameworkCore;
+using Datapoint.Compass.Handlers;
+using Datapoint.Compass.Middleware;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Datapoint.Compass
 {
@@ -44,19 +52,81 @@ namespace Datapoint.Compass
 
                 .Configure((hostContext, app) =>
                 {
+                    app.UseResponseHeaders();
+
                     app.UseStaticFiles();
+
+                    app.UseErrorResponses((responses) =>
+                    {
+                        responses.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                    });
+
+                    app.UseExceptionLogger();
+
+                    app.UseAuthentication();
 
                     app.UseRouting();
 
+                    app.UseAuthorization();
+
                     app.UseEndpoints((endpoints) =>
                     {
+                        endpoints.MapControllers();
+
                         endpoints.MapAngular();
                     });
                 })
 
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddAuthentication()
+                    
+                        .AddCookie((options) =>
+                        {
+                            options.Cookie.HttpOnly = true;
+                            options.Cookie.IsEssential = true;
+                            options.Cookie.Name = "auth";
+                            options.Cookie.Path = "/api";
+                            options.Cookie.SecurePolicy = hostContext.HostingEnvironment.IsDevelopment()
+                                ? CookieSecurePolicy.SameAsRequest
+                                : CookieSecurePolicy.Always;
+                        });
+
+                    services.AddAuthorizationBuilder()
+                        .AddDefaultPolicy("Default", (policy) => policy.RequireAuthenticatedUser())
+                        .AddFallbackPolicy("Fallback", (policy) => policy.RequireAuthenticatedUser());
+
+                    services.AddCompassContext((compass) =>
+                    {
+                        var connectionString = hostContext.Configuration.GetConnectionString("Compass");
+
+                        if (string.IsNullOrEmpty(connectionString))
+                        {
+                            if (!hostContext.HostingEnvironment.IsDevelopment())
+                                throw new InvalidOperationException("A connection string must be set for this environment.");
+
+                            connectionString = "Server=127.0.0.1; Port=3306; Database=Compass; Uid=compass-app; Pwd=815c3306-f775-4bf5-9d87-1e9e70899fbc";
+                        }
+
+                        compass.UseMySQL(connectionString, (mysql) =>
+                        {
+                            mysql.CommandTimeout(5);
+                            mysql.EnableRetryOnFailure();
+                        });
+                    });
+
+                    services.AddControllers();
+
+                    services.AddLogging((logging) =>
+                    {
+                        logging.AddConsole();
+                    });
+
+                    services.AddMiddleware();
+
                     services.AddRouting();
+
+                    services.AddScoped<IAuthorizationMiddlewareResultHandler, AuthorizationMiddlewareResultHandler>();
                 })
 
                 .Build()
@@ -168,6 +238,31 @@ namespace Datapoint.Compass
                 {
                     httpContext.RequestServices.GetRequiredService<ILogger<HttpContext>>()
                         .LogError(e, "Static file content stream copy exception.");
+                }
+            })
+            
+                .AllowAnonymous();
+
+        private static IApplicationBuilder UseExceptionLogger(this IApplicationBuilder app) =>
+
+            app.Use(async (httpContext, next) =>
+            {
+                try
+                {
+                    await next(httpContext);
+                }
+                catch (Exception e)
+                {
+                    httpContext.RequestServices.GetRequiredService<ILoggerFactory>()
+                        .CreateLogger(nameof(Program))
+                        .LogError(
+                            e, 
+                            "{ExceptionName}: {ExceptionMessage} ({ExceptionStackTrace})",
+                            e.GetType().Name,
+                            e.Message,
+                            e.StackTrace);
+
+                    throw;
                 }
             });
 

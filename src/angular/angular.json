@@ -75,10 +75,12 @@
               "buildTarget": "datapoint-compass:build:production"
             },
             "development": {
-              "buildTarget": "datapoint-compass:build:development"
+              "buildTarget": "datapoint-compass:build:development",
+              "proxyConfig": "proxy.conf.json"
             },
             "pt": {
-              "buildTarget": "datapoint-compass:build:pt"
+              "buildTarget": "datapoint-compass:build:pt",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

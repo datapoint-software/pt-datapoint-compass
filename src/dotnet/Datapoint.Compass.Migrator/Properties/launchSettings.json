@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Datapoint.Compass": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "COMPASS_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

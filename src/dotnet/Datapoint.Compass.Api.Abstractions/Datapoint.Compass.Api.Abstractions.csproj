@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.Compass.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Compass.Api</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Datapoint.Compass.Enumerations\Datapoint.Compass.Enumerations.csproj" />
+	</ItemGroup>
+
+</Project>
