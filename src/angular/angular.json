@@ -35,6 +35,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "externalDependencies": [
+              "assets/fonts/Roboto/static/Roboto-Latin-Light.woff2",
+              "assets/fonts/Roboto/static/Roboto-Latin-Regular.woff2",
+              "assets/fonts/Roboto/static/Roboto-Latin-Bold.woff2"
+            ],
             "scripts": []
           },
           "configurations": {

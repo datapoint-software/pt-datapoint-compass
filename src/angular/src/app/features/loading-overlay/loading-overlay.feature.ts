@@ -6,7 +6,9 @@ export class LoadingOverlay {
 
   private _lastId = 0;
 
-  items: Map<string, LoadingOverlayItem> = new Map();
+  items: Map<string, LoadingOverlayItem> = new Map([
+    [ "navigation", { id: "navigation", enqueuement: new Date() }]
+  ]);
 
   dequeue(id: string): void {
     this.items.delete(id);

@@ -7,6 +7,7 @@ import { WorkspaceEnrollmentSearchComponent } from "@app/components/workspace/en
 import { WorkspaceEnrollmentUpdateComponent } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component";
 import { WorkspaceComponent } from "@app/components/workspace/workspace.component";
 import { identityCanActivateFn } from "@app/guards/identity.guards";
+import { signInCanActivateFn } from "@app/guards/sign-in.guards";
 
 export const routes: Routes = [
   {
@@ -15,6 +16,7 @@ export const routes: Routes = [
   },
   {
     path: "sign-in",
+    canActivate: [ signInCanActivateFn ],
     component: SignInComponent
   },
   {

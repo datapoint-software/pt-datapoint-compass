@@ -15,6 +15,7 @@
   animation: loading-overlay-keyframes 500ms ease-in;
   background: rgba(255, 255, 255, .75);
   pointer-events: all !important;
+  z-index: 9999;
 
   .loading-spinner {
     font-size: 6em;

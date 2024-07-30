@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>DatapointCompass</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="assets/dashly/css/theme.bundle.51f56c4cae8ccd2090b46d2c8b9bef9f.css">
+    <style>
+      @keyframes preloader-spinner-keyframes { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      #preloader { background: #fff; position: fixed; top: 0; left: 0; height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; font-size: 84px; z-index: 10000; }
+      #preloader-spinner { box-sizing: border-box; display: block; width: 1em; height: 1em; position: relative; border: .15em solid; border-color: rgba(0, 186, 199, 0.35) rgba(0, 186, 199, 0.5) rgba(0, 186, 199, 0.75) rgba(0, 186, 199, 1); border-radius: 50%; animation: preloader-spinner-keyframes 1s linear infinite; }
+    </style>
   </head>
   <body>
-    <app-root>
-      <div class="loading-overlay fade show">
-        <div class="loading-spinner loading-spinner-xxl"></div>
-      </div>
-    </app-root>
+    <app-root></app-root>
+    <div id="preloader">
+      <div id="preloader-spinner"></div>
+    </div>
   </body>
 </html>
