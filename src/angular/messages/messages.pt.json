@@ -25,6 +25,8 @@
     "sui-form-group-error-email": "Este campo requere um endereço de correio eletrónico.",
     "sui-form-group-error-maxlength": "Este campo é demasiado longo.",
     "sui-form-group-error-required": "Este campo é de preenchimento obrigatório.",
+    "workspace-enrollment-update-card-title": "Inscrição",
+    "workspace-enrollment-update-title": "Nova inscrição",
     "workspace-nav-link-enrollments": "Inscrições",
     "workspace-nav-link-enrollments-new": "Nova",
     "workspace-nav-link-enrollments-search": "Pesquisa",

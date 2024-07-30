@@ -25,9 +25,11 @@
     "sui-form-group-error-maxlength": "This field is too long.",
     "sui-form-group-error-required": "This field is required and can not be empty.",
     "sui-form-group-error": "This field is invalid.",
+    "workspace-enrollment-update-title": "New enrollment",
     "workspace-nav-link-home": "Home",
     "workspace-nav-link-enrollments": "Enrollments",
     "workspace-nav-link-enrollments-new": "New",
+    "workspace-enrollment-update-card-title": "Enrollment",
     "workspace-nav-link-enrollments-search": "Search",
     "workspace-quick-search-aria-label": "Search for any term",
     "workspace-quick-search-placeholder": "Quick search..."
