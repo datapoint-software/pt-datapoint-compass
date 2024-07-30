@@ -1,0 +1,28 @@
+@if (visible) {
+  <div #backdrop class="modal-backdrop fade"></div>
+  <div #modal class="modal fade d-block" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ title }}</h3>
+                @if (dismissible) {
+                  <button (click)="close()" type="button" class="btn-close"></button>
+                }
+            </div>
+            <div class="modal-body">
+              <ng-content></ng-content>
+            </div>
+            <div class="modal-footer">
+                @if (dismissible) {
+                  <button (click)="close()" type="button" class="btn btn-light">
+                    <ng-container i18n="@@sui-modal-close-button">Close</ng-container>
+                  </button>
+                }
+                @for (action of (actions ?? []); track $index) {
+                  <button (click)="execute(action)" [class]="'btn-' + (action.type ?? 'light')" type="button" class="btn ms-4">{{ action.label }}</button>
+                }
+            </div>
+        </div>
+    </div>
+  </div>
+}

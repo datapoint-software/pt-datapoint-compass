@@ -95,6 +95,39 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.ToTable("EmployeeSessions");
                 });
 
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Facility", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4096)
+                        .HasColumnType("varchar(4096)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<Guid>("RowVersionId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Code");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Facilities");
+                });
+
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")

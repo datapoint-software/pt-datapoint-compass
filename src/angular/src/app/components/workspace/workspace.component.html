@@ -28,12 +28,12 @@
         </div>
         @if (enrollments) {
           <li class="nav-item dropdown">
-            <a class="nav-link collapse collapsed" href="#sideNavChildren" data-bs-toggle="collapse" role="button"
-              aria-expanded="false" aria-controls="sideNavChildren">
+            <a class="nav-link collapse collapsed" href="#enrollments" data-bs-toggle="collapse" role="button"
+              aria-expanded="false" aria-controls="enrollments">
               <i class="nav-link-icon ms ms-contract-edit"></i>
               <span i18n="@@workspace-nav-link-enrollments">Enrollments</span>
             </a>
-            <div class="collapse" id="sideNavChildren">
+            <div class="collapse" id="enrollments">
               <ul class="nav flex-column">
                 <li class="nav-item">
                   <a [routerLink]="[ 'enrollments/_' ]" class="nav-link">
@@ -43,6 +43,34 @@
                 <li class="nav-item">
                   <a [routerLink]="[ 'enrollments' ]" class="nav-link ">
                     <span i18n="@@workspace-nav-link-enrollments-search">Search</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        }
+        @if (management) {
+          <div class="nav-item">
+            <hr class="my-2" />
+          </div>
+        }
+        @if (facilities) {
+          <li class="nav-item dropdown">
+            <a class="nav-link collapse collapsed" href="#facilities" data-bs-toggle="collapse" role="button"
+              aria-expanded="false" aria-controls="facilities">
+              <i class="nav-link-icon ms ms-home-work"></i>
+              <span i18n="@@workspace-nav-link-facilities">Facilities</span>
+            </a>
+            <div class="collapse" id="facilities">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a [routerLink]="[ 'facilities/_' ]" class="nav-link">
+                    <span i18n="@@workspace-nav-link-facilities-new">New</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]="[ 'facilities' ]" class="nav-link ">
+                    <span i18n="@@workspace-nav-link-facilities-search">Search</span>
                   </a>
                 </li>
               </ul>

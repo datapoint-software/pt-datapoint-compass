@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Security;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,6 +45,8 @@ namespace Datapoint.Compass
                 .AddEnvironmentVariables("ASPNETCORE_")
                 .AddEnvironmentVariables("COMPASS_")
                 .Build();
+
+            Configure(hostConfiguration);
 
             new WebHostBuilder()
                 .UseConfiguration(hostConfiguration)
@@ -115,7 +118,12 @@ namespace Datapoint.Compass
                         });
                     });
 
-                    services.AddControllers();
+                    services.AddControllers()
+                    
+                        .AddJsonOptions((json) =>
+                        {
+                            json.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                        });
 
                     services.AddLogging((logging) =>
                     {
@@ -131,6 +139,18 @@ namespace Datapoint.Compass
 
                 .Build()
                 .Run();
+        }
+
+        private static void Configure(IConfigurationRoot hostConfiguration)
+        {
+            ValidatorOptions.Global.ErrorCodeResolver = (validator) => validator.Name switch
+            {
+                "MaximumLengthValidator" => "maxlength",
+                "NotEmptyValidator" => "required",
+                "NotNullValidator" => "required",
+                "EmailAddressValidator" => "email",
+                _ => validator.Name[..^9]
+            };
         }
 
         private static string? GetCookiesLanguageCode(HttpContext httpContext)

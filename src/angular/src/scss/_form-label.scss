@@ -1,0 +1,8 @@
+.form-label.is-invalid {
+  color: var(--bs-danger);
+}
+
+.form-label.is-required::after {
+  color: var(--bs-danger);
+  content: " *";
+}

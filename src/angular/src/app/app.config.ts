@@ -6,6 +6,7 @@ import { routes } from "@app/app.routes";
 import { Identity } from "@app/features/identity/identity.feature";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
 import { IdentityService } from "@app/services/identities/identity.service";
+import { WorkspaceFacilityService } from "@app/services/workspace/facilities/workspace-facility.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     LoadingOverlay,
 
     // Services
-    IdentityService
+    IdentityService,
+    WorkspaceFacilityService
   ]
 };

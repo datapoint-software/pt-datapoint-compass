@@ -16,10 +16,15 @@ export class WorkspaceComponent implements OnInit {
   private readonly _identity = inject(Identity);
 
   enrollments!: boolean;
+  facilities!: boolean;
+  management!: boolean;
   name!: string;
 
   ngOnInit(): void {
     this.enrollments = this._identity.permissions.has(Permission.WorkspaceEnrollments);
+    this.facilities = this._identity.permissions.has(Permission.WorkspaceFacilities);
     this.name = this._identity.name!;
+
+    this.management = this.facilities;
   }
 }
