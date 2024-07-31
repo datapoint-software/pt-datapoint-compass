@@ -37,3 +37,8 @@ INSERT INTO `RolePermissions` (`RoleId`, `Permission`)
     SELECT `r`.`Id`, 601347
     FROM `Roles` `r`
     WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 601347);
+	
+INSERT INTO `RolePermissions` (`RoleId`, `Permission`)
+    SELECT `r`.`Id`, 380720
+    FROM `Roles` `r`
+    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 380720);

@@ -77,6 +77,29 @@
             </div>
           </li>
         }
+        @if (services) {
+          <li class="nav-item dropdown">
+            <a class="nav-link collapse collapsed" href="#services" data-bs-toggle="collapse" role="button"
+              aria-expanded="false" aria-controls="services">
+              <i class="nav-link-icon ms ms-diversity-2"></i>
+              <span i18n="@@workspace-nav-link-services">Services</span>
+            </a>
+            <div class="collapse" id="services">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a [routerLink]="[ 'services/_' ]" class="nav-link">
+                    <span i18n="@@workspace-nav-link-services-new">New</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]="[ 'services' ]" class="nav-link ">
+                    <span i18n="@@workspace-nav-link-services-search">Search</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        }
       </ul>
       <!-- End of Navigation -->
     </div>

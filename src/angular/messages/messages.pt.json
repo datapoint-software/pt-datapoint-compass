@@ -53,7 +53,25 @@
     "workspace-nav-link-facilities-new": "Novo",
     "workspace-nav-link-facilities-search": "Pesquisa",
     "workspace-nav-link-home": "Início",
+    "workspace-nav-link-services": "Respostas sociais",
+    "workspace-nav-link-services-new": "Nova",
+    "workspace-nav-link-services-search": "Pesquisa",
     "workspace-quick-search-aria-label": "Caixa de pesquisa rápida",
-    "workspace-quick-search-placeholder": "Pesquisa rápida..."
+    "workspace-quick-search-placeholder": "Pesquisa rápida...",
+    "workspace-service-search-card-title": "Respostas sociais",
+    "workspace-service-search-name": "Nome",
+    "workspace-service-search-new": "Adicionar uma nova resposta social",
+    "workspace-service-search-title": "Respostas sociais",
+    "workspace-service-update-card-title": "Estabelecimento",
+    "workspace-service-update-code": "Código",
+    "workspace-service-update-description": "Descrição",
+    "workspace-service-update-service": "Estabelecimento",
+    "workspace-service-update-name": "Nome",
+    "workspace-service-update-primary-button": "Submeter",
+    "workspace-service-update-secondary-button": "Voltar para a pesquisa",
+    "workspace-service-update-success-modal": "A resposta social foi guardada com sucesso.",
+    "workspace-service-update-success-modal-primary": "Voltar para a pesquisa",
+    "workspace-service-update-success-modal-title": "Sucesso",
+    "workspace-service-update-title": "Nova resposta social"
   }
 }

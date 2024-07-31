@@ -19,12 +19,14 @@ export class WorkspaceComponent implements OnInit {
   facilities!: boolean;
   management!: boolean;
   name!: string;
+  services!: boolean;
 
   ngOnInit(): void {
     this.enrollments = this._identity.permissions.has(Permission.WorkspaceEnrollments);
     this.facilities = this._identity.permissions.has(Permission.WorkspaceFacilities);
     this.name = this._identity.name!;
+    this.services = this._identity.permissions.has(Permission.WorkspaceServices);
 
-    this.management = this.facilities;
+    this.management = this.facilities || this.services;
   }
 }

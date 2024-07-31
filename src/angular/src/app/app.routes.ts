@@ -10,6 +10,10 @@ import { WorkspaceFacilitySearchComponent } from "@app/components/workspace/faci
 import { workspaceFacilitySearchComponentResolveFn } from "@app/components/workspace/facilities/search/workspace-facility-search.component.resolvers";
 import { WorkspaceFacilityUpdateComponent } from "@app/components/workspace/facilities/update/workspace-facility-update.component";
 import { workspaceFacilityUpdateComponentResolveFn } from "@app/components/workspace/facilities/update/workspace-facility-update.component.resolvers";
+import { WorkspaceServiceSearchComponent } from "@app/components/workspace/services/search/workspace-service-search.component";
+import { workspaceServiceSearchComponentResolveFn } from "@app/components/workspace/services/search/workspace-service-search.component.resolvers";
+import { WorkspaceServiceUpdateComponent } from "@app/components/workspace/services/update/workspace-service-update.component";
+import { workspaceServiceUpdateComponentResolveFn } from "@app/components/workspace/services/update/workspace-service-update.component.resolvers";
 import { WorkspaceComponent } from "@app/components/workspace/workspace.component";
 import { identityCanActivateFn } from "@app/guards/identity.guards";
 import { signInCanActivateFn } from "@app/guards/sign-in.guards";
@@ -88,6 +92,34 @@ export const routes: Routes = [
                 component: WorkspaceFacilityUpdateComponent,
                 resolve: ({
                   model: workspaceFacilityUpdateComponentResolveFn
+                })
+              }
+            ]
+          },
+          {
+            path: "services",
+            canActivate: [ identityCanActivateFn([ Permission.WorkspaceServices ])],
+            children: [
+              {
+                path: "",
+                pathMatch: "full",
+                component: WorkspaceServiceSearchComponent,
+                resolve: ({
+                  model: workspaceServiceSearchComponentResolveFn
+                })
+              },
+              {
+                path: "_",
+                component: WorkspaceServiceUpdateComponent,
+                resolve: ({
+                  model: workspaceServiceUpdateComponentResolveFn
+                })
+              },
+              {
+                path: ":serviceId",
+                component: WorkspaceServiceUpdateComponent,
+                resolve: ({
+                  model: workspaceServiceUpdateComponentResolveFn
                 })
               }
             ]

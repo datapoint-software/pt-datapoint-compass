@@ -8,6 +8,7 @@ import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.fe
 import { IdentityService } from "@app/services/identities/identity.service";
 import { WorkspaceEnrollmentService } from "@app/services/workspace/enrollments/workspace-enrollment.service";
 import { WorkspaceFacilityService } from "@app/services/workspace/facilities/workspace-facility.service";
+import { WorkspaceServiceService } from "@app/services/workspace/services/workspace-service.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     // Services
     IdentityService,
     WorkspaceEnrollmentService,
-    WorkspaceFacilityService
+    WorkspaceFacilityService,
+    WorkspaceServiceService
   ]
 };
