@@ -19,7 +19,7 @@ for (const languageCode of [ "pt" ]) {
   for (const id of Object.keys(source.translations)) {
     if (target.translations[id] === undefined) {
       console.log(`+ ${id}`);
-      target.translations[id] = `%${id}%`;
+      target.translations[id] = `%${source.translations[id]}%`;
     }
   }
 

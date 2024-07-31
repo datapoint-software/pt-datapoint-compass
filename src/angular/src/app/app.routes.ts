@@ -17,6 +17,7 @@ import { workspaceServiceUpdateComponentResolveFn } from "@app/components/worksp
 import { WorkspaceComponent } from "@app/components/workspace/workspace.component";
 import { identityCanActivateFn } from "@app/guards/identity.guards";
 import { signInCanActivateFn } from "@app/guards/sign-in.guards";
+import { nationalityArrayResolveFn } from "@app/resolvers/nationality.resolvers";
 
 export const routes: Routes = [
   {
@@ -56,14 +57,16 @@ export const routes: Routes = [
                 path: "_",
                 component: WorkspaceEnrollmentUpdateComponent,
                 resolve: ({
-                  model: workspaceEnrollmentUpdateComponentResolveFn
+                  model: workspaceEnrollmentUpdateComponentResolveFn,
+                  nationalities: nationalityArrayResolveFn
                 })
               },
               {
                 path: ":enrollmentId",
                 component: WorkspaceEnrollmentUpdateComponent,
                 resolve: ({
-                  model: workspaceEnrollmentUpdateComponentResolveFn
+                  model: workspaceEnrollmentUpdateComponentResolveFn,
+                  nationalities: nationalityArrayResolveFn
                 })
               }
             ]

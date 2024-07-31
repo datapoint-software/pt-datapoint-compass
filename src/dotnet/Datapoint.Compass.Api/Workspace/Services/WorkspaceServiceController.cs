@@ -21,11 +21,11 @@ namespace Datapoint.Compass.Api.Workspace.Services
 
         [HttpGet("update")]
         [WorkspaceService]
-        public async Task<WorkspaceServiceUpdateModel> GetUpdateAsync([FromQuery] Guid? facilityId, CancellationToken ct)
+        public async Task<WorkspaceServiceUpdateModel> GetUpdateAsync([FromQuery] Guid? serviceId, CancellationToken ct)
         {
             var result = await _mediator.HandleQueryAsync<WorkspaceServiceUpdateQuery, WorkspaceServiceUpdate>(
                 new WorkspaceServiceUpdateQuery(
-                    facilityId),
+                    serviceId),
                 ct);
 
             return new WorkspaceServiceUpdateModel(

@@ -1,4 +1,5 @@
 ﻿using Datapoint.Compass.EntityFrameworkCore;
+using Datapoint.Compass.Middleware.Helpers;
 using Datapoint.Mediator;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,11 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
 {
     public sealed class WorkspaceEnrollmentUpdateQueryHandler : IQueryHandler<WorkspaceEnrollmentUpdateQuery, WorkspaceEnrollmentUpdate>
     {
+        private readonly static string[] ParameterNames = 
+        [
+            "Country"
+        ];
+
         private readonly CompassContext _context;
 
         public WorkspaceEnrollmentUpdateQueryHandler(CompassContext context)
@@ -19,11 +25,18 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
 
         public async Task<WorkspaceEnrollmentUpdate> HandleQueryAsync(WorkspaceEnrollmentUpdateQuery query, CancellationToken ct)
         {
+            var parameters = await _context.Parameters
+                .AsNoTracking()
+                .Where(p => ParameterNames.Contains(p.Name))
+                .ToDictionaryAsync(p => p.Name, ct);
+
             var facilities = await _context.Facilities
+                .AsNoTracking()
                 .OrderBy(f => f.Name)
                 .ToListAsync(ct);
 
             var services = await _context.Services
+                .AsNoTracking()
                 .OrderBy(f => f.Name)
                 .ToListAsync(ct);
 
@@ -36,6 +49,7 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
             return new WorkspaceEnrollmentUpdate(
                 enrollment?.Id,
                 enrollment?.RowVersionId,
+                parameters.GetValueOf<string>("Country"),
                 enrollment?.Number,
                 facilities.Select(f => new WorkspaceEnrollmentFacility(
                     f.Id,

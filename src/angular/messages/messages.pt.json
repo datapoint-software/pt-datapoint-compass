@@ -1,6 +1,7 @@
 {
   "locale": "pt",
   "translations": {
+    "app-locale": "pt",
     "error-description": "Ocorreu um erro inesperado durante o processamento da sua última operação.",
     "error-go-to-home-page": "Voltar à página inicial",
     "error-illustration-alt": "Um utilizador à procura de respostas.",
@@ -34,6 +35,12 @@
     "workspace-enrollment-update-primary-button": "Submeter",
     "workspace-enrollment-update-secondary-button": "Fechar",
     "workspace-enrollment-update-service": "Resposta social",
+    "workspace-enrollment-update-start": "Início a",
+    "workspace-enrollment-update-student": "Criança",
+    "workspace-enrollment-update-student-birth": "Nascimento",
+    "workspace-enrollment-update-student-name": "Nome",
+    "workspace-enrollment-update-student-nationality": "Nacionalidade",
+    "workspace-enrollment-update-student-naturality": "Naturalidade",
     "workspace-enrollment-update-success-modal": "A inscrição foi guardada com sucesso!",
     "workspace-enrollment-update-success-modal-primary": "Voltar para a pesquisa",
     "workspace-enrollment-update-success-modal-title": "Sucesso",
@@ -77,7 +84,6 @@
     "workspace-service-update-success-modal": "A resposta social foi guardada com sucesso.",
     "workspace-service-update-success-modal-primary": "Voltar para a pesquisa",
     "workspace-service-update-success-modal-title": "Sucesso",
-    "workspace-service-update-title": "Nova resposta social",
-    "workspace-start-update-start": "%workspace-start-update-start%"
+    "workspace-service-update-title": "Nova resposta social"
   }
 }

@@ -15,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Org.BouncyCastle.Security;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -65,6 +64,10 @@ namespace Datapoint.Compass
                     });
 
                     app.UseExceptionLogger();
+
+                    app.UseResponseCachingDefaults();
+
+                    app.UseResponseCaching();
 
                     app.UseAuthentication();
 
@@ -130,7 +133,15 @@ namespace Datapoint.Compass
                         logging.AddConsole();
                     });
 
+                    services.AddMemoryCache();
+
                     services.AddMiddleware();
+
+                    services.AddResponseCaching(options =>
+                    {
+                        options.UseCaseSensitivePaths = false;
+                        options.SizeLimit = 1024;
+                    });
 
                     services.AddRouting();
 
@@ -284,6 +295,31 @@ namespace Datapoint.Compass
 
                     throw;
                 }
+            });
+
+        private static IApplicationBuilder UseResponseCachingDefaults(this IApplicationBuilder app) =>
+
+            app.Use((httpContext, next) =>
+            {
+                if (!httpContext.Request.Method.Equals("GET", StringComparison.Ordinal))
+                    return next(httpContext);
+
+                if (httpContext.Response.Headers.Pragma.Any())
+                    return next(httpContext);
+
+                if (httpContext.Response.Headers.CacheControl.Any())
+                    return next(httpContext);
+
+                if (httpContext.Response.Headers.Vary.Any())
+                    return next(httpContext);
+
+                if (httpContext.Response.Headers.CacheControl.Any())
+                    return next(httpContext);
+
+                httpContext.Response.Headers.CacheControl = "no-cache, no-store";
+                httpContext.Response.Headers.Pragma = "no-cache";
+
+                return next(httpContext);
             });
 
         private static IApplicationBuilder UseResponseHeaders(this IApplicationBuilder app) =>

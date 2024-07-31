@@ -19,6 +19,41 @@ namespace Datapoint.Compass.Migrator.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Country", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasMaxLength(2)
+                        .HasColumnType("varchar(2)");
+
+                    b.Property<string>("CodeA3")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<string>("CodeN3")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("Code");
+
+                    b.HasAlternateKey("CodeA3");
+
+                    b.HasAlternateKey("CodeN3");
+
+                    b.ToTable("Countries", (string)null);
+                });
+
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Employee", b =>
                 {
                     b.Property<Guid>("Id")
@@ -49,7 +84,7 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.HasIndex("EmailAddress")
                         .IsUnique();
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.EmployeeRole", b =>
@@ -64,7 +99,7 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("EmployeeRoles");
+                    b.ToTable("EmployeeRoles", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.EmployeeSession", b =>
@@ -92,7 +127,7 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeSessions");
+                    b.ToTable("EmployeeSessions", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Enrollment", b =>
@@ -130,7 +165,7 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Facility", b =>
@@ -163,7 +198,7 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Facilities");
+                    b.ToTable("Facilities", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Parameter", b =>
@@ -179,7 +214,7 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("Parameters");
+                    b.ToTable("Parameters", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Role", b =>
@@ -206,7 +241,7 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.RolePermission", b =>
@@ -219,7 +254,7 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.HasKey("RoleId", "Permission");
 
-                    b.ToTable("RolePermissions");
+                    b.ToTable("RolePermissions", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Sequence", b =>
@@ -233,7 +268,7 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("Sequences");
+                    b.ToTable("Sequences", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Service", b =>
@@ -266,7 +301,7 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.EmployeeRole", b =>

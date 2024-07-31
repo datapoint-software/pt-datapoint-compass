@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit, ViewChild, viewChild } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
@@ -7,6 +7,7 @@ import { SuiModalComponentAction } from "@app/components/sui/modal/sui-modal.com
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
 import { applyErrorResponse, fromValueOf } from "@app/helpers/form.helper";
 import { badRequestOrConflict, conflict } from "@app/helpers/service.helper";
+import { NationalityModel } from "@app/services/nationalities/nationality.service.abstractions";
 import { WorkspaceEnrollmentService } from "@app/services/workspace/enrollments/workspace-enrollment.service";
 import { WorkspaceEnrollmentFacilityModel, WorkspaceEnrollmentServiceModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
 import { Subject, takeUntil } from "rxjs";
@@ -28,7 +29,17 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
   @ViewChild("success") success!: SuiModalComponent;
 
-  readonly form = this._fb.group({
+  readonly form: FormGroup<{
+    serviceId: FormControl<string | null>;
+    facilityId: FormControl<string | null>;
+    start: FormControl<string | null>;
+    student?: FormGroup<{
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      naturalityPortugueseDistrictId?: FormControl<string | null>;
+    }>;
+  }> = this._fb.group({
     serviceId: this._fb.control("", [ Validators.required ]),
     facilityId: this._fb.control("", [ Validators.required ]),
     start: this._fb.control("", [ ])
@@ -40,11 +51,28 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
     type: "primary"
   }];
 
+  country!: string;
   enrollmentId?: string;
   enrollmentRowVersionId?: string;
   facilities!: WorkspaceEnrollmentFacilityModel[];
+  nationalities!: NationalityModel[];
   number?: string;
   services!: WorkspaceEnrollmentServiceModel[];
+
+  addStudentControls(): void {
+
+    this.form.controls.student = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      nationality: this._fb.control(this.country, [ Validators.required ]),
+      naturalityPortugueseDistrictId: this._fb.control("", [ Validators.required ])
+    }) as FormGroup<{
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      naturalityPortugueseDistrictId?: FormControl<string | null>;
+    }>;
+  }
 
   navigate(commands: any[]): Promise<boolean> {
     return this._router.navigate(commands);
@@ -58,11 +86,13 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this._activatedRoute.data
       .pipe(takeUntil(this._destroy$))
-      .subscribe(({ model }) => {
+      .subscribe(({ model, nationalities }) => {
 
+        this.country = model.country;
         this.enrollmentId = model.enrollmentId;
         this.enrollmentRowVersionId = model.enrollmentRowVersionId;
         this.facilities = model.facilities;
+        this.nationalities = nationalities;
         this.number = model.number;
         this.services = model.services;
 

@@ -33,6 +33,7 @@ namespace Datapoint.Compass.Api.Workspace.Enrollments
             return new WorkspaceEnrollmentUpdateModel(
                 result.EnrollmentId,
                 result.EnrollmentRowVersionId,
+                result.Country,
                 result.Number,
                 result.Facilities.Select(f => new WorkspaceEnrollmentFacilityModel(
                     f.Id,

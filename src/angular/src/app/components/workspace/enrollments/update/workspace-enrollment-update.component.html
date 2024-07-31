@@ -30,51 +30,124 @@
       <div i18n="@@workspace-enrollment-update-card-title">Enrollment</div>
     </div>
     <div class="card-body">
-      <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
-        <span i18n="@@workspace-enrollment-update-enrollment">Enrollment</span>
+      <div class="form-section form-section-enrollment mb-8">
+        <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
+          <span i18n="@@workspace-enrollment-update-enrollment">Enrollment</span>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <app-sui-form-group #serviceId [name]="'serviceId'" class="d-block mb-4">
+              <label [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+                [for]="serviceId.id" class="form-label">
+                <ng-container i18n="@@workspace-enrollment-update-service">Service</ng-container>
+              </label>
+              <select [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+                [formControl]="serviceId.formControl" [id]="serviceId.id" class="form-select">
+                <option disabled i18n="@@workspace-enrollment-update-service-placeholder"></option>
+                @for (service of services; track service.id) {
+                  <option [value]="service.id">{{ service.name }}</option>
+                }
+              </select>
+            </app-sui-form-group>
+          </div>
+          <div class="col-lg-4">
+            <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
+              <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+                [for]="facilityId.id" class="form-label">
+                <ng-container i18n="@@workspace-enrollment-update-facility">Facility</ng-container>
+              </label>
+              <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+                [formControl]="facilityId.formControl" [id]="facilityId.id" class="form-select">
+                <option disabled i18n="@@workspace-enrollment-update-facility-placeholder"></option>
+                @for (facility of facilities; track facility.id) {
+                  <option [value]="facility.id">{{ facility.name }}</option>
+                }
+              </select>
+            </app-sui-form-group>
+          </div>
+          <div class="col-lg-4">
+            <app-sui-form-group #start [name]="'start'" class="d-block mb-4">
+              <label [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+                [for]="start.id" class="form-label">
+                <ng-container i18n="@@workspace-enrollment-update-start">Starts on</ng-container>
+              </label>
+              <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+                [formControl]="start.formControl" [id]="start.id" class="form-control"
+                placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-placeholder" type="text" />
+            </app-sui-form-group>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-lg-4">
-          <app-sui-form-group #serviceId [name]="'serviceId'" class="d-block mb-4">
-            <label [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
-              [for]="serviceId.id" class="form-label">
-              <ng-container i18n="@@workspace-enrollment-update-service">Service</ng-container>
-            </label>
-            <select [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
-              [formControl]="serviceId.formControl" [id]="serviceId.id" class="form-select">
-              <option disabled i18n="@@workspace-enrollment-update-service-placeholder"></option>
-              @for (service of services; track service.id) {
-                <option [value]="service.id">{{ service.name }}</option>
+      <div class="form-section form-section-enrollment mb-8">
+        <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
+          <span i18n="@@workspace-enrollment-update-student">Student</span>
+        </div>
+        @let student = form.controls.student;
+        @if (student) {
+          <ng-container [formGroup]="student">
+            <div class="row">
+              <div class="col-lg-8">
+                <app-sui-form-group #name [name]="'name'" class="d-block mb-4">
+                  <label [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+                    [for]="name.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-student-name">Name</ng-container>
+                  </label>
+                  <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+                    [formControl]="name.formControl" [id]="name.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-name-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+              <div class="col-lg-4">
+                <app-sui-form-group #birth [name]="'birth'" class="d-block mb-4">
+                  <label [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+                    [for]="birth.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-student-birth">Birthday</ng-container>
+                  </label>
+                  <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+                    [formControl]="birth.formControl" [id]="birth.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-birth-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <app-sui-form-group #nationality [name]="'nationality'" class="d-block mb-4">
+                  <label [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                    [for]="nationality.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-student-nationality">Nationality</ng-container>
+                  </label>
+                  <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                    [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                    <option disabled i18n="@@workspace-enrollment-update-facility-placeholder"></option>
+                    @for (nationality of nationalities; track nationality.code) {
+                      <option [value]="nationality.code">{{ nationality.name }}</option>
+                    }
+                  </select>
+                </app-sui-form-group>
+              </div>
+              @if (student.controls.naturalityPortugueseDistrictId) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #naturalityPortugueseDistrictId [name]="'naturalityPortugueseDistrictId'" class="d-block mb-4">
+                    <label [class.is-invalid]="naturalityPortugueseDistrictId.invalid" [class.is-required]="naturalityPortugueseDistrictId.required"
+                      [for]="naturalityPortugueseDistrictId.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-naturality">Naturality</ng-container>
+                    </label>
+                    <input [class.is-invalid]="naturalityPortugueseDistrictId.invalid" [class.is-required]="naturalityPortugueseDistrictId.required"
+                      [formControl]="naturalityPortugueseDistrictId.formControl" [id]="naturalityPortugueseDistrictId.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-naturality-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
               }
-            </select>
-          </app-sui-form-group>
-        </div>
-        <div class="col-lg-4">
-          <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
-            <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
-              [for]="facilityId.id" class="form-label">
-              <ng-container i18n="@@workspace-enrollment-update-facility">Facility</ng-container>
-            </label>
-            <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
-              [formControl]="facilityId.formControl" [id]="facilityId.id" class="form-select">
-              <option disabled i18n="@@workspace-enrollment-update-facility-placeholder"></option>
-              @for (facility of facilities; track facility.id) {
-                <option [value]="facility.id">{{ facility.name }}</option>
-              }
-            </select>
-          </app-sui-form-group>
-        </div>
-        <div class="col-lg-4">
-          <app-sui-form-group #start [name]="'start'" class="d-block mb-4">
-            <label [class.is-invalid]="start.invalid" [class.is-required]="start.required"
-              [for]="start.id" class="form-label">
-              <ng-container i18n="@@workspace-start-update-start">Starts on</ng-container>
-            </label>
-            <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
-              [formControl]="start.formControl" [id]="start.id" class="form-control"
-              placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-placeholder" type="text" />
-          </app-sui-form-group>
-        </div>
+            </div>
+          </ng-container>
+        }
+        @else {
+          <div class="form-section-footer d-grid gap-2 my-4">
+            <button (click)="addStudentControls()" class="btn btn-light squared" type="button">
+              Add student details
+            </button>
+          </div>
+        }
       </div>
     </div>
     <div class="card-footer d-flex align-items-center justify-content-end">
