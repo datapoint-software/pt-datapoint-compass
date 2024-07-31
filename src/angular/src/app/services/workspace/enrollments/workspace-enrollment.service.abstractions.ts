@@ -19,3 +19,15 @@ export type WorkspaceEnrollmentServiceModel = {
 export type WorkspaceEnrollmentUpdateFormModel = {
 
 };
+
+export type WorkspaceEnrollmentUpdateSubmitModel = {
+  enrollmentId?: string;
+  enrollmentRowVersionId?: string;
+  form: WorkspaceEnrollmentUpdateFormModel;
+};
+
+export type WorkspaceEnrollmentUpdateSubmitResultModel = {
+  enrollmentId: string;
+  enrollmentRowVersionId: string;
+  number: string;
+};

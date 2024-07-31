@@ -33,15 +33,41 @@ namespace Datapoint.Compass.Api.Workspace.Enrollments
             return new WorkspaceEnrollmentUpdateModel(
                 result.EnrollmentId,
                 result.EnrollmentRowVersionId,
+                result.Number,
                 result.Facilities.Select(f => new WorkspaceEnrollmentFacilityModel(
                     f.Id,
                     f.Name)),
                 result.Services.Select(f => new WorkspaceEnrollmentServiceModel(
                     f.Id,
                     f.Name)),
-                result.Form is null
-                    ? new WorkspaceEnrollmentUpdateFormModel()
+                result.Form is not null
+                    ? new WorkspaceEnrollmentUpdateFormModel(
+                        result.Form.FacilityId,
+                        result.Form.ServiceId,
+                        result.Form.Start)
                     : null);
+        }
+
+        [HttpPost("update/submit")]
+        [WorkspaceEnrollment]
+        public async Task<WorkspaceEnrollmentUpdateSubmitResultModel> SubmitUpdateAsync(
+            [FromBody] WorkspaceEnrollmentUpdateSubmitModel model,
+            CancellationToken ct)
+        {
+            var result = await _mediator.HandleCommandAsync<WorkspaceEnrollmentUpdateSubmitCommand, WorkspaceEnrollmentUpdateSubmitResult>(
+                new WorkspaceEnrollmentUpdateSubmitCommand(
+                    model.EnrollmentId,
+                    model.EnrollmentRowVersionId,
+                    new WorkspaceEnrollmentUpdateForm(
+                        model.Form.FacilityId,
+                        model.Form.ServiceId,
+                        model.Form.Start)),
+                ct);
+
+            return new WorkspaceEnrollmentUpdateSubmitResultModel(
+                result.EnrollmentId,
+                result.EnrollmentRowVersionId,
+                result.Number);
         }
     }
 }

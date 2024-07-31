@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { WorkspaceEnrollmentUpdateModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
+import { WorkspaceEnrollmentUpdateModel, WorkspaceEnrollmentUpdateSubmitModel, WorkspaceEnrollmentUpdateSubmitResultModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
@@ -16,6 +16,15 @@ export class WorkspaceEnrollmentService {
       this._httpClient.get<WorkspaceEnrollmentUpdateModel>(
         `${this._baseAddress}/update`,
         ({ params })
+      )
+    );
+  }
+
+  submitUpdate(model: WorkspaceEnrollmentUpdateSubmitModel): Promise<WorkspaceEnrollmentUpdateSubmitResultModel> {
+    return firstValueFrom(
+      this._httpClient.post<WorkspaceEnrollmentUpdateSubmitResultModel>(
+        `${this._baseAddress}/update/submit`,
+        model
       )
     );
   }

@@ -2,7 +2,10 @@
 
   <!-- Title -->
   <h1 class="h2">
-    <ng-container i18n="@@workspace-enrollment-update-title">New enrollment</ng-container>
+    @if (number) { {{ number }} }
+    @else {
+      <ng-container i18n="@@workspace-enrollment-update-title">New enrollment</ng-container>
+    }
   </h1>
 
   <!-- Breadcrumb -->
@@ -21,7 +24,7 @@
   </nav>
 </div>
 
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="submit()">
   <div class="card">
     <div class="card-header">
       <div i18n="@@workspace-enrollment-update-card-title">Enrollment</div>
@@ -61,7 +64,34 @@
             </select>
           </app-sui-form-group>
         </div>
+        <div class="col-lg-4">
+          <app-sui-form-group #start [name]="'start'" class="d-block mb-4">
+            <label [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+              [for]="start.id" class="form-label">
+              <ng-container i18n="@@workspace-start-update-start">Starts on</ng-container>
+            </label>
+            <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+              [formControl]="start.formControl" [id]="start.id" class="form-control"
+              placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-placeholder" type="text" />
+          </app-sui-form-group>
+        </div>
       </div>
+    </div>
+    <div class="card-footer d-flex align-items-center justify-content-end">
+      <button (click)="navigate([ '/workspace/enrollments' ])" class="btn btn-light" type="button">
+        <ng-container i18n="@@workspace-enrollment-update-secondary-button">Return to search</ng-container>
+      </button>
+      <button [disabled]="form.invalid" class="btn btn-primary ms-4" type="submit">
+        <ng-container i18n="@@workspace-enrollment-update-primary-button">Submit</ng-container>
+      </button>
     </div>
   </div>
 </form>
+
+<app-sui-modal
+  #success
+  [actions]="successActions"
+  title="All done!"
+  i18n-title="@@workspace-enrollment-update-success-modal-title">
+  <ng-container i18n="@@workspace-enrollment-update-success-modal">The enrollment has been saved successfully.</ng-container>
+</app-sui-modal>
