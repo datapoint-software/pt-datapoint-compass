@@ -1,12 +1,39 @@
-import { Component } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
+import { WorkspaceEnrollmentFacilityModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
-  imports: [ RouterLink ],
+  imports: [ ReactiveFormsModule, RouterLink, SuiFormGroupComponent ],
   selector: "app-workspace-enrollment-update",
   standalone: true,
   templateUrl: "workspace-enrollment-update.component.html"
 })
-export class WorkspaceEnrollmentUpdateComponent {
+export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
+
+  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _destroy$ = new Subject<true>();
+  private readonly _fb = inject(FormBuilder);
+
+  readonly form = this._fb.group({
+    facilityId: this._fb.control("", [ Validators.required ])
+  });
+
+  facilities!: WorkspaceEnrollmentFacilityModel[];
+
+  ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.complete();
+  }
+
+  ngOnInit(): void {
+    this._activatedRoute.data
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(({ model }) => {
+        this.facilities = model.facilities;
+      });
+  }
 
 }

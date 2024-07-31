@@ -21,11 +21,33 @@
   </nav>
 </div>
 
-<div class="card">
-  <div class="card-header">
-    <div i18n="@@workspace-enrollment-update-card-title">Enrollment</div>
-  </div>
-  <div class="card-body">
+<form [formGroup]="form">
+  <div class="card">
+    <div class="card-header">
+      <div i18n="@@workspace-enrollment-update-card-title">Enrollment</div>
+    </div>
+    <div class="card-body">
+      <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
+        <span i18n="@@workspace-enrollment-update-enrollment">Enrollment</span>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
+            <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+              [for]="facilityId.id" class="form-label">
+              <ng-container i18n="@@workspace-facility-update-facility">Facility</ng-container>
+            </label>
+            <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+              [formControl]="facilityId.formControl" [id]="facilityId.id" class="form-select">
+              <option disabled i18n="@@workspace-facility-update-facility-placeholder"></option>
+              @for (facility of facilities; track facility.id) {
+                <option [value]="facility.id">{{ facility.name }}</option>
+              }
+            </select>
+          </app-sui-form-group>
+        </div>
+      </div>
 
+    </div>
   </div>
-</div>
+</form>

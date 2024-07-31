@@ -5,6 +5,7 @@ import { HomeComponent } from "@app/components/home/home.component";
 import { SignInComponent } from "@app/components/sign-in/sign-in.component";
 import { WorkspaceEnrollmentSearchComponent } from "@app/components/workspace/enrollments/search/workspace-enrollment-search.component";
 import { WorkspaceEnrollmentUpdateComponent } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component";
+import { workspaceEnrollmentUpdateComponentResolveFn } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.resolvers";
 import { WorkspaceFacilitySearchComponent } from "@app/components/workspace/facilities/search/workspace-facility-search.component";
 import { workspaceFacilitySearchComponentResolveFn } from "@app/components/workspace/facilities/search/workspace-facility-search.component.resolvers";
 import { WorkspaceFacilityUpdateComponent } from "@app/components/workspace/facilities/update/workspace-facility-update.component";
@@ -48,8 +49,18 @@ export const routes: Routes = [
                 component: WorkspaceEnrollmentSearchComponent
               },
               {
+                path: "_",
+                component: WorkspaceEnrollmentUpdateComponent,
+                resolve: ({
+                  model: workspaceEnrollmentUpdateComponentResolveFn
+                })
+              },
+              {
                 path: ":enrollmentId",
-                component: WorkspaceEnrollmentUpdateComponent
+                component: WorkspaceEnrollmentUpdateComponent,
+                resolve: ({
+                  model: workspaceEnrollmentUpdateComponentResolveFn
+                })
               }
             ]
           },

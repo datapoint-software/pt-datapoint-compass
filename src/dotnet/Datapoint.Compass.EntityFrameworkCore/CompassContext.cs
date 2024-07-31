@@ -17,9 +17,13 @@ namespace Datapoint.Compass.EntityFrameworkCore
 
         public DbSet<Facility> Facilities => Set<Facility>();
 
+        public DbSet<Parameter> Parameters => Set<Parameter>();
+
         public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
 
         public DbSet<Role> Roles => Set<Role>();
+
+        public DbSet<Sequence> Sequences => Set<Sequence>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

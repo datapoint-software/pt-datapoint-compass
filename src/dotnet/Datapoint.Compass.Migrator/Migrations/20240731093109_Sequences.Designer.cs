@@ -3,6 +3,7 @@ using System;
 using Datapoint.Compass.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datapoint.Compass.Migrator.Migrations
 {
     [DbContext(typeof(CompassContext))]
-    partial class CompassContextModelSnapshot : ModelSnapshot
+    [Migration("20240731093109_Sequences")]
+    partial class Sequences
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,22 +129,6 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .IsUnique();
 
                     b.ToTable("Facilities");
-                });
-
-            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Parameter", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
-
-                    b.Property<string>("JsonValue")
-                        .IsRequired()
-                        .HasMaxLength(4096)
-                        .HasColumnType("varchar(4096)");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("Parameters");
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Role", b =>
