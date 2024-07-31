@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace Datapoint.Compass.Api.Workspace.Enrollments
 {
     [Route("/api/workspace/enrollments")]
-    [WorkspaceEnrollment]
     public sealed class WorkspaceEnrollmentController : Controller
     {
         private readonly IMediator _mediator;
@@ -21,6 +20,7 @@ namespace Datapoint.Compass.Api.Workspace.Enrollments
         }
 
         [HttpGet("update")]
+        [WorkspaceEnrollment]
         public async Task<WorkspaceEnrollmentUpdateModel> GetUpdateAsync(
             [FromQuery] Guid? enrollmentId,
             CancellationToken ct)
@@ -34,6 +34,9 @@ namespace Datapoint.Compass.Api.Workspace.Enrollments
                 result.EnrollmentId,
                 result.EnrollmentRowVersionId,
                 result.Facilities.Select(f => new WorkspaceEnrollmentFacilityModel(
+                    f.Id,
+                    f.Name)),
+                result.Services.Select(f => new WorkspaceEnrollmentServiceModel(
                     f.Id,
                     f.Name)),
                 result.Form is null

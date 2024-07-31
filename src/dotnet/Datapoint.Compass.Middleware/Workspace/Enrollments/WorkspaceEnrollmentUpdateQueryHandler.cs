@@ -23,12 +23,19 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
                 .OrderBy(f => f.Name)
                 .ToListAsync(ct);
 
+            var services = await _context.Services
+                .OrderBy(f => f.Name)
+                .ToListAsync(ct);
+
             if (query.EnrollmentId.HasValue is false)
             {
                 return new WorkspaceEnrollmentUpdate(
                     null,
                     null,
                     facilities.Select(f => new WorkspaceEnrollmentFacility(
+                        f.Id,
+                        f.Name)),
+                    services.Select(f => new WorkspaceEnrollmentService(
                         f.Id,
                         f.Name)),
                     null);

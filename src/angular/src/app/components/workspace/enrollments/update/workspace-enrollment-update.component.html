@@ -32,14 +32,29 @@
       </div>
       <div class="row">
         <div class="col-lg-4">
+          <app-sui-form-group #serviceId [name]="'serviceId'" class="d-block mb-4">
+            <label [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+              [for]="serviceId.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-service">Service</ng-container>
+            </label>
+            <select [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+              [formControl]="serviceId.formControl" [id]="serviceId.id" class="form-select">
+              <option disabled i18n="@@workspace-enrollment-update-service-placeholder"></option>
+              @for (service of services; track service.id) {
+                <option [value]="service.id">{{ service.name }}</option>
+              }
+            </select>
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-4">
           <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
             <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
               [for]="facilityId.id" class="form-label">
-              <ng-container i18n="@@workspace-facility-update-facility">Facility</ng-container>
+              <ng-container i18n="@@workspace-enrollment-update-facility">Facility</ng-container>
             </label>
             <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
               [formControl]="facilityId.formControl" [id]="facilityId.id" class="form-select">
-              <option disabled i18n="@@workspace-facility-update-facility-placeholder"></option>
+              <option disabled i18n="@@workspace-enrollment-update-facility-placeholder"></option>
               @for (facility of facilities; track facility.id) {
                 <option [value]="facility.id">{{ facility.name }}</option>
               }
@@ -47,7 +62,6 @@
           </app-sui-form-group>
         </div>
       </div>
-
     </div>
   </div>
 </form>
