@@ -1,12 +1,16 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, RouterLink } from "@angular/router";
+import { APP_LOCALE } from "@app/app.constants";
 import { Service } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
+import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
 import { optionsOf } from "@app/helpers/enum.helpers";
 import { SERVICE_MESSAGES } from "@app/messages/service.messages";
 import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
+import { DistrictModel } from "@app/services/districts/district.abstractions";
+import { DistrictService } from "@app/services/districts/district.service";
 import { NationalityModel } from "@app/services/nationalities/nationality.service.abstractions";
 import { WorkspaceEnrollmentFacilityModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
 import { Subject, takeUntil } from "rxjs";
@@ -21,7 +25,9 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
 
   private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _destroy$ = new Subject<true>();
+  private readonly _districts = inject(DistrictService);
   private readonly _fb = inject(FormBuilder);
+  private readonly _loadingOverlay = inject(LoadingOverlay);
 
   readonly form = this._fb.group({
     service: this._fb.control("", [ Validators.required ]),
@@ -175,6 +181,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     })
   });
 
+  districts = new Map<string, DistrictModel[]>();
   facilities!: WorkspaceEnrollmentFacilityModel[];
   nationalities!: NationalityModel[];
 
@@ -192,6 +199,35 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
         this.nationalities = nationalities;
       });
 
+    this.form.controls.student.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) =>
+        this._nationalityChanges(this.form.controls.student, nationality)
+      );
   }
 
+  private async _nationalityChanges(formGroup: FormGroup, nationality: string | null): Promise<void> {
+
+    formGroup.removeControl("birthplace");
+
+    if (!nationality)
+      return;
+
+    let districts = this.districts.get(nationality);
+
+    if (!districts) {
+      await this._loadingOverlay.merge(async () => {
+
+        districts = await this._districts.getAll({
+          countryCode: nationality,
+          locale: APP_LOCALE
+        })
+
+        this.districts.set(nationality, districts);
+      });
+    }
+
+    if (districts!.length > 0)
+      formGroup.addControl("birthplace", this._fb.control("", [ Validators.required ]));
+  }
 }
