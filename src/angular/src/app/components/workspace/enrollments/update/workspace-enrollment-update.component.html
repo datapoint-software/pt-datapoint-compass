@@ -43,9 +43,13 @@
                   [for]="service.id" class="form-label">
                   <ng-container i18n="@@workspace-enrollment-update-service">Service</ng-container>
                 </label>
-                <input [class.is-invalid]="service.invalid" [class.is-required]="service.required"
-                  [formControl]="service.formControl" [id]="service.id" class="form-control"
-                  placeholder="" i18n-placeholder="@@workspace-enrollment-update-service-placeholder" type="text" />
+                <select [class.is-invalid]="service.invalid" [class.is-required]="service.required"
+                  [formControl]="service.formControl" [id]="service.id" class="form-select">
+                  <option disabled></option>
+                  @for (service of services; track $index) {
+                    <option [value]="service.id">{{ service.name }}</option>
+                  }
+                </select>
               </app-sui-form-group>
             </div>
             <div class="col-lg-4">
@@ -54,9 +58,13 @@
                   [for]="facility.id" class="form-label">
                   <ng-container i18n="@@workspace-enrollment-update-facility">Facility</ng-container>
                 </label>
-                <input [class.is-invalid]="facility.invalid" [class.is-required]="facility.required"
-                  [formControl]="facility.formControl" [id]="facility.id" class="form-control"
-                  placeholder="" i18n-placeholder="@@workspace-enrollment-update-facility-placeholder" type="text" />
+                <select [class.is-invalid]="facility.invalid" [class.is-required]="facility.required"
+                  [formControl]="facility.formControl" [id]="facility.id" class="form-select">
+                  <option disabled></option>
+                  @for (facility of facilities; track facility.id) {
+                    <option [value]="facility.id">{{ facility.name }}</option>
+                  }
+                </select>
               </app-sui-form-group>
             </div>
           </div>

@@ -1,9 +1,14 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
-import { RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { Service } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
+import { optionsOf } from "@app/helpers/enum.helpers";
+import { SERVICE_MESSAGES } from "@app/messages/service.messages";
 import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
+import { WorkspaceEnrollmentFacilityModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   imports: [ DocumentKindLabelPipe, ReactiveFormsModule, RouterLink, SuiFormGroupComponent, SuiModalComponent ],
@@ -11,8 +16,10 @@ import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-k
   standalone: true,
   templateUrl: "workspace-enrollment-update.component.html"
 })
-export class WorkspaceEnrollmentUpdateComponent {
+export class WorkspaceEnrollmentUpdateComponent implements OnInit {
 
+  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _destroy$ = new Subject<true>();
   private readonly _fb = inject(FormBuilder);
 
   readonly form = this._fb.group({
@@ -166,4 +173,22 @@ export class WorkspaceEnrollmentUpdateComponent {
       })
     })
   });
+
+  facilities!: WorkspaceEnrollmentFacilityModel[];
+
+  services = optionsOf(Service).map((id) => ({
+    id,
+    name: SERVICE_MESSAGES.get(id)!
+  }));
+
+  ngOnInit(): void {
+
+    this._activatedRoute.data
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(({ model }) => {
+        this.facilities = model.facilities;
+      });
+
+  }
+
 }
