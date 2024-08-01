@@ -499,9 +499,13 @@
                       <td>
                         <div class="d-grid w-150px">
                           <app-sui-form-group #kinship [name]="'kinship'" class="d-block">
-                            <input [class.is-invalid]="kinship.invalid" [class.is-required]="kinship.required"
-                              [formControl]="kinship.formControl" [id]="kinship.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-kinship-placeholder" type="text" />
+                            <select [class.is-invalid]="kinship.invalid" [class.is-required]="kinship.required"
+                              [formControl]="kinship.formControl" [id]="kinship.id" class="form-select border-none">
+                              <option disabled></option>
+                              @for (option of kinships; track option.id) {
+                                <option [value]="option.id">{{ option.name }}</option>
+                              }
+                            </select>
                           </app-sui-form-group>
                         </div>
                       </td>

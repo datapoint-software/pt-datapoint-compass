@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { APP_LOCALE } from "@app/app.constants";
-import { Service } from "@app/app.enums";
+import { Kinship, Service } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
 import { optionsOf } from "@app/helpers/enum.helpers";
+import { KINSHIP_MESSAGES } from "@app/messages/kinship.messages";
 import { SERVICE_MESSAGES } from "@app/messages/service.messages";
 import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
 import { DistrictModel } from "@app/services/districts/district.abstractions";
@@ -185,10 +186,13 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
   facilities!: WorkspaceEnrollmentFacilityModel[];
   nationalities!: NationalityModel[];
 
-  services = optionsOf(Service).map((id) => ({
-    id,
-    name: SERVICE_MESSAGES.get(id)!
-  }));
+  kinships = optionsOf(Kinship)
+    .map((id) => ({ id, name: KINSHIP_MESSAGES.get(id)! }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  services = optionsOf(Service)
+    .map((id) => ({ id, name: SERVICE_MESSAGES.get(id)! }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   ngOnInit(): void {
 
