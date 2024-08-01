@@ -204,6 +204,20 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
       .subscribe((nationality) =>
         this._nationalityChanges(this.form.controls.student, nationality)
       );
+
+    this.form.controls.guardian.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) =>
+        this._nationalityChanges(this.form.controls.guardian, nationality)
+      );
+
+    this.form.controls.parents.controls.parents.controls.forEach((parent) => {
+      parent.controls.nationality.valueChanges
+        .pipe(takeUntil(this._destroy$))
+        .subscribe((nationality) =>
+          this._nationalityChanges(parent, nationality)
+        );
+    })
   }
 
   private async _nationalityChanges(formGroup: FormGroup, nationality: string | null): Promise<void> {
