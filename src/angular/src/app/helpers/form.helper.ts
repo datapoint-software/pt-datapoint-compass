@@ -27,6 +27,17 @@ export const applyErrorResponse = (fg: FormGroup, response: ErrorResponseModel, 
   }
 };
 
+export const ensureEnum = <T>(value: T | string | number | null): T | null => {
+
+  if (!value)
+    return null;
+
+  if ("string" === typeof(value))
+    return parseInt(value) as T;
+
+  return value as T;
+};
+
 export const fromValueOf = (fg: { value: { [k: string]: unknown }}): any => {
 
   const prune = (value: { [k: string]: unknown }) => {

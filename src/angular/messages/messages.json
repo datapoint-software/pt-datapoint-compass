@@ -39,10 +39,19 @@
     "workspace-enrollment-update-facility": "Facility",
     "workspace-enrollment-update-start": "Starts on",
     "workspace-enrollment-update-student": "Student",
+    "workspace-enrollment-update-student-identification": "Student identification",
     "workspace-enrollment-update-student-name": "Name",
     "workspace-enrollment-update-student-birth": "Birthday",
     "workspace-enrollment-update-student-nationality": "Nationality",
     "workspace-enrollment-update-student-birthplace": "Birthplace",
+    "workspace-enrollment-update-student-document-kind": "Document",
+    "workspace-enrollment-update-student-national-number": "National Number",
+    "workspace-enrollment-update-student-national-number-expiration": "National Number Expiration",
+    "workspace-enrollment-update-student-passport-number": "Passport Number",
+    "workspace-enrollment-update-student-passport-expiration": "Passport Expiration",
+    "workspace-enrollment-update-student-tax-number": "Tax Number",
+    "workspace-enrollment-update-student-social-security-number": "Social Security Number",
+    "workspace-enrollment-update-student-patient-number": "Patient Number",
     "workspace-enrollment-update-secondary-button": "Return to search",
     "workspace-enrollment-update-primary-button": "Submit",
     "workspace-enrollment-update-success-modal-title": "All done!",
@@ -84,6 +93,8 @@
     "workspace-nav-link-facilities-search": "Search",
     "workspace-nav-link-services-search": "Search",
     "workspace-quick-search-aria-label": "Search for any term",
-    "workspace-quick-search-placeholder": "Quick search..."
+    "workspace-quick-search-placeholder": "Quick search...",
+    "document-kind-national": "Citizen Card",
+    "document-kind-passport": "Passport"
   }
 }

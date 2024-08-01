@@ -1,12 +1,14 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild, viewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, inject, NgZone, OnDestroy, OnInit, ViewChild, viewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { DocumentKind } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
 import { SuiModalComponentAction } from "@app/components/sui/modal/sui-modal.component.abstractions";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
-import { applyErrorResponse, fromValueOf } from "@app/helpers/form.helper";
+import { applyErrorResponse, ensureEnum, fromValueOf } from "@app/helpers/form.helper";
 import { badRequestOrConflict, conflict } from "@app/helpers/service.helper";
+import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
 import { DistrictModel } from "@app/services/districts/district.abstractions";
 import { DistrictService } from "@app/services/districts/district.service";
 import { NationalityModel } from "@app/services/nationalities/nationality.service.abstractions";
@@ -15,7 +17,7 @@ import { WorkspaceEnrollmentFacilityModel, WorkspaceEnrollmentServiceModel } fro
 import { startWith, Subject, takeUntil } from "rxjs";
 
 @Component({
-  imports: [ ReactiveFormsModule, RouterLink, SuiFormGroupComponent, SuiModalComponent ],
+  imports: [ DocumentKindLabelPipe, ReactiveFormsModule, RouterLink, SuiFormGroupComponent, SuiModalComponent ],
   selector: "app-workspace-enrollment-update",
   standalone: true,
   templateUrl: "workspace-enrollment-update.component.html"
@@ -23,6 +25,7 @@ import { startWith, Subject, takeUntil } from "rxjs";
 export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
   private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _changeDetectorRef = inject(ChangeDetectorRef);
   private readonly _destroy$ = new Subject<true>();
   private readonly _districts = inject(DistrictService);
   private readonly _enrollments = inject(WorkspaceEnrollmentService);
@@ -33,6 +36,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   @ViewChild("success") success!: SuiModalComponent;
 
   readonly districts = new Map<string, DistrictModel[]>();
+  readonly documentKinds = DocumentKind;
 
   readonly form: FormGroup<{
     serviceId: FormControl<string | null>;
@@ -43,8 +47,11 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       birth: FormControl<string | null>;
       nationality: FormControl<string | null>;
       birthplace: FormControl<string | null>;
-      nationalNumber: FormControl<string | null>;
-      nationalNumberExpiration: FormControl<string | null>;
+      documentKind?: FormGroup<DocumentKind | null>;
+      nationalNumber?: FormControl<string | null>;
+      nationalNumberExpiration?: FormControl<string | null>;
+      passportNumber?: FormControl<string | null>;
+      passportNumberExpiration?: FormControl<string | null>;
       socialSecurityNumber: FormControl<string | null>;
       taxNumber: FormControl<string | null>;
       patientNumber: FormControl<string | null>;
@@ -77,8 +84,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       birth: this._fb.control("", [ Validators.required ]),
       nationality: this._fb.control(this.country, [ Validators.required ]),
       birthplace: this._fb.control(this.district, [ Validators.required ]),
-      nationalNumber: this._fb.control("", [ Validators.required ]),
-      nationalNumberExpiration: this._fb.control("", [ Validators.required ]),
       socialSecurityNumber: this._fb.control("", [ ]),
       taxNumber: this._fb.control("", [ ]),
       patientNumber: this._fb.control("", [ ])
@@ -87,8 +92,11 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       birth: FormControl<string | null>;
       nationality: FormControl<string | null>;
       birthplace: FormControl<string | null>;
-      nationalNumber: FormControl<string | null>;
-      nationalNumberExpiration: FormControl<string | null>;
+      documentKind?: FormGroup<DocumentKind | null>;
+      nationalNumber?: FormControl<string | null>;
+      nationalNumberExpiration?: FormControl<string | null>;
+      passportNumber?: FormControl<string | null>;
+      passportNumberExpiration?: FormControl<string | null>;
       socialSecurityNumber: FormControl<string | null>;
       taxNumber: FormControl<string | null>;
       patientNumber: FormControl<string | null>;
@@ -164,30 +172,69 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       this.success.open();
   }
 
-  private _nationalityChanges(fg: FormGroup, nationality: string | null) {
+  private _documentKindChanges(fg: FormGroup<any>, documentKind: DocumentKind | null): void {
 
-    if (!nationality) {
-      fg.removeControl("birthplace");
-      return;
+    this._changeDetectorRef.detach();
+
+    fg.removeControl("nationalNumber");
+    fg.removeControl("nationalNumberExpiration");
+    fg.removeControl("passportNumber");
+    fg.removeControl("passportNumberExpiration");
+
+    switch (documentKind) {
+      case DocumentKind.National:
+        fg.addControl("nationalNumber", this._fb.control("", [ Validators.required ]));
+        fg.addControl("nationalNumberExpiration", this._fb.control("", [ Validators.required ]));
+        break;
+      case DocumentKind.Passport:
+        fg.addControl("passportNumber", this._fb.control("", [ Validators.required ]));
+        fg.addControl("passportNumberExpiration", this._fb.control("", [ Validators.required ]));
+        break;
     }
 
-    this._loadingOverlay.merge(async () => {
+    this._changeDetectorRef.reattach();
+  }
 
-      let districts = this.districts.get(nationality);
+  private async _nationalityChanges(fg: FormGroup, nationality: string | null): Promise<void> {
 
-      if (!districts) {
+    fg.removeControl("birthplace");
+    fg.removeControl("documentKind");
+    fg.removeControl("nationalNumber");
+    fg.removeControl("nationalNumberExpiration");
+    fg.removeControl("passportNumber");
+    fg.removeControl("passportNumberExpiration");
 
-          districts = await this._districts.getAll({
-            countryCode: nationality
-          });
+    if (!nationality)
+      return;
 
-          this.districts.set(nationality, districts);
-      }
+    if (this.country === nationality) {
+      fg.addControl("nationalNumber", this._fb.control("", [ Validators.required ]));
+      fg.addControl("nationalNumberExpiration", this._fb.control("", [ Validators.required ]));
+    }
 
-      if (districts.length > 0)
-        fg.addControl("birthplace", [ Validators.required ]);
-      else
-        fg.removeControl("birthplace");
-    });
+    else {
+
+      const documentKindControl = this._fb.control<DocumentKind | null>(DocumentKind.Passport, [ Validators.required ]);
+
+      documentKindControl.valueChanges
+        .pipe(takeUntil(this._destroy$))
+        .pipe(startWith(documentKindControl.value))
+        .subscribe((documentKind) => this._documentKindChanges(fg, ensureEnum(documentKind)));
+
+      fg.addControl("documentKind", documentKindControl);
+    }
+
+    let districts = this.districts.get(nationality);
+
+    if (!districts) {
+      await this._loadingOverlay.merge(() => this._districts.getAll({
+        countryCode: nationality
+      }).then((response) => {
+        this.districts.set(nationality, districts = response);
+      }));
+    }
+
+    if (districts!.length > 0)
+      fg.addControl("birthplace", this._fb.control("", [ Validators.required ]));
   }
 }

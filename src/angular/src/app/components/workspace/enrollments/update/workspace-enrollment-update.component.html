@@ -149,76 +149,108 @@
               }
             </div>
             <div class="row">
+              @if (student.controls.documentKind) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #documentKind [name]="'documentKind'" class="d-block mb-4">
+                    <label [class.is-invalid]="documentKind.invalid" [class.is-required]="documentKind.required"
+                      [for]="documentKind.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-document-kind">Document</ng-container>
+                    </label>
+                    <select [class.is-invalid]="documentKind.invalid" [class.is-required]="documentKind.required"
+                      [formControl]="documentKind.formControl" [id]="documentKind.id" class="form-select">
+                      <option disabled i18n="@@workspace-enrollment-update-document-kind-placeholder"></option>
+                      <option [value]="documentKinds.National">{{ documentKinds.National | documentKindLabel }}</option>
+                      <option [value]="documentKinds.Passport">{{ documentKinds.Passport | documentKindLabel }}</option>
+                    </select>
+                  </app-sui-form-group>
+                </div>
+              }
               @if (student.controls.nationalNumber) {
-                @defer {
-                  <div class="col-lg-4">
-                    <app-sui-form-group #nationalNumber [name]="'nationalNumber'" class="d-block mb-4">
-                      <label [class.is-invalid]="nationalNumber.invalid" [class.is-required]="nationalNumber.required"
-                        [for]="nationalNumber.id" class="form-label">
-                        <ng-container i18n="@@workspace-enrollment-update-student-national-number">National Number</ng-container>
-                      </label>
-                      <input [class.is-invalid]="nationalNumber.invalid" [class.is-required]="nationalNumber.required"
-                        [formControl]="nationalNumber.formControl" [id]="nationalNumber.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-national-number-placeholder" type="text" />
-                    </app-sui-form-group>
-                  </div>
-                  <div class="col-lg-4">
-                    <app-sui-form-group #nationalNumberExpiration [name]="'nationalNumberExpiration'" class="d-block mb-4">
-                      <label [class.is-invalid]="nationalNumberExpiration.invalid" [class.is-required]="nationalNumberExpiration.required"
-                        [for]="nationalNumberExpiration.id" class="form-label">
-                        <ng-container i18n="@@workspace-enrollment-update-student-national-number">National Number Expiration</ng-container>
-                      </label>
-                      <input [class.is-invalid]="nationalNumberExpiration.invalid" [class.is-required]="nationalNumberExpiration.required"
-                        [formControl]="nationalNumberExpiration.formControl" [id]="nationalNumberExpiration.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-national-number-placeholder" type="text" />
-                    </app-sui-form-group>
-                  </div>
-                }
+                <div class="col-lg-4">
+                  <app-sui-form-group #nationalNumber [name]="'nationalNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="nationalNumber.invalid" [class.is-required]="nationalNumber.required"
+                      [for]="nationalNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-national-number">National Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="nationalNumber.invalid" [class.is-required]="nationalNumber.required"
+                      [formControl]="nationalNumber.formControl" [id]="nationalNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-national-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+                <div class="col-lg-4">
+                  <app-sui-form-group #nationalNumberExpiration [name]="'nationalNumberExpiration'" class="d-block mb-4">
+                    <label [class.is-invalid]="nationalNumberExpiration.invalid" [class.is-required]="nationalNumberExpiration.required"
+                      [for]="nationalNumberExpiration.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-national-number-expiration">National Number Expiration</ng-container>
+                    </label>
+                    <input [class.is-invalid]="nationalNumberExpiration.invalid" [class.is-required]="nationalNumberExpiration.required"
+                      [formControl]="nationalNumberExpiration.formControl" [id]="nationalNumberExpiration.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-national-number-expiration-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+              }
+              @if (student.controls.passportNumber) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #passportNumber [name]="'passportNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="passportNumber.invalid" [class.is-required]="passportNumber.required"
+                      [for]="passportNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-passport-number">Passport Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="passportNumber.invalid" [class.is-required]="passportNumber.required"
+                      [formControl]="passportNumber.formControl" [id]="passportNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-passport-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+                <div class="col-lg-4">
+                  <app-sui-form-group #passportNumberExpiration [name]="'passportNumberExpiration'" class="d-block mb-4">
+                    <label [class.is-invalid]="passportNumberExpiration.invalid" [class.is-required]="passportNumberExpiration.required"
+                      [for]="passportNumberExpiration.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-passport-expiration">Passport Expiration</ng-container>
+                    </label>
+                    <input [class.is-invalid]="passportNumberExpiration.invalid" [class.is-required]="passportNumberExpiration.required"
+                      [formControl]="passportNumberExpiration.formControl" [id]="passportNumberExpiration.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-passport-expiration-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
               }
               @if (student.controls.taxNumber) {
-                @defer {
-                  <div class="col-lg-4">
-                    <app-sui-form-group #taxNumber [name]="'taxNumber'" class="d-block mb-4">
-                      <label [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
-                        [for]="taxNumber.id" class="form-label">
-                        <ng-container i18n="@@workspace-enrollment-update-student-tax-number">Tax Number</ng-container>
-                      </label>
-                      <input [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
-                        [formControl]="taxNumber.formControl" [id]="taxNumber.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-tax-number-placeholder" type="text" />
-                    </app-sui-form-group>
-                  </div>
-                }
+                <div class="col-lg-4">
+                  <app-sui-form-group #taxNumber [name]="'taxNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+                      [for]="taxNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-tax-number">Tax Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+                      [formControl]="taxNumber.formControl" [id]="taxNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-tax-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
               }
               @if (student.controls.socialSecurityNumber) {
-                @defer {
-                  <div class="col-lg-4">
-                    <app-sui-form-group #socialSecurityNumber [name]="'socialSecurityNumber'" class="d-block mb-4">
-                      <label [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
-                        [for]="socialSecurityNumber.id" class="form-label">
-                        <ng-container i18n="@@workspace-enrollment-update-student-social-security-number">Social Security Number</ng-container>
-                      </label>
-                      <input [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
-                        [formControl]="socialSecurityNumber.formControl" [id]="socialSecurityNumber.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-social-security-number-placeholder" type="text" />
-                    </app-sui-form-group>
-                  </div>
-                }
+                <div class="col-lg-4">
+                  <app-sui-form-group #socialSecurityNumber [name]="'socialSecurityNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
+                      [for]="socialSecurityNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-social-security-number">Social Security Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
+                      [formControl]="socialSecurityNumber.formControl" [id]="socialSecurityNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-social-security-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
               }
               @if (student.controls.patientNumber) {
-                @defer {
-                  <div class="col-lg-4">
-                    <app-sui-form-group #patientNumber [name]="'patientNumber'" class="d-block mb-4">
-                      <label [class.is-invalid]="patientNumber.invalid" [class.is-required]="patientNumber.required"
-                        [for]="patientNumber.id" class="form-label">
-                        <ng-container i18n="@@workspace-enrollment-update-student-patient-number">Patient Number</ng-container>
-                      </label>
-                      <input [class.is-invalid]="patientNumber.invalid" [class.is-required]="patientNumber.required"
-                        [formControl]="patientNumber.formControl" [id]="patientNumber.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-patient-number-placeholder" type="text" />
-                    </app-sui-form-group>
-                  </div>
-                }
+                <div class="col-lg-4">
+                  <app-sui-form-group #patientNumber [name]="'patientNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="patientNumber.invalid" [class.is-required]="patientNumber.required"
+                      [for]="patientNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-student-patient-number">Patient Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="patientNumber.invalid" [class.is-required]="patientNumber.required"
+                      [formControl]="patientNumber.formControl" [id]="patientNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-patient-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
               }
             </div>
           </ng-container>

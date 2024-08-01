@@ -1,3 +1,8 @@
+export enum DocumentKind {
+  National = 758392,
+  Passport = 847652
+};
+
 export enum IdentityKind {
   Employee = 102939
 };
