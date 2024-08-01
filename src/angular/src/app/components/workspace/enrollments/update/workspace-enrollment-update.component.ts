@@ -43,6 +43,11 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       birth: FormControl<string | null>;
       nationality: FormControl<string | null>;
       birthplace: FormControl<string | null>;
+      nationalNumber: FormControl<string | null>;
+      nationalNumberExpiration: FormControl<string | null>;
+      socialSecurityNumber: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+      patientNumber: FormControl<string | null>;
     }>;
   }> = this._fb.group({
     serviceId: this._fb.control("", [ Validators.required ]),
@@ -71,12 +76,22 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
       birth: this._fb.control("", [ Validators.required ]),
       nationality: this._fb.control(this.country, [ Validators.required ]),
-      birthplace: this._fb.control(this.district, [ Validators.required ])
+      birthplace: this._fb.control(this.district, [ Validators.required ]),
+      nationalNumber: this._fb.control("", [ Validators.required ]),
+      nationalNumberExpiration: this._fb.control("", [ Validators.required ]),
+      socialSecurityNumber: this._fb.control("", [ ]),
+      taxNumber: this._fb.control("", [ ]),
+      patientNumber: this._fb.control("", [ ])
     }) as FormGroup<{
       name: FormControl<string | null>;
       birth: FormControl<string | null>;
       nationality: FormControl<string | null>;
       birthplace: FormControl<string | null>;
+      nationalNumber: FormControl<string | null>;
+      nationalNumberExpiration: FormControl<string | null>;
+      socialSecurityNumber: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+      patientNumber: FormControl<string | null>;
     }>;
 
     student.controls.nationality.valueChanges
