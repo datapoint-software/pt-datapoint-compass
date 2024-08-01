@@ -107,9 +107,13 @@
                       [for]="nationality.id" class="form-label">
                       <ng-container i18n="@@workspace-enrollment-update-nationality">Nationality</ng-container>
                     </label>
-                    <input [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
-                      [formControl]="nationality.formControl" [id]="nationality.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-nationality-placeholder" type="text" />
+                    <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                      [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                      <option disabled></option>
+                      @for (nationality of nationalities; track nationality.code) {
+                        <option [value]="nationality.code">{{ nationality.name }}</option>
+                      }
+                    </select>
                   </app-sui-form-group>
                 </div>
                 <div class="col-lg-4">
@@ -228,9 +232,13 @@
                         [for]="nationality.id" class="form-label">
                         <ng-container i18n="@@workspace-enrollment-update-nationality">Nationality</ng-container>
                       </label>
-                      <input [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
-                        [formControl]="nationality.formControl" [id]="nationality.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-nationality-placeholder" type="text" />
+                      <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                        [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                        <option disabled></option>
+                        @for (nationality of nationalities; track nationality.code) {
+                          <option [value]="nationality.code">{{ nationality.name }}</option>
+                        }
+                      </select>
                     </app-sui-form-group>
                   </div>
                   <div class="col-lg-4">
@@ -405,9 +413,13 @@
                     [for]="nationality.id" class="form-label">
                     <ng-container i18n="@@workspace-enrollment-update-nationality">Nationality</ng-container>
                   </label>
-                  <input [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
-                    [formControl]="nationality.formControl" [id]="nationality.id" class="form-control"
-                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-nationality-placeholder" type="text" />
+                  <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                    [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                    <option disabled></option>
+                    @for (nationality of nationalities; track nationality.code) {
+                      <option [value]="nationality.code">{{ nationality.name }}</option>
+                    }
+                  </select>
                 </app-sui-form-group>
               </div>
               <div class="col-lg-4">

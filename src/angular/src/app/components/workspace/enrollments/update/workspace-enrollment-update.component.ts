@@ -7,6 +7,7 @@ import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component
 import { optionsOf } from "@app/helpers/enum.helpers";
 import { SERVICE_MESSAGES } from "@app/messages/service.messages";
 import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
+import { NationalityModel } from "@app/services/nationalities/nationality.service.abstractions";
 import { WorkspaceEnrollmentFacilityModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
 import { Subject, takeUntil } from "rxjs";
 
@@ -175,6 +176,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
   });
 
   facilities!: WorkspaceEnrollmentFacilityModel[];
+  nationalities!: NationalityModel[];
 
   services = optionsOf(Service).map((id) => ({
     id,
@@ -185,8 +187,9 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
 
     this._activatedRoute.data
       .pipe(takeUntil(this._destroy$))
-      .subscribe(({ model }) => {
+      .subscribe(({ model, nationalities }) => {
         this.facilities = model.facilities;
+        this.nationalities = nationalities;
       });
 
   }
