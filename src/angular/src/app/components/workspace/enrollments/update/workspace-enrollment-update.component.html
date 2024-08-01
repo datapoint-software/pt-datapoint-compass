@@ -1,3 +1,7 @@
+@let insurance = form.controls.insurance;
+@let parents = form.controls.parents;
+@let student = form.controls.student;
+
 <div class="d-flex align-items-baseline justify-content-between">
 
   <!-- Title -->
@@ -82,7 +86,6 @@
         <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
           <span i18n="@@workspace-enrollment-update-student">Student</span>
         </div>
-        @let student = form.controls.student;
         @if (student) {
           <ng-container [formGroup]="student">
             <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5">
@@ -258,7 +261,232 @@
         @else {
           <div class="form-section-footer d-grid gap-2 my-4">
             <button (click)="addStudentControls()" class="btn btn-light squared" type="button">
-              Add student details
+              <ng-container i18n="@@workspace-enrollment-student-add-button">Add student details</ng-container>
+            </button>
+          </div>
+        }
+      </div>
+      <div class="form-section form-section-enrollment mb-8">
+        <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
+          <span i18n="@@workspace-enrollment-update-insurance">Student health insurance</span>
+        </div>
+        @if (insurance) {
+          <ng-container [formGroup]="insurance">
+            <app-sui-form-group #companyName [name]="'companyName'" class="d-block mb-4">
+              <label [class.is-invalid]="companyName.invalid" [class.is-required]="companyName.required"
+                [for]="companyName.id" class="form-label">
+                <ng-container i18n="@@workspace-enrollment-update-insurance-company-name">Company</ng-container>
+              </label>
+              <input [class.is-invalid]="companyName.invalid" [class.is-required]="companyName.required"
+                [formControl]="companyName.formControl" [id]="companyName.id" class="form-control"
+                placeholder="" i18n-placeholder="@@workspace-enrollment-update-insurance-company-name-placeholder" type="text" />
+            </app-sui-form-group>
+          </ng-container>
+        }
+        @else {
+          <div class="form-section-footer d-grid gap-2 my-4">
+            <button (click)="addInsuranceControls()" class="btn btn-light squared" type="button">
+              <ng-container i18n="@@workspace-enrollment-insurance-add-button">Add health insurance details</ng-container>
+            </button>
+          </div>
+        }
+      </div>
+      <div class="form-section form-section-enrollment mb-8">
+        <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5 fw-bold">
+          <span i18n="@@workspace-enrollment-update-parent-affiliation">Student parent affiliation</span>
+        </div>
+        @for (parent of parents.controls; track $index) {
+          <div [formGroup]="parent" class="mb-6">
+            <div class="border-bottom border-primary text-primary d-flex align-items-center justify-content-between mb-4 py-1 fs-5">
+              <span>
+                @if (parent.value.name) {
+                  {{ parent.value.name }}
+                }
+                @else {
+                  <ng-container i18n="@@workspace-enrollment-update-parent-unnamed">Parent</ng-container>
+                }
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <app-sui-form-group #name [name]="'name'" class="d-block mb-4">
+                  <label [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+                    [for]="name.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-parent-name">Name</ng-container>
+                  </label>
+                  <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+                    [formControl]="name.formControl" [id]="name.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-name-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+              <div class="col-lg-4">
+                <app-sui-form-group #birth [name]="'birth'" class="d-block mb-4">
+                  <label [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+                    [for]="birth.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-parent-birth">Birthday</ng-container>
+                  </label>
+                  <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+                    [formControl]="birth.formControl" [id]="birth.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-birth-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <app-sui-form-group #nationality [name]="'nationality'" class="d-block mb-4">
+                  <label [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                    [for]="nationality.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-parent-nationality">Nationality</ng-container>
+                  </label>
+                  <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+                    [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                    <option disabled i18n="@@workspace-enrollment-update-birthplace-placeholder"></option>
+                    @for (nationality of nationalities; track nationality.code) {
+                      <option [value]="nationality.code">{{ nationality.name }}</option>
+                    }
+                  </select>
+                </app-sui-form-group>
+              </div>
+              @if (parent.controls.birthplace) {
+                @defer {
+                  <div class="col-lg-4">
+                    <app-sui-form-group #birthplace [name]="'birthplace'" class="d-block mb-4">
+                      <label [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
+                        [for]="birthplace.id" class="form-label">
+                        <ng-container i18n="@@workspace-enrollment-update-parent-birthplace">Birthplace</ng-container>
+                      </label>
+                      <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
+                        [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select">
+                        <option disabled i18n="@@workspace-enrollment-update-birthplace-placeholder"></option>
+                        @for (birthplace of (districts.get(parent.controls.nationality.value!) ?? []); track birthplace.code) {
+                          <option [value]="birthplace.code">{{ birthplace.name }}</option>
+                        }
+                      </select>
+                    </app-sui-form-group>
+                  </div>
+                }
+              }
+            </div>
+            <div class="row">
+              @if (parent.controls.documentKind) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #documentKind [name]="'documentKind'" class="d-block mb-4">
+                    <label [class.is-invalid]="documentKind.invalid" [class.is-required]="documentKind.required"
+                      [for]="documentKind.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-parent-document-kind">Document</ng-container>
+                    </label>
+                    <select [class.is-invalid]="documentKind.invalid" [class.is-required]="documentKind.required"
+                      [formControl]="documentKind.formControl" [id]="documentKind.id" class="form-select">
+                      <option disabled i18n="@@workspace-enrollment-update-document-kind-placeholder"></option>
+                      <option [value]="documentKinds.National">{{ documentKinds.National | documentKindLabel }}</option>
+                      <option [value]="documentKinds.Passport">{{ documentKinds.Passport | documentKindLabel }}</option>
+                    </select>
+                  </app-sui-form-group>
+                </div>
+              }
+              @if (parent.controls.nationalNumber) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #nationalNumber [name]="'nationalNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="nationalNumber.invalid" [class.is-required]="nationalNumber.required"
+                      [for]="nationalNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-parent-national-number">National Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="nationalNumber.invalid" [class.is-required]="nationalNumber.required"
+                      [formControl]="nationalNumber.formControl" [id]="nationalNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-national-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+                <div class="col-lg-4">
+                  <app-sui-form-group #nationalNumberExpiration [name]="'nationalNumberExpiration'" class="d-block mb-4">
+                    <label [class.is-invalid]="nationalNumberExpiration.invalid" [class.is-required]="nationalNumberExpiration.required"
+                      [for]="nationalNumberExpiration.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-parent-national-number-expiration">National Number Expiration</ng-container>
+                    </label>
+                    <input [class.is-invalid]="nationalNumberExpiration.invalid" [class.is-required]="nationalNumberExpiration.required"
+                      [formControl]="nationalNumberExpiration.formControl" [id]="nationalNumberExpiration.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-national-number-expiration-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+              }
+              @if (parent.controls.passportNumber) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #passportNumber [name]="'passportNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="passportNumber.invalid" [class.is-required]="passportNumber.required"
+                      [for]="passportNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-parent-passport-number">Passport Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="passportNumber.invalid" [class.is-required]="passportNumber.required"
+                      [formControl]="passportNumber.formControl" [id]="passportNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-passport-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+                <div class="col-lg-4">
+                  <app-sui-form-group #passportNumberExpiration [name]="'passportNumberExpiration'" class="d-block mb-4">
+                    <label [class.is-invalid]="passportNumberExpiration.invalid" [class.is-required]="passportNumberExpiration.required"
+                      [for]="passportNumberExpiration.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-parent-passport-expiration">Passport Expiration</ng-container>
+                    </label>
+                    <input [class.is-invalid]="passportNumberExpiration.invalid" [class.is-required]="passportNumberExpiration.required"
+                      [formControl]="passportNumberExpiration.formControl" [id]="passportNumberExpiration.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-passport-expiration-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+              }
+              @if (parent.controls.taxNumber) {
+                <div class="col-lg-4">
+                  <app-sui-form-group #taxNumber [name]="'taxNumber'" class="d-block mb-4">
+                    <label [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+                      [for]="taxNumber.id" class="form-label">
+                      <ng-container i18n="@@workspace-enrollment-update-parent-tax-number">Tax Number</ng-container>
+                    </label>
+                    <input [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+                      [formControl]="taxNumber.formControl" [id]="taxNumber.id" class="form-control"
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-tax-number-placeholder" type="text" />
+                  </app-sui-form-group>
+                </div>
+              }
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <app-sui-form-group #emailAddress [name]="'emailAddress'" class="d-block mb-4">
+                  <label [class.is-invalid]="emailAddress.invalid" [class.is-required]="emailAddress.required"
+                    [for]="emailAddress.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-parent-email-address">Email address</ng-container>
+                  </label>
+                  <input [class.is-invalid]="emailAddress.invalid" [class.is-required]="emailAddress.required"
+                    [formControl]="emailAddress.formControl" [id]="emailAddress.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-email-address-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+              <div class="col-lg-4">
+                <app-sui-form-group #homePhoneNumber [name]="'homePhoneNumber'" class="d-block mb-4">
+                  <label [class.is-invalid]="homePhoneNumber.invalid" [class.is-required]="homePhoneNumber.required"
+                    [for]="homePhoneNumber.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-parent-home-phone-number">Home Phone</ng-container>
+                  </label>
+                  <input [class.is-invalid]="homePhoneNumber.invalid" [class.is-required]="homePhoneNumber.required"
+                    [formControl]="homePhoneNumber.formControl" [id]="homePhoneNumber.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-home-phone-number-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+              <div class="col-lg-4">
+                <app-sui-form-group #mobilePhoneNumber [name]="'mobilePhoneNumber'" class="d-block mb-4">
+                  <label [class.is-invalid]="mobilePhoneNumber.invalid" [class.is-required]="mobilePhoneNumber.required"
+                    [for]="mobilePhoneNumber.id" class="form-label">
+                    <ng-container i18n="@@workspace-enrollment-update-parent-mobile-phone-number">Mobile Phone</ng-container>
+                  </label>
+                  <input [class.is-invalid]="mobilePhoneNumber.invalid" [class.is-required]="mobilePhoneNumber.required"
+                    [formControl]="mobilePhoneNumber.formControl" [id]="mobilePhoneNumber.id" class="form-control"
+                    placeholder="" i18n-placeholder="@@workspace-enrollment-update-parent-mobile-phone-number-placeholder" type="text" />
+                </app-sui-form-group>
+              </div>
+            </div>
+          </div>
+        }
+        @if (parents.length < 2) {
+          <div class="form-section-footer d-grid gap-2 my-4">
+            <button (click)="addParentControls()" class="btn btn-light squared" type="button">
+              <ng-container i18n="@@workspace-enrollment-parent-affiliation-add-button">Add parent affiliation details</ng-container>
             </button>
           </div>
         }

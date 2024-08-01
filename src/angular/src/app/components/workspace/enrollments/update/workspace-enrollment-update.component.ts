@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, inject, NgZone, OnDestroy, OnInit, ViewChild, viewChild } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { DocumentKind } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
@@ -56,10 +56,43 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       taxNumber: FormControl<string | null>;
       patientNumber: FormControl<string | null>;
     }>;
+    insurance?: FormGroup<{
+      companyName: FormControl<string | null>;
+    }>;
+    parents: FormArray<FormGroup<{
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      birthplace: FormControl<string | null>;
+      emailAddress: FormControl<string | null>;
+      homePhoneNumber: FormControl<string | null>;
+      mobilePhoneNumber: FormControl<string | null>;
+      documentKind?: FormGroup<DocumentKind | null>;
+      nationalNumber?: FormControl<string | null>;
+      nationalNumberExpiration?: FormControl<string | null>;
+      passportNumber?: FormControl<string | null>;
+      passportNumberExpiration?: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+    }>>;
   }> = this._fb.group({
     serviceId: this._fb.control("", [ Validators.required ]),
     facilityId: this._fb.control("", [ Validators.required ]),
-    start: this._fb.control("", [ ])
+    start: this._fb.control("", [ ]),
+    parents: this._fb.array<FormGroup<{
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      birthplace: FormControl<string | null>;
+      emailAddress: FormControl<string | null>;
+      homePhoneNumber: FormControl<string | null>;
+      mobilePhoneNumber: FormControl<string | null>;
+      documentKind?: FormGroup<DocumentKind | null>;
+      nationalNumber?: FormControl<string | null>;
+      nationalNumberExpiration?: FormControl<string | null>;
+      passportNumber?: FormControl<string | null>;
+      passportNumberExpiration?: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+    }>>([])
   });
 
   readonly successActions: SuiModalComponentAction[] = [{
@@ -76,6 +109,47 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   nationalities!: NationalityModel[];
   number?: string;
   services!: WorkspaceEnrollmentServiceModel[];
+
+  addInsuranceControls(): void {
+    this.form.controls.insurance = this._fb.group({
+      companyName: this._fb.control("", [ Validators.maxLength(128), Validators.required ])
+    });
+  }
+
+  addParentControls(): void {
+
+    const parent = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      nationality: this._fb.control(this.country, [ Validators.required ]),
+      birthplace: this._fb.control(this.district, [ Validators.required ]),
+      emailAddress: this._fb.control("", [ ]),
+      homePhoneNumber: this._fb.control("", [ ]),
+      mobilePhoneNumber: this._fb.control("", [ ]),
+      taxNumber: this._fb.control("", [ ])
+    }) as FormGroup<{
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      birthplace: FormControl<string | null>;
+      emailAddress: FormControl<string | null>;
+      homePhoneNumber: FormControl<string | null>;
+      mobilePhoneNumber: FormControl<string | null>;
+      documentKind?: FormGroup<DocumentKind | null>;
+      nationalNumber?: FormControl<string | null>;
+      nationalNumberExpiration?: FormControl<string | null>;
+      passportNumber?: FormControl<string | null>;
+      passportNumberExpiration?: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+    }>;
+
+    parent.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .pipe(startWith(this.country))
+      .subscribe((nationality) => this._nationalityChanges(parent, nationality))
+
+    this.form.controls.parents.push(parent);
+  }
 
   addStudentControls(): void {
 
