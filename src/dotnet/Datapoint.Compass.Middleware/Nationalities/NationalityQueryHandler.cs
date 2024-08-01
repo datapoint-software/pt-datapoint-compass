@@ -202,7 +202,7 @@ namespace Datapoint.Compass.Middleware.Nationalities
                     { "PF", "Polinésia Francesa" },
                     { "PL", "Polónia" },
                     { "PR", "Porto Rico" },
-                    { "PT", "Portugal" },
+                    { "PT", "Portuguesa" },
                     { "KE", "Quênia" },
                     { "KG", "Quirguistão" },
                     { "KI", "Quiribáti" },

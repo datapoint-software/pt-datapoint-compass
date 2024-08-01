@@ -2,6 +2,7 @@ export type WorkspaceEnrollmentUpdateModel = {
   enrollmentId?: string;
   enrollmentRowVersionId?: string;
   country: string;
+  district?: string;
   number?: string;
   facilities: WorkspaceEnrollmentFacilityModel[];
   services: WorkspaceEnrollmentServiceModel[];

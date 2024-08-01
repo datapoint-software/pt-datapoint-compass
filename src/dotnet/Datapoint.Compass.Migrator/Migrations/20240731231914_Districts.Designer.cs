@@ -3,6 +3,7 @@ using System;
 using Datapoint.Compass.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datapoint.Compass.Migrator.Migrations
 {
     [DbContext(typeof(CompassContext))]
-    partial class CompassContextModelSnapshot : ModelSnapshot
+    [Migration("20240731231914_Districts")]
+    partial class Districts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

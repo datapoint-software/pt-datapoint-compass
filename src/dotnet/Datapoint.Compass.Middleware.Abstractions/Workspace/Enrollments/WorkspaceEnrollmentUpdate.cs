@@ -6,11 +6,12 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
 {
     public sealed class WorkspaceEnrollmentUpdate
     {
-        public WorkspaceEnrollmentUpdate(Guid? enrollmentId, Guid? enrollmentRowVersionId, string country, string? number, IEnumerable<WorkspaceEnrollmentFacility> facilities, IEnumerable<WorkspaceEnrollmentService> services, WorkspaceEnrollmentUpdateForm? form)
+        public WorkspaceEnrollmentUpdate(Guid? enrollmentId, Guid? enrollmentRowVersionId, string country, string? district, string? number, IEnumerable<WorkspaceEnrollmentFacility> facilities, IEnumerable<WorkspaceEnrollmentService> services, WorkspaceEnrollmentUpdateForm? form)
         {
             EnrollmentId = enrollmentId;
             EnrollmentRowVersionId = enrollmentRowVersionId;
             Country = country;
+            District = district;
             Number = number;
             Facilities = facilities;
             Services = services;
@@ -22,6 +23,8 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
         public Guid? EnrollmentRowVersionId { get; }
 
         public string Country { get; }
+
+        public string? District { get; }
 
         public string? Number { get; }
 

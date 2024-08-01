@@ -42,7 +42,7 @@
     "workspace-enrollment-update-student-name": "Name",
     "workspace-enrollment-update-student-birth": "Birthday",
     "workspace-enrollment-update-student-nationality": "Nationality",
-    "workspace-enrollment-update-student-naturality": "Naturality",
+    "workspace-enrollment-update-student-birthplace": "Birthplace",
     "workspace-enrollment-update-secondary-button": "Return to search",
     "workspace-enrollment-update-primary-button": "Submit",
     "workspace-enrollment-update-success-modal-title": "All done!",

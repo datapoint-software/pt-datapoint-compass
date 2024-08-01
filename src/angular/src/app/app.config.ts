@@ -5,6 +5,7 @@ import { PreloadAllModules, provideRouter, withPreloading } from "@angular/route
 import { routes } from "@app/app.routes";
 import { Identity } from "@app/features/identity/identity.feature";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
+import { DistrictService } from "@app/services/districts/district.service";
 import { IdentityService } from "@app/services/identities/identity.service";
 import { NationalityService } from "@app/services/nationalities/nationality.service";
 import { WorkspaceEnrollmentService } from "@app/services/workspace/enrollments/workspace-enrollment.service";
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     LoadingOverlay,
 
     // Services
+    DistrictService,
     IdentityService,
     NationalityService,
     WorkspaceEnrollmentService,

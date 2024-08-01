@@ -118,25 +118,31 @@
                   </label>
                   <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
                     [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
-                    <option disabled i18n="@@workspace-enrollment-update-facility-placeholder"></option>
+                    <option disabled i18n="@@workspace-enrollment-update-birthplace-placeholder"></option>
                     @for (nationality of nationalities; track nationality.code) {
                       <option [value]="nationality.code">{{ nationality.name }}</option>
                     }
                   </select>
                 </app-sui-form-group>
               </div>
-              @if (student.controls.naturalityPortugueseDistrictId) {
-                <div class="col-lg-4">
-                  <app-sui-form-group #naturalityPortugueseDistrictId [name]="'naturalityPortugueseDistrictId'" class="d-block mb-4">
-                    <label [class.is-invalid]="naturalityPortugueseDistrictId.invalid" [class.is-required]="naturalityPortugueseDistrictId.required"
-                      [for]="naturalityPortugueseDistrictId.id" class="form-label">
-                      <ng-container i18n="@@workspace-enrollment-update-student-naturality">Naturality</ng-container>
-                    </label>
-                    <input [class.is-invalid]="naturalityPortugueseDistrictId.invalid" [class.is-required]="naturalityPortugueseDistrictId.required"
-                      [formControl]="naturalityPortugueseDistrictId.formControl" [id]="naturalityPortugueseDistrictId.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-student-naturality-placeholder" type="text" />
-                  </app-sui-form-group>
-                </div>
+              @if (student.controls.birthplace) {
+                @defer {
+                  <div class="col-lg-4">
+                    <app-sui-form-group #birthplace [name]="'birthplace'" class="d-block mb-4">
+                      <label [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
+                        [for]="birthplace.id" class="form-label">
+                        <ng-container i18n="@@workspace-enrollment-update-student-birthplace">Birthplace</ng-container>
+                      </label>
+                      <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
+                        [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select">
+                        <option disabled i18n="@@workspace-enrollment-update-birthplace-placeholder"></option>
+                        @for (birthplace of (districts.get(student.controls.nationality.value!) ?? []); track birthplace.code) {
+                          <option [value]="birthplace.code">{{ birthplace.name }}</option>
+                        }
+                      </select>
+                    </app-sui-form-group>
+                  </div>
+                }
               }
             </div>
           </ng-container>

@@ -13,7 +13,8 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
     {
         private readonly static string[] ParameterNames = 
         [
-            "Country"
+            "Country",
+            "District"
         ];
 
         private readonly CompassContext _context;
@@ -50,6 +51,7 @@ namespace Datapoint.Compass.Middleware.Workspace.Enrollments
                 enrollment?.Id,
                 enrollment?.RowVersionId,
                 parameters.GetValueOf<string>("Country"),
+                parameters.GetValueOf<string>("District"),
                 enrollment?.Number,
                 facilities.Select(f => new WorkspaceEnrollmentFacility(
                     f.Id,
