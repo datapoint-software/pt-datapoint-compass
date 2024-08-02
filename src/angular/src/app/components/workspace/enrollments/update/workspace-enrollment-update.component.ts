@@ -5,6 +5,7 @@ import { APP_LOCALE } from "@app/app.constants";
 import { Kinship, Service } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
+import { WorkspaceEnrollmentUpdateForm } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.abstractions";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
 import { optionOf, optionsOf } from "@app/helpers/enum.helpers";
 import { KINSHIP_MESSAGES } from "@app/messages/kinship.messages";
@@ -13,7 +14,7 @@ import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-k
 import { DistrictModel } from "@app/services/districts/district.abstractions";
 import { DistrictService } from "@app/services/districts/district.service";
 import { NationalityModel } from "@app/services/nationalities/nationality.service.abstractions";
-import { WorkspaceEnrollmentFacilityModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
+import { WorkspaceEnrollmentFacilityModel, WorkspaceEnrollmentUpdateFormModel } from "@app/services/workspace/enrollments/workspace-enrollment.service.abstractions";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -30,8 +31,8 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
   private readonly _fb = inject(FormBuilder);
   private readonly _loadingOverlay = inject(LoadingOverlay);
 
-  readonly form = this._fb.group({
-    service: this._fb.control(null, [ Validators.required ]),
+  readonly form: WorkspaceEnrollmentUpdateForm = this._fb.group({
+    service: this._fb.control(null as string | null, [ Validators.required ]),
     facility: this._fb.control("", [ Validators.required ]),
     plan: this._fb.control("", [ Validators.required ]),
     start: this._fb.control("", [ Validators.required ]),
@@ -211,6 +212,10 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
         this.nationalities = nationalities;
       });
 
+    this.form.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((enrollment) => this._formChanges(enrollment));
+
     this.form.controls.plan.disable();
 
     this.form.controls.service.valueChanges
@@ -236,6 +241,10 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
           this._nationalityChanges(parent, nationality)
         );
     })
+  }
+
+  private _formChanges(enrollment: WorkspaceEnrollmentUpdateForm["value"]): void {
+
   }
 
   private async _nationalityChanges(formGroup: FormGroup, nationality: string | null): Promise<void> {
