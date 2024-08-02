@@ -6,7 +6,7 @@ import { Kinship, Service } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
-import { optionsOf } from "@app/helpers/enum.helpers";
+import { optionOf, optionsOf } from "@app/helpers/enum.helpers";
 import { KINSHIP_MESSAGES } from "@app/messages/kinship.messages";
 import { SERVICE_MESSAGES } from "@app/messages/service.messages";
 import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
@@ -31,8 +31,9 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
   private readonly _loadingOverlay = inject(LoadingOverlay);
 
   readonly form = this._fb.group({
-    service: this._fb.control("", [ Validators.required ]),
+    service: this._fb.control(null, [ Validators.required ]),
     facility: this._fb.control("", [ Validators.required ]),
+    plan: this._fb.control("", [ Validators.required ]),
     start: this._fb.control("", [ Validators.required ]),
     student: this._fb.group({
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
@@ -85,44 +86,15 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
         entity: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
         name: this._fb.control("", [ Validators.maxLength(128), Validators.required ])
       }),
-      members: this._fb.array([
-        this._fb.group({
-          name: this._fb.control("", [ Validators.minLength(128), Validators.required ]),
-          kinship: this._fb.control("", [ Validators.required ]),
-          education: this._fb.control("", [ Validators.required ]),
-          birth: this._fb.control("", [ Validators.required ]),
-          occupation: this._fb.control("", [ Validators.required ]),
-          employmentStatus: this._fb.control("", [ Validators.required ]),
-          comment: this._fb.control("", [ Validators.maxLength(4096) ])
-        }),
-        this._fb.group({
-          name: this._fb.control("", [ Validators.minLength(128), Validators.required ]),
-          kinship: this._fb.control("", [ Validators.required ]),
-          education: this._fb.control("", [ Validators.required ]),
-          birth: this._fb.control("", [ Validators.required ]),
-          occupation: this._fb.control("", [ Validators.required ]),
-          employmentStatus: this._fb.control("", [ Validators.required ]),
-          comment: this._fb.control("", [ Validators.maxLength(4096) ])
-        }),
-        this._fb.group({
-          name: this._fb.control("", [ Validators.minLength(128), Validators.required ]),
-          kinship: this._fb.control("", [ Validators.required ]),
-          education: this._fb.control("", [ Validators.required ]),
-          birth: this._fb.control("", [ Validators.required ]),
-          occupation: this._fb.control("", [ Validators.required ]),
-          employmentStatus: this._fb.control("", [ Validators.required ]),
-          comment: this._fb.control("", [ Validators.maxLength(4096) ])
-        }),
-        this._fb.group({
-          name: this._fb.control("", [ Validators.minLength(128), Validators.required ]),
-          kinship: this._fb.control("", [ Validators.required ]),
-          education: this._fb.control("", [ Validators.required ]),
-          birth: this._fb.control("", [ Validators.required ]),
-          occupation: this._fb.control("", [ Validators.required ]),
-          employmentStatus: this._fb.control("", [ Validators.required ]),
-          comment: this._fb.control("", [ Validators.maxLength(4096) ])
-        })
-      ])
+      members: this._fb.array([] as FormGroup<{
+        name: FormControl<string | null>;
+        kinship: FormControl<string | null>;
+        education: FormControl<string | null>;
+        birth: FormControl<string | null>;
+        occupation: FormControl<string | null>;
+        employmentStatus: FormControl<string | null>;
+        comment: FormControl<string | null>;
+      }>[])
     }),
     guardian: this._fb.group({
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
@@ -142,7 +114,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     }),
     services: this._fb.group({
       extra: this._fb.control(false, []),
-      lunch: this._fb.control("", [ Validators.required ]),
       extension: this._fb.group({
         monday: this._fb.control(false, []),
         tuesday: this._fb.control(false, []),
@@ -170,6 +141,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
           until: this._fb.control("", [])
         })
       ]),
+      feeding: this._fb.control("", [ Validators.required ]),
       transportation: this._fb.group({
         streetAddress: this._fb.control("", [ Validators.required ]),
         days: this._fb.group({
@@ -195,6 +167,41 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     .map((id) => ({ id, name: SERVICE_MESSAGES.get(id)! }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
+  plans = new Map([[
+    Service.ActivityCenter, [
+    { code: "DF", name: "Normal" }
+  ]], [
+    Service.Childcare, [
+    { code: "MC", name: "Mensalidade completa com almoço" },
+    { code: "ML", name: "Mensalidade com lanche" },
+    { code: "MR", name: "Mensalidade com refeitório social"}
+  ]]]);
+
+  addFamilyMemberControls() {
+
+    const familyMember = this._fb.group({
+      name: this._fb.control("", [ Validators.minLength(128), Validators.required ]),
+      kinship: this._fb.control("", [ Validators.required ]),
+      education: this._fb.control("", [ Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      occupation: this._fb.control("", [ Validators.required ]),
+      employmentStatus: this._fb.control("", [ Validators.required ]),
+      comment: this._fb.control("", [ Validators.maxLength(4096) ])
+    });
+
+    this.form.controls.familyMembers.controls.members.push(familyMember);
+  }
+
+  getServicePlans(): ({ code: string; name: string })[] {
+
+    const service = optionOf(Service, this.form.controls.service.value);
+
+    if (!service)
+      return [];
+
+    return this.plans.get(service) ?? [];
+  }
+
   ngOnInit(): void {
 
     this._activatedRoute.data
@@ -203,6 +210,12 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
         this.facilities = model.facilities;
         this.nationalities = nationalities;
       });
+
+    this.form.controls.plan.disable();
+
+    this.form.controls.service.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((service) => this._serviceChanges(this.form, optionOf(Service, service)));
 
     this.form.controls.student.controls.nationality.valueChanges
       .pipe(takeUntil(this._destroy$))
@@ -248,5 +261,9 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
 
     if (districts!.length > 0)
       formGroup.addControl("birthplace", this._fb.control("", [ Validators.required ]));
+  }
+
+  private _serviceChanges(form: FormGroup, service: Service | null): void {
+    form.get("plan")?.enable();
   }
 }
