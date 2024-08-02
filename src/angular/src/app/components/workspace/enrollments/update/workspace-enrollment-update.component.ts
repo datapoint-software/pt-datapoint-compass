@@ -36,41 +36,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     facility: this._fb.control("", [ Validators.required ]),
     plan: this._fb.control("", [ Validators.required ]),
     start: this._fb.control("", [ Validators.required ]),
-    parents: this._fb.group({
-      housing: this._fb.control("", [ Validators.required ]),
-      maritalStatus: this._fb.control("", [ Validators.required ]),
-      guardian: this._fb.control("", [ Validators.required ]),
-      parents: this._fb.array([
-        this._fb.group({
-          name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
-          birth: this._fb.control("", [ Validators.required ]),
-          nationality: this._fb.control("", [ Validators.required ]),
-          birthplace: this._fb.control("", [ Validators.required ]),
-          education: this._fb.control("", [ Validators.required ]),
-          employment: this._fb.group({
-            business: this._fb.control("", [ Validators.required ]),
-            county: this._fb.control("", [ Validators.required ]),
-            start: this._fb.control("", []),
-            lunch: this._fb.control("", []),
-            finish: this._fb.control("", [])
-          })
-        }),
-        this._fb.group({
-          name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
-          birth: this._fb.control("", [ Validators.required ]),
-          nationality: this._fb.control("", [ Validators.required ]),
-          birthplace: this._fb.control("", [ Validators.required ]),
-          education: this._fb.control("", [ Validators.required ]),
-          employment: this._fb.group({
-            business: this._fb.control("", [ Validators.required ]),
-            county: this._fb.control("", [ Validators.required ]),
-            start: this._fb.control("", []),
-            lunch: this._fb.control("", []),
-            finish: this._fb.control("", [])
-          })
-        })
-      ])
-    }),
     familyMembers: this._fb.group({
       monitor: this._fb.group({
         entity: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
@@ -203,6 +168,62 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     this.form.controls.familyMembers.controls.members.push(familyMember);
   }
 
+  addParentSectionControls() {
+
+    const parent = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      nationality: this._fb.control("", [ Validators.required ]),
+      birthplace: this._fb.control("", [ Validators.required ]),
+      education: this._fb.control("", [ Validators.required ]),
+      employment: this._fb.group({
+        business: this._fb.control("", [ Validators.required ]),
+        county: this._fb.control("", [ Validators.required ]),
+        start: this._fb.control("", []),
+        lunch: this._fb.control("", []),
+        finish: this._fb.control("", [])
+      })
+    });
+
+    parent.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) => this._nationalityChanges(parent, nationality));
+
+    const parents = this._fb.group({
+      housing: this._fb.control("", [ Validators.required ]),
+      maritalStatus: this._fb.control("", [ Validators.required ]),
+      guardian: this._fb.control("", [ Validators.required ]),
+      parents: this._fb.array([ parent ])
+    });
+
+    this.form.addControl("parents", parents);
+
+  }
+
+  addParentControls() {
+
+    const parent = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      nationality: this._fb.control("", [ Validators.required ]),
+      birthplace: this._fb.control("", [ Validators.required ]),
+      education: this._fb.control("", [ Validators.required ]),
+      employment: this._fb.group({
+        business: this._fb.control("", [ Validators.required ]),
+        county: this._fb.control("", [ Validators.required ]),
+        start: this._fb.control("", []),
+        lunch: this._fb.control("", []),
+        finish: this._fb.control("", [])
+      })
+    });
+
+    parent.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) => this._nationalityChanges(parent, nationality));
+
+    this.form.controls.parents!.controls.parents.push(parent);
+  }
+
   getServicePlans(): ({ code: string; name: string })[] {
 
     const service = optionOf(Service, this.form.controls.service.value);
@@ -237,14 +258,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
       .subscribe((nationality) =>
         this._nationalityChanges(this.form.controls.guardian, nationality)
       );
-
-    this.form.controls.parents.controls.parents.controls.forEach((parent) => {
-      parent.controls.nationality.valueChanges
-        .pipe(takeUntil(this._destroy$))
-        .subscribe((nationality) =>
-          this._nationalityChanges(parent, nationality)
-        );
-    })
   }
 
   private _formChanges(enrollment: WorkspaceEnrollmentUpdateForm["value"]): void {

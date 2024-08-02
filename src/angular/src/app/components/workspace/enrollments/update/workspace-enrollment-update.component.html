@@ -414,6 +414,20 @@
                 </div>
               </div>
             </ng-container>
+            @if (form.controls.parents.controls.parents.length < 2) {
+              <div class="d-grid">
+                <button (click)="addParentControls()" class="btn btn-light" type="button">
+                  <ng-container i18n="workspace-enrollment-update-add-parents">Add parent details</ng-container>
+                </button>
+              </div>
+            }
+          }
+          @else {
+            <div class="d-grid">
+              <button (click)="addParentSectionControls()" class="btn btn-light" type="button">
+                <ng-container i18n="workspace-enrollment-update-add-parents">Add parent affiliation details</ng-container>
+              </button>
+            </div>
           }
         </div>
         <!-- Legal guardian -->

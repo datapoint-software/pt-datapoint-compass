@@ -16,7 +16,7 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
     socialSecurityNumber: FormControl<string | null>;
     taxNumber: FormControl<string | null>;
   }>;
-  parents: FormGroup<{
+  parents?: FormGroup<{
     housing: FormControl<string | null>;
     maritalStatus: FormControl<string | null>;
     guardian: FormControl<string | null>;
