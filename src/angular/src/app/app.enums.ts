@@ -3,6 +3,12 @@ export enum DocumentKind {
   Passport = 847652
 };
 
+export enum MaritalStatus {
+  Married = 7700,
+  Divorced = 6800,
+  Single = 8300
+};
+
 export enum IdentityKind {
   Employee = 102939
 };

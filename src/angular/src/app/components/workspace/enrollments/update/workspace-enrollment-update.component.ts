@@ -2,13 +2,14 @@ import { Component, inject, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { APP_LOCALE } from "@app/app.constants";
-import { Kinship, Service } from "@app/app.enums";
+import { Kinship, MaritalStatus, Service } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiModalComponent } from "@app/components/sui/modal/sui-modal.component";
 import { WorkspaceEnrollmentUpdateForm } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.abstractions";
 import { LoadingOverlay } from "@app/features/loading-overlay/loading-overlay.feature";
 import { optionOf, optionsOf } from "@app/helpers/enum.helpers";
 import { KINSHIP_MESSAGES } from "@app/messages/kinship.messages";
+import { MARITAL_STATUS_MESSAGES } from "@app/messages/marital-status.messages";
 import { SERVICE_MESSAGES } from "@app/messages/service.messages";
 import { DocumentKindLabelPipe } from "@app/pipes/document-kind-label/document-kind-label.pipe";
 import { DistrictModel } from "@app/services/districts/district.abstractions";
@@ -116,6 +117,10 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
 
   kinships = optionsOf(Kinship)
     .map((id) => ({ id, name: KINSHIP_MESSAGES.get(id)! }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  maritalStatuses = optionsOf(MaritalStatus)
+    .map((id) => ({ id, name: MARITAL_STATUS_MESSAGES.get(id)! }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   services = optionsOf(Service)

@@ -222,7 +222,7 @@
           @else {
             <div class="d-grid">
               <button (click)="addStudentControls()" class="btn btn-light" type="button">
-                <ng-container i18n="workspace-enrollment-update-add-student">Add student details</ng-container>
+                <ng-container i18n="@@workspace-enrollment-update-add-student">Add student details</ng-container>
               </button>
             </div>
           }
@@ -393,7 +393,7 @@
                       <option [value]="$index">{{ parent.controls.name.value }}</option>
                     }
                   }
-                  <option [value]="-1" i18n="other">Other</option>
+                  <option [value]="-1" i18n="@@other">Other</option>
                 </select>
               </app-sui-form-group>
               <div class="row">
@@ -414,9 +414,13 @@
                       [for]="maritalStatus.id" class="form-label">
                       <ng-container i18n="@@workspace-enrollment-update-marital-status">Marital status</ng-container>
                     </label>
-                    <input [class.is-invalid]="maritalStatus.invalid" [class.is-required]="maritalStatus.required"
-                      [formControl]="maritalStatus.formControl" [id]="maritalStatus.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-marital-status-placeholder" type="text" />
+                    <select [class.is-invalid]="maritalStatus.invalid" [class.is-required]="maritalStatus.required"
+                      [formControl]="maritalStatus.formControl" [id]="maritalStatus.id" class="form-select">
+                      <option disabled></option>
+                      @for (maritalStatus of maritalStatuses; track $index) {
+                        <option [value]="maritalStatus.id">{{ maritalStatus.name }}</option>
+                      }
+                    </select>
                   </app-sui-form-group>
                 </div>
               </div>
@@ -424,7 +428,7 @@
             @if (form.controls.parents.controls.parents.length < 2) {
               <div class="d-grid">
                 <button (click)="addParentControls()" class="btn btn-light" type="button">
-                  <ng-container i18n="workspace-enrollment-update-add-parents">Add parent details</ng-container>
+                  <ng-container i18n="@@workspace-enrollment-update-add-parent">Add parent details</ng-container>
                 </button>
               </div>
             }
@@ -432,7 +436,7 @@
           @else {
             <div class="d-grid">
               <button (click)="addParentSectionControls()" class="btn btn-light" type="button">
-                <ng-container i18n="workspace-enrollment-update-add-parents">Add parent affiliation details</ng-container>
+                <ng-container i18n="@@workspace-enrollment-update-add-parents">Add parent affiliation details</ng-container>
               </button>
             </div>
           }
@@ -444,7 +448,7 @@
           </div>
           <ng-container [formGroup]="form.controls.guardian">
             <div class="border-bottom border-primary text-primary fs-6 py-1 mb-4">
-              <ng-container i18n="@@workspace-enrollment-update-guardian">Parent</ng-container>
+              <ng-container i18n="@@workspace-enrollment-update-guardian">Legal guardian</ng-container>
             </div>
             <div class="row">
               <div class="col-lg-8">
