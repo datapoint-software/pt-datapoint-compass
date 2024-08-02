@@ -33,6 +33,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
   readonly form = this._fb.group({
     service: this._fb.control("", [ Validators.required ]),
     facility: this._fb.control("", [ Validators.required ]),
+    start: this._fb.control("", [ Validators.required ]),
     student: this._fb.group({
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
       birth: this._fb.control("", [ Validators.required ]),

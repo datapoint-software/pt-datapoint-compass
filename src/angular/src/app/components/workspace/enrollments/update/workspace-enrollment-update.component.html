@@ -67,6 +67,17 @@
                 </select>
               </app-sui-form-group>
             </div>
+            <div class="col-lg-4">
+              <app-sui-form-group #start [name]="'start'" class="d-block mb-4">
+                <label [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+                  [for]="start.id" class="form-label">
+                  <ng-container i18n="@@workspace-enrollment-update-start">Starts on</ng-container>
+                </label>
+                <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+                  [formControl]="start.formControl" [id]="start.id" class="form-control"
+                  placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-placeholder" type="text" />
+              </app-sui-form-group>
+            </div>
           </div>
         </div>
         <!-- Student -->

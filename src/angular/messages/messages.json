@@ -37,6 +37,7 @@
     "workspace-enrollment-enrollment-update": "Enrollment",
     "workspace-enrollment-update-service": "Service",
     "workspace-enrollment-update-facility": "Facility",
+    "workspace-enrollment-update-start": "Starts on",
     "workspace-enrollment-update-student": "Student",
     "workspace-enrollment-update-name": "Name",
     "workspace-enrollment-update-birth": "Birthday",
