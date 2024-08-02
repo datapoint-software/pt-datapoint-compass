@@ -98,8 +98,8 @@
           <div class="border-bottom border-primary text-primary fs-5 fw-bold py-1 mb-4">
             <ng-container i18n="@@workspace-enrollment-update-student">Student</ng-container>
           </div>
-          @if (formGroupStudent) {
-            <ng-container [formGroup]="formGroupStudent">
+          @if (form.controls.student) {
+            <ng-container [formGroup]="form.controls.student">
               <div class="row">
                 <div class="col-lg-8">
                   <app-sui-form-group #name [name]="'name'" class="d-block mb-4">
@@ -218,6 +218,13 @@
                 </div>
               </div>
             </ng-container>
+          }
+          @else {
+            <div class="d-grid">
+              <button (click)="addStudentControls()" class="btn btn-light" type="button">
+                <ng-container i18n="workspace-enrollment-update-add-student">Add student details</ng-container>
+              </button>
+            </div>
           }
         </div>
         <!-- Parents -->

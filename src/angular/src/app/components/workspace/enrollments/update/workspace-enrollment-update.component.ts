@@ -36,17 +36,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     facility: this._fb.control("", [ Validators.required ]),
     plan: this._fb.control("", [ Validators.required ]),
     start: this._fb.control("", [ Validators.required ]),
-    student: this._fb.group({
-      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
-      birth: this._fb.control("", [ Validators.required ]),
-      nationality: this._fb.control("", [ Validators.required ]),
-      birthplace: this._fb.control("", [ Validators.required ]),
-      streetAddress: this._fb.control("", [ Validators.required ]),
-      county: this._fb.control("", [ Validators.required ]),
-      citizenNumber: this._fb.control("", [ Validators.required ]),
-      socialSecurityNumber: this._fb.control("", []),
-      taxNumber: this._fb.control("", []),
-    }),
     parents: this._fb.group({
       housing: this._fb.control("", [ Validators.required ]),
       maritalStatus: this._fb.control("", [ Validators.required ]),
@@ -178,6 +167,27 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     { code: "MR", name: "Mensalidade com refeitório social"}
   ]]]);
 
+  addStudentControls() {
+
+    const student = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      nationality: this._fb.control("", [ Validators.required ]),
+      birthplace: this._fb.control("", [ Validators.required ]),
+      streetAddress: this._fb.control("", [ Validators.required ]),
+      county: this._fb.control("", [ Validators.required ]),
+      citizenNumber: this._fb.control("", [ Validators.required ]),
+      socialSecurityNumber: this._fb.control("", []),
+      taxNumber: this._fb.control("", []),
+    });
+
+    this.form.addControl("student", student);
+
+    student.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) => this._nationalityChanges(student, nationality));
+  }
+
   addFamilyMemberControls() {
 
     const familyMember = this._fb.group({
@@ -221,12 +231,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     this.form.controls.service.valueChanges
       .pipe(takeUntil(this._destroy$))
       .subscribe((service) => this._serviceChanges(this.form, optionOf(Service, service)));
-
-    this.form.controls.student.controls.nationality.valueChanges
-      .pipe(takeUntil(this._destroy$))
-      .subscribe((nationality) =>
-        this._nationalityChanges(this.form.controls.student, nationality)
-      );
 
     this.form.controls.guardian.controls.nationality.valueChanges
       .pipe(takeUntil(this._destroy$))

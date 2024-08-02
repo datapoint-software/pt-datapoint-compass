@@ -5,7 +5,7 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
   facility: FormControl<string | null>;
   plan: FormControl<string | null>;
   start: FormControl<string | null>;
-  student: FormGroup<{
+  student?: FormGroup<{
     name: FormControl<string | null>;
     birth: FormControl<string | null>;
     nationality: FormControl<string | null>;
