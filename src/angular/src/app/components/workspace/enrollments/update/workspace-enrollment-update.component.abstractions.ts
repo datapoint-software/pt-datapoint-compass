@@ -51,7 +51,7 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
       comment: FormControl<string | null>;
     }>>;
   }>;
-  guardian: FormGroup<{
+  guardian?: FormGroup<{
     name: FormControl<string | null>;
     birth: FormControl<string | null>;
     nationality: FormControl<string | null>;
@@ -68,7 +68,7 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
 
     }>;
   }>;
-  services: FormGroup<{
+  extraServices?: FormGroup<{
     extra: FormControl<boolean | null>;
     extension: FormGroup<{
       monday: FormControl<boolean | null>;
@@ -76,7 +76,6 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
       wednesday: FormControl<boolean | null>;
       thursday: FormControl<boolean | null>;
       friday: FormControl<boolean | null>;
-
     }>;
     camps: FormArray<FormGroup<{
       id: FormControl<string | null>;
@@ -84,7 +83,6 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
       from: FormControl<string | null>;
       until: FormControl<string | null>;
     }>>;
-    feeding: FormControl<string | null>;
     transportation: FormGroup<{
       streetAddress: FormControl<string | null>;
       days: FormGroup<{
@@ -93,7 +91,6 @@ export type WorkspaceEnrollmentUpdateForm = FormGroup<{
         wednesday: FormControl<boolean | null>;
         thursday: FormControl<boolean | null>;
         friday: FormControl<boolean | null>;
-
       }>;
     }>;
   }>;

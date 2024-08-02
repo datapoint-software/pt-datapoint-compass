@@ -51,63 +51,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
         employmentStatus: FormControl<string | null>;
         comment: FormControl<string | null>;
       }>[])
-    }),
-    guardian: this._fb.group({
-      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
-      birth: this._fb.control("", [ Validators.required ]),
-      nationality: this._fb.control("", [ Validators.required ]),
-      birthplace: this._fb.control("", [ Validators.required ]),
-      education: this._fb.control("", [ Validators.required ]),
-      employment: this._fb.group({
-        business: this._fb.control("", [ Validators.required ]),
-        county: this._fb.control("", [ Validators.required ]),
-        emailAddress: this._fb.control("", []),
-        phoneNumber: this._fb.control("", []),
-        start: this._fb.control("", []),
-        lunch: this._fb.control("", []),
-        finish: this._fb.control("", [])
-      })
-    }),
-    services: this._fb.group({
-      extra: this._fb.control(false, []),
-      extension: this._fb.group({
-        monday: this._fb.control(false, []),
-        tuesday: this._fb.control(false, []),
-        wednesday: this._fb.control(false, []),
-        thursday: this._fb.control(false, []),
-        friday: this._fb.control(false, [])
-      }),
-      camps: this._fb.array([
-        this._fb.group({
-          id: this._fb.control("86c8daa4-c313-48e2-9d52-7ba109984138", [ Validators.required ]),
-          enabled: this._fb.control(false, []),
-          from: this._fb.control("", [ Validators.required ]),
-          until: this._fb.control("", [])
-        }),
-        this._fb.group({
-          id: this._fb.control("abf34d03-da01-455c-97f1-fca74d8f0514", [ Validators.required ]),
-          enabled: this._fb.control(false, []),
-          from: this._fb.control("", [ Validators.required ]),
-          until: this._fb.control("", [])
-        }),
-        this._fb.group({
-          id: this._fb.control("4992413a-5175-4299-a6a0-b012faaacd9a", [ Validators.required ]),
-          enabled: this._fb.control(false, []),
-          from: this._fb.control("", [ Validators.required ]),
-          until: this._fb.control("", [])
-        })
-      ]),
-      feeding: this._fb.control("", [ Validators.required ]),
-      transportation: this._fb.group({
-        streetAddress: this._fb.control("", [ Validators.required ]),
-        days: this._fb.group({
-          monday: this._fb.control(false, []),
-          tuesday: this._fb.control(false, []),
-          wednesday: this._fb.control(false, []),
-          thursday: this._fb.control(false, []),
-          friday: this._fb.control(false, [])
-        })
-      })
     })
   });
 
@@ -136,6 +79,51 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     { code: "ML", name: "Mensalidade com lanche" },
     { code: "MR", name: "Mensalidade com refeitório social"}
   ]]]);
+
+  addExtraServicesControls() {
+    const extraServices = this._fb.group({
+      extra: this._fb.control(false, []),
+      extension: this._fb.group({
+        monday: this._fb.control(false, []),
+        tuesday: this._fb.control(false, []),
+        wednesday: this._fb.control(false, []),
+        thursday: this._fb.control(false, []),
+        friday: this._fb.control(false, [])
+      }),
+      camps: this._fb.array([
+        this._fb.group({
+          id: this._fb.control("86c8daa4-c313-48e2-9d52-7ba109984138", [ Validators.required ]),
+          enabled: this._fb.control(false, []),
+          from: this._fb.control("", [ Validators.required ]),
+          until: this._fb.control("", [])
+        }),
+        this._fb.group({
+          id: this._fb.control("abf34d03-da01-455c-97f1-fca74d8f0514", [ Validators.required ]),
+          enabled: this._fb.control(false, []),
+          from: this._fb.control("", [ Validators.required ]),
+          until: this._fb.control("", [])
+        }),
+        this._fb.group({
+          id: this._fb.control("4992413a-5175-4299-a6a0-b012faaacd9a", [ Validators.required ]),
+          enabled: this._fb.control(false, []),
+          from: this._fb.control("", [ Validators.required ]),
+          until: this._fb.control("", [])
+        })
+      ]),
+      transportation: this._fb.group({
+        streetAddress: this._fb.control("", [ Validators.required ]),
+        days: this._fb.group({
+          monday: this._fb.control(false, []),
+          tuesday: this._fb.control(false, []),
+          wednesday: this._fb.control(false, []),
+          thursday: this._fb.control(false, []),
+          friday: this._fb.control(false, [])
+        })
+      })
+    });
+
+    this.form.addControl("extraServices", extraServices);
+  }
 
   addStudentControls() {
 
@@ -171,6 +159,31 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     });
 
     this.form.controls.familyMembers.controls.members.push(familyMember);
+  }
+
+  addGuardianControls() {
+    const guardian = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", [ Validators.required ]),
+      nationality: this._fb.control("", [ Validators.required ]),
+      birthplace: this._fb.control("", [ Validators.required ]),
+      education: this._fb.control("", [ Validators.required ]),
+      employment: this._fb.group({
+        business: this._fb.control("", [ Validators.required ]),
+        county: this._fb.control("", [ Validators.required ]),
+        emailAddress: this._fb.control("", []),
+        phoneNumber: this._fb.control("", []),
+        start: this._fb.control("", []),
+        lunch: this._fb.control("", []),
+        finish: this._fb.control("", [])
+      })
+    });
+
+    guardian.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) => this._nationalityChanges(guardian, nationality));
+
+    this.form.addControl("guardian", guardian);
   }
 
   addParentSectionControls() {
@@ -257,12 +270,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnInit {
     this.form.controls.service.valueChanges
       .pipe(takeUntil(this._destroy$))
       .subscribe((service) => this._serviceChanges(this.form, optionOf(Service, service)));
-
-    this.form.controls.guardian.controls.nationality.valueChanges
-      .pipe(takeUntil(this._destroy$))
-      .subscribe((nationality) =>
-        this._nationalityChanges(this.form.controls.guardian, nationality)
-      );
   }
 
   private _formChanges(enrollment: WorkspaceEnrollmentUpdateForm["value"]): void {
