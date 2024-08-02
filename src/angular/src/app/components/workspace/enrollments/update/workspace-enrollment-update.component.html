@@ -385,9 +385,16 @@
                   [for]="guardian.id" class="form-label">
                   <ng-container i18n="@@workspace-enrollment-update-guardian">Legal guardian</ng-container>
                 </label>
-                <input [class.is-invalid]="guardian.invalid" [class.is-required]="guardian.required"
-                  [formControl]="guardian.formControl" [id]="guardian.id" class="form-control"
-                  placeholder="" i18n-placeholder="@@workspace-enrollment-update-guardian-placeholder" type="text" />
+                <select [class.is-invalid]="guardian.invalid" [class.is-required]="guardian.required"
+                  [formControl]="guardian.formControl" [id]="guardian.id" class="form-select">
+                  <option disabled></option>
+                  @for (parent of this.form.controls.parents.controls.parents.controls; track $index) {
+                    @if (parent.controls.name.value) {
+                      <option [value]="$index">{{ parent.controls.name.value }}</option>
+                    }
+                  }
+                  <option [value]="-1" i18n="other">Other</option>
+                </select>
               </app-sui-form-group>
               <div class="row">
                 <div class="col-lg-4">
