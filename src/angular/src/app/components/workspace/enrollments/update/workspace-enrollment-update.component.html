@@ -44,7 +44,7 @@
                   <ng-container i18n="@@workspace-enrollment-update-service">Service</ng-container>
                 </label>
                 <select [class.is-invalid]="service.invalid" [class.is-required]="service.required"
-                  [formControl]="service.formControl" [id]="service.id" class="form-select">
+                  [formControl]="service.formControl" [id]="service.id" class="form-select" tabindex="1">
                   <option disabled></option>
                   @for (service of services; track $index) {
                     <option [value]="service.id">{{ service.name }}</option>
@@ -59,7 +59,7 @@
                   <ng-container i18n="@@workspace-enrollment-update-facility">Facility</ng-container>
                 </label>
                 <select [class.is-invalid]="facility.invalid" [class.is-required]="facility.required"
-                  [formControl]="facility.formControl" [id]="facility.id" class="form-select">
+                  [formControl]="facility.formControl" [id]="facility.id" class="form-select" tabindex="1">
                   <option disabled></option>
                   @for (facility of facilities; track facility.id) {
                     <option [value]="facility.id">{{ facility.name }}</option>
@@ -75,7 +75,7 @@
                 </label>
                 <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
                   [formControl]="start.formControl" [id]="start.id" class="form-control"
-                  placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-placeholder" type="text" />
+                  placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-placeholder" tabindex="1" type="text" />
               </app-sui-form-group>
             </div>
           </div>
@@ -85,7 +85,7 @@
               <ng-container i18n="@@workspace-enrollment-update-plan">Plan</ng-container>
             </label>
             <select [class.is-invalid]="plan.invalid" [class.is-required]="plan.required"
-              [formControl]="plan.formControl" [id]="plan.id" class="form-select">
+              [formControl]="plan.formControl" [id]="plan.id" class="form-select" tabindex="1">
               <option disabled></option>
               @for (plan of getServicePlans(); track $index) {
                 <option [value]="plan.code">{{ plan.name }}</option>
@@ -109,7 +109,7 @@
                     </label>
                     <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
                       [formControl]="name.formControl" [id]="name.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
                 <div class="col-lg-4">
@@ -120,7 +120,7 @@
                     </label>
                     <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
                       [formControl]="birth.formControl" [id]="birth.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
               </div>
@@ -132,7 +132,7 @@
                       <ng-container i18n="@@workspace-enrollment-update-nationality">Nationality</ng-container>
                     </label>
                     <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
-                      [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                      [formControl]="nationality.formControl" [id]="nationality.id" class="form-select" tabindex="1">
                       <option disabled></option>
                       @for (nationality of nationalities; track nationality.code) {
                         <option [value]="nationality.code">{{ nationality.name }}</option>
@@ -148,7 +148,7 @@
                         <ng-container i18n="@@workspace-enrollment-update-birthplace">Birthplace</ng-container>
                       </label>
                       <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
-                        [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select">
+                        [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select" tabindex="1">
                         <option disabled></option>
                         @for (district of districts.get(form.controls.student.controls.nationality.value!); track district.code) {
                           <option [value]="district.code">{{ district.name }}</option>
@@ -167,7 +167,7 @@
                     </label>
                     <input [class.is-invalid]="county.invalid" [class.is-required]="county.required"
                       [formControl]="county.formControl" [id]="county.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-county-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-county-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
                 <div class="col-lg-8">
@@ -178,7 +178,7 @@
                     </label>
                     <input [class.is-invalid]="streetAddress.invalid" [class.is-required]="streetAddress.required"
                       [formControl]="streetAddress.formControl" [id]="streetAddress.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-postal-address-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-postal-address-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
               </div>
@@ -191,7 +191,7 @@
                     </label>
                     <input [class.is-invalid]="citizenNumber.invalid" [class.is-required]="citizenNumber.required"
                       [formControl]="citizenNumber.formControl" [id]="citizenNumber.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-citizen-number-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-citizen-number-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
                 <div class="col-lg-4">
@@ -202,7 +202,7 @@
                     </label>
                     <input [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
                       [formControl]="socialSecurityNumber.formControl" [id]="socialSecurityNumber.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-social-security-number-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-social-security-number-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
                 <div class="col-lg-4">
@@ -213,7 +213,7 @@
                     </label>
                     <input [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
                       [formControl]="taxNumber.formControl" [id]="taxNumber.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-tax-number-number-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-tax-number-number-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
               </div>
@@ -247,7 +247,7 @@
                       </label>
                       <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
                         [formControl]="name.formControl" [id]="name.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" type="text" />
+                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" tabindex="1" type="text" />
                     </app-sui-form-group>
                   </div>
                   <div class="col-lg-4">
@@ -258,7 +258,7 @@
                       </label>
                       <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
                         [formControl]="birth.formControl" [id]="birth.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" type="text" />
+                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" tabindex="1" type="text" />
                     </app-sui-form-group>
                   </div>
                 </div>
@@ -270,7 +270,7 @@
                         <ng-container i18n="@@workspace-enrollment-update-nationality">Nationality</ng-container>
                       </label>
                       <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
-                        [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                        [formControl]="nationality.formControl" [id]="nationality.id" class="form-select" tabindex="1">
                         <option disabled></option>
                         @for (nationality of nationalities; track nationality.code) {
                           <option [value]="nationality.code">{{ nationality.name }}</option>
@@ -286,7 +286,7 @@
                           <ng-container i18n="@@workspace-enrollment-update-birthplace">Birthplace</ng-container>
                         </label>
                         <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
-                          [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select">
+                          [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select" tabindex="1">
                           <option disabled></option>
                           @for (district of districts.get(parent.controls.nationality.value!); track district.code) {
                             <option [value]="district.code">{{ district.name }}</option>
@@ -303,7 +303,7 @@
                       </label>
                       <input [class.is-invalid]="education.invalid" [class.is-required]="education.required"
                         [formControl]="education.formControl" [id]="education.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-education-placeholder" type="text" />
+                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-education-placeholder" tabindex="1" type="text" />
                     </app-sui-form-group>
                   </div>
                 </div>
@@ -321,7 +321,7 @@
                           </label>
                           <input [class.is-invalid]="county.invalid" [class.is-required]="county.required"
                             [formControl]="county.formControl" [id]="county.id" class="form-control"
-                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-county-placeholder" type="text" />
+                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-county-placeholder" tabindex="1" type="text" />
                         </app-sui-form-group>
                       </div>
                       <div class="col-lg-8">
@@ -332,7 +332,7 @@
                           </label>
                           <input [class.is-invalid]="business.invalid" [class.is-required]="business.required"
                             [formControl]="business.formControl" [id]="business.id" class="form-control"
-                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-employee-placeholder" type="text" />
+                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-employee-placeholder" tabindex="1" type="text" />
                         </app-sui-form-group>
                       </div>
                     </div>
@@ -345,7 +345,7 @@
                           </label>
                           <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
                             [formControl]="start.formControl" [id]="start.id" class="form-control"
-                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-time-placeholder" type="text" />
+                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-start-time-placeholder" tabindex="1" type="text" />
                         </app-sui-form-group>
                       </div>
                       <div class="col-lg-4">
@@ -356,7 +356,7 @@
                           </label>
                           <input [class.is-invalid]="lunch.invalid" [class.is-required]="lunch.required"
                             [formControl]="lunch.formControl" [id]="lunch.id" class="form-control"
-                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-lunch-time-placeholder" type="text" />
+                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-lunch-time-placeholder" tabindex="1" type="text" />
                         </app-sui-form-group>
                       </div>
                       <div class="col-lg-4">
@@ -367,7 +367,7 @@
                           </label>
                           <input [class.is-invalid]="finish.invalid" [class.is-required]="finish.required"
                             [formControl]="finish.formControl" [id]="finish.id" class="form-control"
-                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-finish-time-placeholder" type="text" />
+                            placeholder="" i18n-placeholder="@@workspace-enrollment-update-finish-time-placeholder" tabindex="1" type="text" />
                         </app-sui-form-group>
                       </div>
                     </div>
@@ -386,7 +386,7 @@
                   <ng-container i18n="@@workspace-enrollment-update-guardian">Legal guardian</ng-container>
                 </label>
                 <select [class.is-invalid]="guardian.invalid" [class.is-required]="guardian.required"
-                  [formControl]="guardian.formControl" [id]="guardian.id" class="form-select">
+                  [formControl]="guardian.formControl" [id]="guardian.id" class="form-select" tabindex="1">
                   <option disabled></option>
                   @for (parent of this.form.controls.parents.controls.parents.controls; track $index) {
                     @if (parent.controls.name.value) {
@@ -405,7 +405,7 @@
                     </label>
                     <input [class.is-invalid]="housing.invalid" [class.is-required]="housing.required"
                       [formControl]="housing.formControl" [id]="housing.id" class="form-control"
-                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-housing-placeholder" type="text" />
+                      placeholder="" i18n-placeholder="@@workspace-enrollment-update-housing-placeholder" tabindex="1" type="text" />
                   </app-sui-form-group>
                 </div>
                 <div class="col-lg-4">
@@ -415,7 +415,7 @@
                       <ng-container i18n="@@workspace-enrollment-update-marital-status">Marital status</ng-container>
                     </label>
                     <select [class.is-invalid]="maritalStatus.invalid" [class.is-required]="maritalStatus.required"
-                      [formControl]="maritalStatus.formControl" [id]="maritalStatus.id" class="form-select">
+                      [formControl]="maritalStatus.formControl" [id]="maritalStatus.id" class="form-select" tabindex="1">
                       <option disabled></option>
                       @for (maritalStatus of maritalStatuses; track $index) {
                         <option [value]="maritalStatus.id">{{ maritalStatus.name }}</option>
@@ -462,7 +462,7 @@
                       </label>
                       <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
                         [formControl]="name.formControl" [id]="name.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" type="text" />
+                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" tabindex="1" type="text" />
                     </app-sui-form-group>
                   </div>
                   <div class="col-lg-4">
@@ -473,7 +473,7 @@
                       </label>
                       <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
                         [formControl]="birth.formControl" [id]="birth.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" type="text" />
+                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" tabindex="1" type="text" />
                     </app-sui-form-group>
                   </div>
                 </div>
@@ -485,7 +485,7 @@
                         <ng-container i18n="@@workspace-enrollment-update-nationality">Nationality</ng-container>
                       </label>
                       <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
-                        [formControl]="nationality.formControl" [id]="nationality.id" class="form-select">
+                        [formControl]="nationality.formControl" [id]="nationality.id" class="form-select" tabindex="1">
                         <option disabled></option>
                         @for (nationality of nationalities; track nationality.code) {
                           <option [value]="nationality.code">{{ nationality.name }}</option>
@@ -501,7 +501,7 @@
                           <ng-container i18n="@@workspace-enrollment-update-birthplace">Birthplace</ng-container>
                         </label>
                         <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
-                          [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select">
+                          [formControl]="birthplace.formControl" [id]="birthplace.id" class="form-select" tabindex="1">
                           <option disabled></option>
                           @for (district of districts.get(form.controls.guardian.controls.nationality.value!); track district.code) {
                             <option [value]="district.code">{{ district.name }}</option>
@@ -518,7 +518,7 @@
                       </label>
                       <input [class.is-invalid]="education.invalid" [class.is-required]="education.required"
                         [formControl]="education.formControl" [id]="education.id" class="form-control"
-                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-education-placeholder" type="text" />
+                        placeholder="" i18n-placeholder="@@workspace-enrollment-update-education-placeholder" tabindex="1" type="text" />
                     </app-sui-form-group>
                   </div>
                 </div>
@@ -561,7 +561,7 @@
                           <app-sui-form-group #name [name]="'name'" class="d-block">
                             <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
                               [formControl]="name.formControl" [id]="name.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" type="text" />
+                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-name-placeholder" tabindex="1" type="text" />
                           </app-sui-form-group>
                         </div>
                       </td>
@@ -583,7 +583,7 @@
                           <app-sui-form-group #education [name]="'education'" class="d-block">
                             <input [class.is-invalid]="education.invalid" [class.is-required]="education.required"
                               [formControl]="education.formControl" [id]="education.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-education-placeholder" type="text" />
+                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-education-placeholder" tabindex="1" type="text" />
                           </app-sui-form-group>
                         </div>
                       </td>
@@ -592,7 +592,7 @@
                           <app-sui-form-group #birth [name]="'birth'" class="d-block">
                             <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
                               [formControl]="birth.formControl" [id]="birth.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" type="text" />
+                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-birth-placeholder" tabindex="1" type="text" />
                           </app-sui-form-group>
                         </div>
                       </td>
@@ -601,7 +601,7 @@
                           <app-sui-form-group #occupation [name]="'occupation'" class="d-block">
                             <input [class.is-invalid]="occupation.invalid" [class.is-required]="occupation.required"
                               [formControl]="occupation.formControl" [id]="occupation.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-occupation-placeholder" type="text" />
+                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-occupation-placeholder" tabindex="1" type="text" />
                           </app-sui-form-group>
                         </div>
                       </td>
@@ -610,7 +610,7 @@
                           <app-sui-form-group #employmentStatus [name]="'employmentStatus'" class="d-block">
                             <input [class.is-invalid]="employmentStatus.invalid" [class.is-required]="employmentStatus.required"
                               [formControl]="employmentStatus.formControl" [id]="employmentStatus.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-employment-status-placeholder" type="text" />
+                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-employment-status-placeholder" tabindex="1" type="text" />
                           </app-sui-form-group>
                         </div>
                       </td>
@@ -619,7 +619,7 @@
                           <app-sui-form-group #comment [name]="'comment'" class="d-block">
                             <input [class.is-invalid]="comment.invalid" [class.is-required]="comment.required"
                               [formControl]="comment.formControl" [id]="comment.id" class="form-control border-none"
-                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-comment-placeholder" type="text" />
+                              placeholder="" i18n-placeholder="@@workspace-enrollment-update-comment-placeholder" tabindex="1" type="text" />
                           </app-sui-form-group>
                         </div>
                       </td>
@@ -684,7 +684,7 @@
       </div>
       <div class="card-footer d-flex align-items-center justify-content-end">
         <button class="btn btn-light" type="button" i18n="@@workspace-enrollment-go-back-to-search">Go back to search</button>
-        <button class="btn btn-primary ms-4" type="submit" i18n="@@workspace-enrollment-update-submit">Submit</button>
+        <button class="btn btn-primary ms-4" type="submit" i18n="@@workspace-enrollment-update-submit" disabled>Submit</button>
       </div>
     </div>
   </div>

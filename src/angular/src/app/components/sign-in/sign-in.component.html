@@ -29,7 +29,7 @@
                 <ng-container i18n="@@sign-in-email-address">Email Address</ng-container>
               </label>
               <input [class.is-invalid]="emailAddress.invalid" [class.is-required]="emailAddress.required"
-                [formControl]="emailAddress.formControl" [id]="emailAddress.id" type="email" class="form-control"
+                [formControl]="emailAddress.formControl" [id]="emailAddress.id" type="email" class="form-control" tab-index="1"
                 placeholder="Your email address" i18n-placeholder="@@sign-in-email-address-placeholder">
             </app-sui-form-group>
           </div>
@@ -61,7 +61,7 @@
               <div [class.is-invalid]="password.invalid" [class.is-required]="password.required"
                 class="input-group input-group-merge">
                 <input [class.is-invalid]="password.invalid" [class.is-required]="password.required"
-                  [formControl]="password.formControl" [id]="password.id" type="password" class="form-control"
+                  [formControl]="password.formControl" [id]="password.id" type="password" class="form-control" tab-index="1"
                   placeholder="Your password" i18n-placeholder="@@sign-in-password-placeholder" data-toggle-password-input>
                 <button type="button" class="input-group-text px-4 text-secondary link-primary"
                   data-toggle-password></button>
@@ -87,7 +87,7 @@
         <div class="d-flex align-items-center justify-content-between mt-3">
 
           <!-- Button -->
-          <button [disabled]="form.invalid" type="submit" class="btn btn-primary">
+          <button [disabled]="form.invalid" type="submit" class="btn btn-primary" tabindex="1">
             <ng-container i18n="@@sign-in-primary-button">Sign in</ng-container>
           </button>
 
