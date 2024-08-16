@@ -17,7 +17,7 @@ namespace Datapoint.Compass.EntityFrameworkCore.EntityTypeConfigurations
             builder.HasKey(e => new { e.EmployeeId, e.RoleId });
 
             builder.HasOne(e => e.Employee)
-                .WithMany(e => e.Roles)
+                .WithMany()
                 .HasForeignKey(e => e.EmployeeId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();

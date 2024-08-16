@@ -1,0 +1,31 @@
+@let student = form.controls.student;
+
+@if (student)
+{
+  <ng-container [formGroup]="student">
+    <div class="row">
+      <div class="col-lg-8">
+        <app-sui-form-group #name [name]="'name'" class="d-block mb-4">
+          <label [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+            [for]="name.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-name">Name</ng-container>
+          </label>
+          <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+            [formControl]="name.formControl" [id]="name.id" type="text" class="form-control" tab-index="1"
+            placeholder="Full name" i18n-placeholder="@@workspace-enrollment-update-student-name-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-4">
+        <app-sui-form-group #birth [name]="'birth'" class="d-block mb-4">
+          <label [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+            [for]="birth.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-birth">Birth</ng-container>
+          </label>
+          <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+            [formControl]="birth.formControl" [id]="birth.id" type="date" class="form-control" tab-index="1"
+            placeholder="Birthday" i18n-placeholder="@@workspace-enrollment-update-student-birth-placeholder">
+        </app-sui-form-group>
+      </div>
+    </div>
+  </ng-container>
+}

@@ -1,0 +1,55 @@
+<ng-container [formGroup]="form">
+  <div class="row">
+    <div class="col-lg-4 col-xxl-3">
+      <app-sui-form-group #serviceId [name]="'serviceId'" class="d-block mb-4">
+        <label [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+          [for]="serviceId.id" class="form-label">
+          <ng-container i18n="@@workspace-enrollment-update-enrollment-service">Service</ng-container>
+        </label>
+        <select [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+          [formControl]="serviceId.formControl" [id]="serviceId.id" type="date" class="form-select" tab-index="1">
+          <option disabled></option>
+          @for (option of services; track option.id) {
+            <option [value]="option.id">{{ option.name }}</option>
+          }
+        </select>
+      </app-sui-form-group>
+    </div>
+    <div class="col-lg-4 col-xxl-3">
+      <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
+        <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+          [for]="facilityId.id" class="form-label">
+          <ng-container i18n="@@workspace-enrollment-update-enrollment-facility">Facility</ng-container>
+        </label>
+        <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+          [formControl]="facilityId.formControl" [id]="facilityId.id" type="date" class="form-select" tab-index="1">
+          <option></option>
+          @for (option of facilities; track option.id) {
+            <option [value]="option.id">{{ option.name }}</option>
+          }
+        </select>
+      </app-sui-form-group>
+    </div>
+    <div class="col-lg-4 col-xxl-3">
+      <app-sui-form-group #start [name]="'start'" class="d-block mb-4">
+        <label [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+          [for]="start.id" class="form-label">
+          <ng-container i18n="@@workspace-enrollment-update-enrollment-start">Starts on</ng-container>
+        </label>
+        <input [class.is-invalid]="start.invalid" [class.is-required]="start.required"
+          [formControl]="start.formControl" [id]="start.id" type="date" class="form-control" tab-index="1"
+          placeholder="Start date" i18n-placeholder="@@workspace-enrollment-update-enrollment-start-placeholder">
+      </app-sui-form-group>
+    </div>
+  </div>
+  <app-sui-form-group #comments [name]="'comments'" class="d-block mb-4">
+    <label [class.is-invalid]="comments.invalid" [class.is-required]="comments.required"
+      [for]="comments.id" class="form-label">
+      <ng-container i18n="@@workspace-enrollment-update-enrollment-comments">Comments</ng-container>
+    </label>
+    <textarea [class.is-invalid]="comments.invalid" [class.is-required]="comments.required"
+      [formControl]="comments.formControl" [id]="comments.id" type="date" class="form-control w-100" tab-index="1"
+      rows="10"
+      placeholder="Write any comments relevant for this enrollment..." i18n-placeholder="@@workspace-enrollment-update-enrollment-comments-placeholder"></textarea>
+  </app-sui-form-group>
+</ng-container>

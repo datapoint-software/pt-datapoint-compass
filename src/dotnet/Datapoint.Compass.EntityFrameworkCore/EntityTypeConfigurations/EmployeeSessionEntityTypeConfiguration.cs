@@ -14,14 +14,18 @@ namespace Datapoint.Compass.EntityFrameworkCore.EntityTypeConfigurations
             builder.Property(e => e.EmployeeId)
                 .IsRequired();
 
-            builder.Property(e => e.Expiration);
-
             builder.Property(e => e.RemoteAddress)
+                .HasMaxLength(64)
                 .IsRequired();
 
             builder.Property(e => e.UserAgent)
                 .HasMaxLength(4096)
                 .IsRequired();
+
+            builder.Property(e => e.Creation)
+                .IsRequired();
+
+            builder.Property(e => e.Expiration);
 
             builder.HasKey(e => e.Id);
 

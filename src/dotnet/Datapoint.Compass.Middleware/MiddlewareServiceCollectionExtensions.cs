@@ -1,4 +1,4 @@
-﻿using Datapoint.Compass.Middleware.Identities;
+﻿using Datapoint.Compass.Middleware.Features.Identity;
 using Datapoint.Mediator;
 using Datapoint.Mediator.FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +11,11 @@ namespace Datapoint.Compass.Middleware
 
             .AddMediator((mediator) =>
             {
-                mediator.AddHandlersFromAssemblyOf<IdentitySignInCommandHandler>();
+                mediator.AddHandlersFromAssemblyOf<IdentityFeatureRefreshCommandHandler>();
 
                 mediator.AddFluentValidationMiddleware((fluentValidation) =>
                 {
-                    fluentValidation.AddValidatorsFromAssemblyOf<IdentitySignInCommandValidator>();
+                    fluentValidation.AddValidatorsFromAssemblyOf<IdentityFeatureRefreshCommandValidator>();
                 });
 
                 mediator.AddMiddleware<CompassContextMiddleware>();

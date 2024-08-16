@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 
 namespace Datapoint.Compass
@@ -99,8 +100,15 @@ namespace Datapoint.Compass
                         });
 
                     services.AddAuthorizationBuilder()
+
                         .AddDefaultPolicy("Default", (policy) => policy.RequireAuthenticatedUser())
-                        .AddFallbackPolicy("Fallback", (policy) => policy.RequireAuthenticatedUser());
+
+                        .AddFallbackPolicy("Fallback", (policy) => policy.RequireAuthenticatedUser())
+                        
+                        .AddPolicy("Employee", (policy) =>
+                        {
+                            policy.RequireClaim(ClaimTypes.Authentication, "Employee");
+                        });
 
                     services.AddCompassContext((compass) =>
                     {

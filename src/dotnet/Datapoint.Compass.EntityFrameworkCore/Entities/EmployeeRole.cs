@@ -6,10 +6,10 @@ namespace Datapoint.Compass.EntityFrameworkCore.Entities
     {
         public Employee Employee { get; set; } = default!;
 
-        internal Guid EmployeeId { get; set; } = default!;
+        public Guid EmployeeId { get; internal set; } = default!;
 
         public Role Role { get; set; } = default!;
 
-        internal Guid RoleId { get; set; } = default!;
+        public Guid RoleId { get; internal set; } = default!;
     }
 }

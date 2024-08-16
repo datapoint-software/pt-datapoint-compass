@@ -12,6 +12,7 @@ namespace Datapoint.Compass.EntityFrameworkCore.EntityTypeConfigurations
                 .IsRequired();
 
             builder.Property(e => e.RowVersionId)
+                .IsConcurrencyToken()
                 .IsRequired();
 
             builder.Property(e => e.Code)

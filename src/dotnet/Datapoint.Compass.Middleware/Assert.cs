@@ -16,6 +16,15 @@ namespace Datapoint.Compass.Middleware
             if (value is null)
                 throw new InvalidOperationException("Property is not set and can not be empty.");
         }
+
+        internal static bool Null<T>([NotNullWhen(false)] T? value)
+        {
+            if (value is not null)
+                throw new InvalidOperationException("Property is forbidden and can not be set.");
+
+            return true;
+        }
+
         internal static void RowVersionId(Guid subjectRowVersionId, Guid targetRowVersionId)
         {
             if (!subjectRowVersionId.Equals(targetRowVersionId))

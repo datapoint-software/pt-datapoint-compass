@@ -2,6 +2,7 @@
 {
     public enum IdentityKind
     {
-        Employee = 102939
+        Anonymous = 658366,
+        Employee = 697016
     }
 }

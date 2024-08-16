@@ -7,7 +7,7 @@ namespace Datapoint.Compass.EntityFrameworkCore.Entities
     {
         public Role Role { get; set; } = default!;
 
-        internal Guid RoleId { get; set; } = default!;
+        public Guid RoleId { get; internal set; } = default!;
 
         public Permission Permission { get; set; } = default!;
     }

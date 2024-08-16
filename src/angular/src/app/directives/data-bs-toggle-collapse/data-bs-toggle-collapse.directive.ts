@@ -7,8 +7,8 @@ import { Directive, ElementRef, HostListener, inject, Input, OnDestroy, OnInit }
 })
 export class DataBsToggleCollapseDirective implements OnDestroy, OnInit {
 
-  private readonly _animationBuilder = inject(AnimationBuilder);
-  private readonly _elementRef = inject(ElementRef);
+  private readonly _animationBuilder: AnimationBuilder = inject(AnimationBuilder);
+  private readonly _elementRef:ElementRef = inject(ElementRef);
 
   private _onDocumentClickFn = (e: MouseEvent) => this._onDocumentClick(e);
 

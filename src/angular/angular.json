@@ -32,13 +32,13 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
             "externalDependencies": [
               "assets/fonts/Roboto/static/Roboto-Latin-Light.woff2",
               "assets/fonts/Roboto/static/Roboto-Latin-Regular.woff2",
               "assets/fonts/Roboto/static/Roboto-Latin-Bold.woff2"
+            ],
+            "styles": [
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -121,7 +121,7 @@
         "locales": {
           "pt": {
             "baseHref": "/",
-            "translation": "messages/messages.pt.json"
+            "translation": "src/app/messages/messages.pt.json"
           }
         }
       }

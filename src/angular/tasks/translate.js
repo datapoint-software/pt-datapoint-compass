@@ -1,17 +1,17 @@
 const process = require("child_process");
 const fs = require("fs");
 
-process.execSync("npm run ng extract-i18n -- --format json --output-path messages");
+process.execSync("npm run ng extract-i18n -- --format json --output-path src/app/messages");
 
 const source = JSON.parse(
-  fs.readFileSync("messages/messages.json")
+  fs.readFileSync("src/app/messages/messages.json")
 );
 
 for (const languageCode of [ "pt" ]) {
 
   const target = JSON.parse(
     fs.readFileSync(
-      `messages/messages.${languageCode}.json`,
+      `src/app/messages/messages.${languageCode}.json`,
       "utf-8"
     )
   );
@@ -35,7 +35,7 @@ for (const languageCode of [ "pt" ]) {
     .reduce((pv, cv) => ({ ...pv, [cv]: target.translations[cv] }), {});
 
   fs.writeFileSync(
-    `messages/messages.${languageCode}.json`,
+    `src/app/messages/messages.${languageCode}.json`,
     JSON.stringify(target, null, 2),
     { encoding: "utf-8" }
   );

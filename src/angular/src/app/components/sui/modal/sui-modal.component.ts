@@ -1,7 +1,7 @@
 import { AnimationBuilder } from "@angular/animations";
 import { Component, ElementRef, EventEmitter, inject, Input, NgZone, Output, ViewChild } from "@angular/core";
 import { SuiModalComponentAction } from "@app/components/sui/modal/sui-modal.component.abstractions";
-import { forCheck } from "@app/helpers/detection.helper";
+import { forCheck } from "@app/helpers/detection.helpers";
 
 @Component({
   selector: "app-sui-modal",

@@ -1,9 +1,7 @@
 import { Component, inject, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroupDirective, ValidationErrors, Validators } from "@angular/forms";
-import { ERROR_MESSAGE_TRANSLATIONS, ERROR_MESSAGE_DEFAULT_TRANSLATION } from "@app/components/sui/form-group/sui-form-group.component.constants";
+import { ERROR_MESSAGE_DEFAULT_TRANSLATION, ERROR_MESSAGE_TRANSLATIONS } from "@app/components/sui/form-group/sui-form-group.component.constants";
 import { Subject, takeUntil } from "rxjs";
-
-let LAST_ID = 1;
 
 @Component({
   selector: "app-sui-form-group",
@@ -12,8 +10,10 @@ let LAST_ID = 1;
 })
 export class SuiFormGroupComponent implements OnDestroy, OnInit {
 
-  private readonly _destroy$ = new Subject<true>();
-  private readonly _formGroup = inject(FormGroupDirective);
+  private static _lastId: number = 0;
+
+  private readonly _destroy$: Subject<true> = new Subject();
+  private readonly _formGroup: FormGroupDirective = inject(FormGroupDirective);
 
   @Input() formControl!: FormControl<unknown | null>;
   @Input() id!: string;
@@ -32,7 +32,7 @@ export class SuiFormGroupComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
 
-    const id = ++LAST_ID;
+    const id = ++SuiFormGroupComponent._lastId;
 
     if (this.name)
       this.formControl = this._formGroup.control.get(this.name)! as FormControl<unknown | null>;

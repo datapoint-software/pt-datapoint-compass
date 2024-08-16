@@ -1,129 +1,74 @@
-import { Routes } from "@angular/router";
-import { Permission } from "@app/app.enums";
-import { ErrorComponent } from "@app/components/error/error.component";
-import { HomeComponent } from "@app/components/home/home.component";
-import { SignInComponent } from "@app/components/sign-in/sign-in.component";
-import { WorkspaceEnrollmentSearchComponent } from "@app/components/workspace/enrollments/search/workspace-enrollment-search.component";
-import { WorkspaceEnrollmentUpdateComponent } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component";
-import { workspaceEnrollmentUpdateComponentResolveFn } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.resolvers";
-import { WorkspaceFacilitySearchComponent } from "@app/components/workspace/facilities/search/workspace-facility-search.component";
-import { workspaceFacilitySearchComponentResolveFn } from "@app/components/workspace/facilities/search/workspace-facility-search.component.resolvers";
-import { WorkspaceFacilityUpdateComponent } from "@app/components/workspace/facilities/update/workspace-facility-update.component";
-import { workspaceFacilityUpdateComponentResolveFn } from "@app/components/workspace/facilities/update/workspace-facility-update.component.resolvers";
-import { WorkspaceServiceSearchComponent } from "@app/components/workspace/services/search/workspace-service-search.component";
-import { workspaceServiceSearchComponentResolveFn } from "@app/components/workspace/services/search/workspace-service-search.component.resolvers";
-import { WorkspaceServiceUpdateComponent } from "@app/components/workspace/services/update/workspace-service-update.component";
-import { workspaceServiceUpdateComponentResolveFn } from "@app/components/workspace/services/update/workspace-service-update.component.resolvers";
-import { WorkspaceComponent } from "@app/components/workspace/workspace.component";
-import { identityCanActivateFn } from "@app/guards/identity.guards";
-import { signInCanActivateFn } from "@app/guards/sign-in.guards";
-import { nationalityArrayResolveFn } from "@app/resolvers/nationality.resolvers";
+import { Route, Routes } from '@angular/router';
+import { Permission } from '@app/app.enums';
+import { ErrorComponent } from '@app/components/error/error.component';
+import { SignInComponent } from '@app/components/sign-in/sign-in.component';
+import { WorkspaceEnrollmentSearchComponent } from '@app/components/workspace/enrollments/search/workspace-enrollment-search.component';
+import { WorkspaceEnrollmentUpdateEnrollmentComponent } from '@app/components/workspace/enrollments/update/enrollment/workspace-enrollment-update-enrollment.component';
+import { WorkspaceEnrollmentUpdateStudentComponent } from '@app/components/workspace/enrollments/update/student/workspace-enrollment-update-student.component';
+import { WorkspaceEnrollmentUpdateComponent } from '@app/components/workspace/enrollments/update/workspace-enrollment-update.component';
+import { WorkspaceHomeComponent } from '@app/components/workspace/home/workspace-home.component';
+import { WorkspaceComponent } from '@app/components/workspace/workspace.component';
+import { authorize, bootstrap } from '@app/helpers/route.helpers';
 
 export const routes: Routes = [
+  {
+    path: "",
+    pathMatch: "full",
+    redirectTo: "workspace"
+  },
   {
     path: "error",
     component: ErrorComponent
   },
   {
-    path: "sign-in",
-    canActivate: [ signInCanActivateFn ],
-    component: SignInComponent
-  },
-  {
     path: "",
-    pathMatch: "prefix",
-    canActivate: [ identityCanActivateFn() ],
+    canActivate: [ bootstrap ],
     children: [
       {
-        path: "",
-        pathMatch: "full",
-        component: HomeComponent
+        path: "sign-in",
+        title: $localize `:@@app-sign-in:Sign in`,
+        component: SignInComponent
       },
       {
         path: "workspace",
-        canActivate: [ identityCanActivateFn([ Permission.Workspace ])],
+        title: $localize `:@@app-workspace:Workspace`,
         component: WorkspaceComponent,
+        canActivate: [ authorize([ Permission.Workspace ]) ],
         children: [
           {
+            path: "",
+            pathMatch: "full",
+            title: $localize `:@@app-workspace-home:Workspace`,
+            component: WorkspaceHomeComponent
+          },
+          {
             path: "enrollments",
-            canActivate: [ identityCanActivateFn([ Permission.WorkspaceEnrollments ])],
+            canActivate: [ authorize([ Permission.WorkspaceEnrollment ]) ],
             children: [
               {
                 path: "",
                 pathMatch: "full",
-                component: WorkspaceEnrollmentSearchComponent
-              },
-              {
-                path: "_",
-                component: WorkspaceEnrollmentUpdateComponent,
-                resolve: ({
-                  model: workspaceEnrollmentUpdateComponentResolveFn,
-                  nationalities: nationalityArrayResolveFn
-                })
+                title: $localize `:@@app-workspace-enrollment-search:Enrollments`,
+                component: WorkspaceEnrollmentSearchComponent,
+                resolve: ({ model: WorkspaceEnrollmentSearchComponent.model })
               },
               {
                 path: ":enrollmentId",
+                title: $localize `:@@app-workspace-enrollment-update:Enrollment`,
                 component: WorkspaceEnrollmentUpdateComponent,
-                resolve: ({
-                  model: workspaceEnrollmentUpdateComponentResolveFn,
-                  nationalities: nationalityArrayResolveFn
-                })
-              }
-            ]
-          },
-          {
-            path: "facilities",
-            canActivate: [ identityCanActivateFn([ Permission.WorkspaceFacilities ])],
-            children: [
-              {
-                path: "",
-                pathMatch: "full",
-                component: WorkspaceFacilitySearchComponent,
-                resolve: ({
-                  model: workspaceFacilitySearchComponentResolveFn
-                })
-              },
-              {
-                path: "_",
-                component: WorkspaceFacilityUpdateComponent,
-                resolve: ({
-                  model: workspaceFacilityUpdateComponentResolveFn
-                })
-              },
-              {
-                path: ":facilityId",
-                component: WorkspaceFacilityUpdateComponent,
-                resolve: ({
-                  model: workspaceFacilityUpdateComponentResolveFn
-                })
-              }
-            ]
-          },
-          {
-            path: "services",
-            canActivate: [ identityCanActivateFn([ Permission.WorkspaceServices ])],
-            children: [
-              {
-                path: "",
-                pathMatch: "full",
-                component: WorkspaceServiceSearchComponent,
-                resolve: ({
-                  model: workspaceServiceSearchComponentResolveFn
-                })
-              },
-              {
-                path: "_",
-                component: WorkspaceServiceUpdateComponent,
-                resolve: ({
-                  model: workspaceServiceUpdateComponentResolveFn
-                })
-              },
-              {
-                path: ":serviceId",
-                component: WorkspaceServiceUpdateComponent,
-                resolve: ({
-                  model: workspaceServiceUpdateComponentResolveFn
-                })
+                resolve: ({ model: WorkspaceEnrollmentUpdateComponent.model }),
+                children: [
+                  {
+                    path: "",
+                    pathMatch: "full",
+                    component: WorkspaceEnrollmentUpdateEnrollmentComponent
+                  },
+                  {
+                    path: "student",
+                    pathMatch: "full",
+                    component: WorkspaceEnrollmentUpdateStudentComponent
+                  }
+                ]
               }
             ]
           }

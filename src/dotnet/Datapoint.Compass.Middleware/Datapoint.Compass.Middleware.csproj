@@ -13,8 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Datapoint.Compass.EntityFrameworkCore\Datapoint.Compass.EntityFrameworkCore.csproj" />
-	  <ProjectReference Include="..\Datapoint.Compass.Middleware.Abstractions\Datapoint.Compass.Middleware.Abstractions.csproj" />
+		<ProjectReference Include="..\Datapoint.Compass.EntityFrameworkCore\Datapoint.Compass.EntityFrameworkCore.csproj" />
+		<ProjectReference Include="..\Datapoint.Compass.Middleware.Abstractions\Datapoint.Compass.Middleware.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

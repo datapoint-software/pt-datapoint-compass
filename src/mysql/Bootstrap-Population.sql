@@ -1,6 +1,18 @@
 USE `Compass`;
 
 --
+-- Facilities
+--
+INSERT INTO `Facilities` (`Id`, `RowVersionId`, `Code`, `Name`) VALUES
+	(UUID(), UUID(), 'A206', 'ACME Washington, DC');
+
+-- 
+-- Services
+--
+INSERT INTO `Services` (`Id`, `RowVersionId`, `Code`, `Name`) VALUES
+	(UUID(), UUID(), 'CHCR', 'Childcare');
+
+--
 -- Roles
 --
 INSERT INTO `Roles` (`Id`, `RowVersionId`, `Name`) VALUES
@@ -24,21 +36,12 @@ INSERT INTO `EmployeeRoles` (`EmployeeId`, `RoleId`)
 -- Role permissions
 --
 INSERT INTO `RolePermissions` (`RoleId`, `Permission`)
-	SELECT `r`.`Id`, 312983
+	SELECT `r`.`Id`, 870835
     FROM `Roles` `r`
-    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 312983);
-	
-INSERT INTO `RolePermissions` (`RoleId`, `Permission`)
-    SELECT `r`.`Id`, 429881
+    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 870835)
+    
+	UNION
+	SELECT `r`.`Id`, 876993
     FROM `Roles` `r`
-    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 429881);
-	
-INSERT INTO `RolePermissions` (`RoleId`, `Permission`)
-    SELECT `r`.`Id`, 601347
-    FROM `Roles` `r`
-    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 601347);
-	
-INSERT INTO `RolePermissions` (`RoleId`, `Permission`)
-    SELECT `r`.`Id`, 380720
-    FROM `Roles` `r`
-    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 380720);
+    WHERE NOT EXISTS (SELECT * FROM `RolePermissions` `rp` WHERE `rp`.`Permission` = 876993);
+    

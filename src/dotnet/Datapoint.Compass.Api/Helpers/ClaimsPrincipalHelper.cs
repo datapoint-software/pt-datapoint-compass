@@ -1,6 +1,7 @@
 ﻿using Datapoint.Compass.Enumerations;
-using Datapoint.Compass.Middleware.Identities;
+using Datapoint.Compass.Middleware.Features.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -8,37 +9,41 @@ namespace Datapoint.Compass.Api.Helpers
 {
     internal static class ClaimsPrincipalHelper
     {
-        internal static ClaimsPrincipal BuildClaimsPrincipal(Identity identity)
+        internal static ClaimsPrincipal BuildClaimsPrincipal(IdentityFeature identity) => identity.Kind switch
+        {
+            IdentityKind.Employee => BuildEmployeeClaimsPrincipal(
+                identity.Id!.Value,
+                identity.SessionId!.Value,
+                identity.Name!,
+                identity.EmailAddress!,
+                identity.Permissions,
+                identity.Expiration),
+
+            _ => throw new NotImplementedException("Identity kind is not supported.")
+        };
+
+        private static ClaimsPrincipal BuildEmployeeClaimsPrincipal(Guid id, Guid sessionId, string name, string emailAddress, IEnumerable<Permission> permissions, DateTimeOffset? expiration)
         {
             var claims = new Claim[]
             {
-                new(ClaimTypes.Sid, identity.SessionId.ToString()),
-                new(ClaimTypes.Name, identity.Name),
-                new(ClaimTypes.NameIdentifier, identity.Id.ToString()),
-                new(ClaimTypes.Email, identity.EmailAddress)
+                new(ClaimTypes.Authentication, "Employee"),
+                new(ClaimTypes.Sid, sessionId.ToString()),
+                new(ClaimTypes.Name, name),
+                new(ClaimTypes.NameIdentifier, id.ToString()),
+                new(ClaimTypes.Email, emailAddress)
             }
-                .Union(identity.Permissions.Select(p =>
+                .Union(permissions.Select(p =>
                     new Claim(ClaimTypes.Role, p.ToString("G"))))
 
                 .ToList();
 
-            if (identity.Expiration.HasValue)
-                claims.Add(new(ClaimTypes.Expiration, string.Concat(identity.Expiration.Value.UtcDateTime.ToString("s"), "Z")));
-
-            claims.Add(new Claim(ClaimTypes.Authentication, identity.Kind switch
-            {
-                IdentityKind.Employee => "Employee",
-                _ => throw new InvalidOperationException("Identity kind is not supported.")
-            }));
+            if (expiration.HasValue)
+                claims.Add(new(ClaimTypes.Expiration, string.Concat(expiration.Value.UtcDateTime.ToString("s"), "Z")));
 
             return new ClaimsPrincipal(
                 new ClaimsIdentity(
                     claims,
-                    identity.Kind switch
-                    {
-                        IdentityKind.Employee => "Employee",
-                        _ => throw new InvalidOperationException("Identity kind is not supported.")
-                    },
+                    "Employee",
                     ClaimTypes.Name,
                     ClaimTypes.Role));
         }

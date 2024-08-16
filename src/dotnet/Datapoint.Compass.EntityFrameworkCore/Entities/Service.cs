@@ -4,7 +4,7 @@ namespace Datapoint.Compass.EntityFrameworkCore.Entities
 {
     public sealed class Service
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = default!;
 
         public Guid RowVersionId { get; set; } = default!;
 

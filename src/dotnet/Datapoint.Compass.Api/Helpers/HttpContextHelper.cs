@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Datapoint.Compass.Enumerations;
+using Datapoint.Compass.Middleware.Features.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Datapoint.Compass.Api.Helpers
 {
@@ -32,5 +36,16 @@ namespace Datapoint.Compass.Api.Helpers
 
             return userAgent;
         }
+
+        internal static async Task SignInAsync(this HttpContext httpContext, IdentityFeature identity)
+        {
+            if (identity.Kind is IdentityKind.Anonymous)
+                return;
+
+            await httpContext.SignInAsync(
+                ClaimsPrincipalHelper.BuildClaimsPrincipal(
+                    identity));
+        }
     }
 }
+

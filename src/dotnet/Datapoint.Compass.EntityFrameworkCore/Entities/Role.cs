@@ -13,6 +13,6 @@ namespace Datapoint.Compass.EntityFrameworkCore.Entities
 
         public string? Description { get; set; } = default!;
 
-        public List<RolePermission> Permissions { get; internal set; } = default!;
+        public IEnumerable<RolePermission> Permissions { get; set; } = default!;
     }
 }

@@ -1,1 +1,151 @@
-/enrollments
+<div class="d-flex align-items-baseline justify-content-between">
+
+  <!-- Title -->
+  <h1 class="h2">
+    <ng-container i18n="@@workspace-enrollment-search-title">Enrollments</ng-container>
+  </h1>
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="[ '/' ]" i18n="@@workspace-nav-link-home">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="[ '/workspace/enrollments' ]" i18n="@@workspace-nav-link-enrollments">Enrollments</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <ng-container i18n="@@workspace-nav-link-enrollments-search">Search</ng-container>
+      </li>
+    </ol>
+  </nav>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-title">
+          <ng-container i18n="@@workspace-enrollment-search-card-title">Enrollments</ng-container>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table text-nowrap">
+          <thead class="bg-light">
+            <tr>
+              <th i18n="@@workspace-enrollment-search-result-number">#</th>
+              <th i18n="@@workspace-enrollment-search-result-service">Service</th>
+              <th i18n="@@workspace-enrollment-search-result-facility">Facility</th>
+              <th i18n="@@workspace-enrollment-search-result-status">Status</th>
+              <th i18n="@@workspace-enrollment-search-result-creation">Creation</th>
+              <th i18n="@@workspace-enrollment-search-result-start">Starts on</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (searchResult)
+            {
+              @for (match of searchResult.matches; track match.id)
+              {
+                <tr>
+                  <td><a [routerLink]="[ match.id ]">{{ match.number }}</a></td>
+                  <td>{{ services.get(match.serviceId)!.name }}</td>
+                  <td>
+                    @if (match.facilityId)
+                    {
+                      {{ facilities.get(match.facilityId)!.name }}
+                    }
+                  </td>
+                  <td><span class="badge bg-warning text-white">{{ match.status | enrollmentStatusLabel }}</span></td>
+                  <td>{{ match.creation | date:"shortDate" }}</td>
+                  <td>{{ match.start | date:"shortDate" }}</td>
+                </tr>
+              }
+              @empty
+              {
+                <tr>
+                  <td colspan="6">
+                    <ng-container i18n="@@workspace-enrollment-search-no-results">No results found...</ng-container>
+                  </td>
+                </tr>
+              }
+            }
+            @else
+            {
+              <tr>
+                <td colspan="6">
+                  <ng-container i18n="@@workspace-enrollment-search-in-progress">Search is in progress...</ng-container>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <form [formGroup]="form">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">
+            <ng-container i18n="@@workspace-enrollment-search-filter-card-title">Filters</ng-container>
+          </div>
+        </div>
+        <div class="card-body">
+          <app-sui-form-group #filter [name]="'filter'" class="d-block mb-4">
+            <label [class.is-invalid]="filter.invalid" [class.is-required]="filter.required"
+              [for]="filter.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-search-filter">Filter</ng-container>
+            </label>
+            <input [class.is-invalid]="filter.invalid" [class.is-required]="filter.required"
+              [formControl]="filter.formControl" [id]="filter.id" type="text" class="form-control" tab-index="1"
+              placeholder="Search for enrollments..." i18n-placeholder="@@workspace-enrollment-search-filter-placeholder">
+          </app-sui-form-group>
+          <app-sui-form-group #serviceId [name]="'serviceId'" class="d-block mb-4">
+            <label [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+              [for]="serviceId.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-search-service">Service</ng-container>
+            </label>
+            <select [class.is-invalid]="serviceId.invalid" [class.is-required]="serviceId.required"
+              [formControl]="serviceId.formControl" [id]="serviceId.id" type="date" class="form-select" tab-index="1">
+              <option></option>
+              @for (option of services.values(); track option.id) {
+                <option [value]="option.id">{{ option.name }}</option>
+              }
+            </select>
+          </app-sui-form-group>
+          <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
+            <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+              [for]="facilityId.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-search-facility">Facility</ng-container>
+            </label>
+            <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+              [formControl]="facilityId.formControl" [id]="facilityId.id" type="date" class="form-select" tab-index="1">
+              <option></option>
+              @for (option of facilities.values(); track option.id) {
+                <option [value]="option.id">{{ option.name }}</option>
+              }
+            </select>
+          </app-sui-form-group>
+          <app-sui-form-group #status [name]="'status'" class="d-block mb-4">
+            <label [class.is-invalid]="status.invalid" [class.is-required]="status.required"
+              [for]="status.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-search-status">Status</ng-container>
+            </label>
+            <select [class.is-invalid]="status.invalid" [class.is-required]="status.required"
+              [formControl]="status.formControl" [id]="status.id" type="date" class="form-select" tab-index="1">
+              <option></option>
+              @for (option of statuses; track $index) {
+                <option [value]="option">{{ option | enrollmentStatusLabel }}</option>
+              }
+            </select>
+          </app-sui-form-group>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-end">
+          <button (click)="search()" [disabled]="form.invalid" class="btn btn-primary" type="submit">
+            <ng-container i18n="@@workspace-enrollment-search-button">Search</ng-container>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

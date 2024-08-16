@@ -19,61 +19,6 @@ namespace Datapoint.Compass.Migrator.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Country", b =>
-                {
-                    b.Property<string>("Code")
-                        .HasMaxLength(2)
-                        .HasColumnType("varchar(2)");
-
-                    b.Property<string>("CodeA3")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)");
-
-                    b.Property<string>("CodeN3")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
-
-                    b.Property<string>("Nationality")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
-
-                    b.HasKey("Code");
-
-                    b.HasAlternateKey("CodeA3");
-
-                    b.HasAlternateKey("CodeN3");
-
-                    b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.District", b =>
-                {
-                    b.Property<string>("CountryCode")
-                        .HasMaxLength(2)
-                        .HasColumnType("varchar(2)");
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.HasKey("CountryCode", "Code");
-
-                    b.ToTable("Districts");
-                });
-
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Employee", b =>
                 {
                     b.Property<Guid>("Id")
@@ -96,7 +41,6 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .HasColumnType("varchar(64)");
 
                     b.Property<Guid>("RowVersionId")
-                        .IsConcurrencyToken()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
@@ -128,6 +72,9 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTimeOffset>("Creation")
+                        .HasColumnType("datetime");
+
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("char(36)");
 
@@ -136,7 +83,8 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.Property<string>("RemoteAddress")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("UserAgent")
                         .IsRequired()
@@ -156,10 +104,14 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Comments")
+                        .HasMaxLength(4096)
+                        .HasColumnType("varchar(4096)");
+
                     b.Property<DateTimeOffset>("Creation")
                         .HasColumnType("datetime");
 
-                    b.Property<Guid>("FacilityId")
+                    b.Property<Guid?>("FacilityId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Number")
@@ -176,6 +128,9 @@ namespace Datapoint.Compass.Migrator.Migrations
 
                     b.Property<DateTimeOffset?>("Start")
                         .HasColumnType("datetime");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -209,6 +164,7 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .HasColumnType("varchar(128)");
 
                     b.Property<Guid>("RowVersionId")
+                        .IsConcurrencyToken()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
@@ -279,14 +235,29 @@ namespace Datapoint.Compass.Migrator.Migrations
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Sequence", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4096)
+                        .HasColumnType("varchar(4096)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.Property<int>("LastNumber")
+                    b.Property<int>("NextValue")
                         .HasColumnType("int");
 
-                    b.HasKey("Name");
+                    b.Property<Guid>("RowVersionId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Name");
 
                     b.ToTable("Sequences");
                 });
@@ -312,6 +283,7 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .HasColumnType("varchar(128)");
 
                     b.Property<Guid>("RowVersionId")
+                        .IsConcurrencyToken()
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
@@ -324,19 +296,10 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.District", b =>
-                {
-                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Country", null)
-                        .WithMany()
-                        .HasForeignKey("CountryCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.EmployeeRole", b =>
                 {
                     b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Employee", "Employee")
-                        .WithMany("Roles")
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -368,13 +331,12 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Facility", "Facility")
                         .WithMany()
                         .HasForeignKey("FacilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Facility");
@@ -391,11 +353,6 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Employee", b =>
-                {
-                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Role", b =>

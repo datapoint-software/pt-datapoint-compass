@@ -2,13 +2,11 @@ import { Injectable } from "@angular/core";
 import { LoadingOverlayItem } from "@app/features/loading-overlay/loading-overlay.feature.abstractions";
 
 @Injectable()
-export class LoadingOverlay {
+export class LoadingOverlayFeature {
 
-  private _lastId = 0;
+  private static _id: number = 0;
 
-  items: Map<string, LoadingOverlayItem> = new Map([
-    [ "navigation", { id: "navigation", enqueuement: new Date() }]
-  ]);
+  readonly items = new Map<string, LoadingOverlayItem>();
 
   dequeue(id: string): void {
     this.items.delete(id);
@@ -16,20 +14,22 @@ export class LoadingOverlay {
 
   enqueue(id?: string): string {
 
-    id ??= `loading-overlay-${this._lastId}`;
+    id ??= `loading-overlay-${++LoadingOverlayFeature._id}`;
 
-    this.items.set(id, {
+    this.items.set(id, ({
       id,
       enqueuement: new Date()
-    });
+    }));
 
     return id;
   }
 
-  async merge<T>(fn: () => Promise<T>, id?: string): Promise<T> {
+  enqueueWhile<T>(fn: () => Promise<T>, id?: string): Promise<T> {
+
     id = this.enqueue(id);
-    try { return await fn(); }
-    catch (e) { throw e; }
-    finally { this.dequeue(id); }
+
+    return fn()
+      .then((result) => { this.dequeue(id); return result })
+      .catch((error) => { this.dequeue(id); throw error; });
   }
 }

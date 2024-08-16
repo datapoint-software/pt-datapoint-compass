@@ -7,11 +7,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Datapoint.Mediator.Abstractions" Version="8.0.0-a.69" />
+		<PackageReference Include="Datapoint.Mediator.Abstractions" Version="8.0.0-a.69" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Datapoint.Compass.Enumerations\Datapoint.Compass.Enumerations.csproj" />
+		<ProjectReference Include="..\Datapoint.Compass.Enumerations\Datapoint.Compass.Enumerations.csproj" />
 	</ItemGroup>
 
 </Project>

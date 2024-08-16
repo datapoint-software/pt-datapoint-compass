@@ -5,9 +5,9 @@ namespace Datapoint.Compass.Api.Attributes
 {
     public sealed class WorkspaceEnrollmentAttribute : AuthorizeAttribute
     {
-        public WorkspaceEnrollmentAttribute()
+        public WorkspaceEnrollmentAttribute() : base ("Employee")
         {
-            Roles = Permission.WorkspaceEnrollments.ToString("G");
+            Roles = Permission.WorkspaceEnrollment.ToString("G");
         }
     }
 }

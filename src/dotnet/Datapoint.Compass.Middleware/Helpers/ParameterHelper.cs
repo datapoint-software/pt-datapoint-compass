@@ -1,25 +1,42 @@
 ﻿using Datapoint.Compass.EntityFrameworkCore.Entities;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System.Linq;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Datapoint.Compass.Middleware.Helpers
 {
     internal static class ParameterHelper
     {
-        internal static T GetValueOf<T>(this IDictionary<string, Parameter> parameters, string parameterName) =>
+        internal static async Task<int> GetUserSessionExpirationAsync(this DbSet<Parameter> parameters, IMemoryCache memoryCache, CancellationToken ct) =>
 
-            JsonSerializer.Deserialize<T>(parameters[parameterName].JsonValue)!;
+            (await GetValueOrDefault<int?>(parameters, memoryCache, "UserSessionExpiration", ct)) ?? 45;
 
-        internal static bool TryGetValueOf<T>(this IDictionary<string, Parameter> parameters, string parameterName, out T value)
+        internal static async Task<int> GetUserPasswordHashWorkFactorAsync(this DbSet<Parameter> parameters, IMemoryCache memoryCache, CancellationToken ct) =>
+
+            (await GetValueOrDefault<int?>(parameters, memoryCache, "UserPasswordHashWorkFactor", ct)) ?? 8;
+
+        internal static async Task<int> GetUserPasswordHashTimeSpanAsync(this DbSet<Parameter> parameters, IMemoryCache memoryCache, CancellationToken ct) =>
+
+            (await GetValueOrDefault<int?>(parameters, memoryCache, "UserPasswordHashTimeSpan", ct)) ?? 1500;
+
+        internal static Task<T?> GetValueOrDefault<T>(this DbSet<Parameter> parameters, IMemoryCache memoryCache, string parameterName, CancellationToken ct)
         {
-            if (!parameters.TryGetValue(parameterName, out var parameter))
-            {
-                value = default!;
-                return false;
-            }
+            var ck = $"parameters/{parameterName}/?type={typeof(T).FullName ?? typeof(T).Name}";
 
-            value = JsonSerializer.Deserialize<T>(parameter.JsonValue)!;
-            return true;
+            return memoryCache.GetOrCreateAsync(ck, async (_) =>
+            {
+                var parameter = await parameters
+                    .Where(p => p.Name == parameterName)
+                    .FirstOrDefaultAsync(ct);
+
+                if (parameter is null)
+                    return default;
+
+                return JsonSerializer.Deserialize<T>(parameter.JsonValue);
+            });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Datapoint.Compass.EntityFrameworkCore.Entities
 {
@@ -14,7 +13,5 @@ namespace Datapoint.Compass.EntityFrameworkCore.Entities
         public string EmailAddress { get; set; } = default!;
 
         public string PasswordHash { get; set; } = default!;
-
-        public List<EmployeeRole> Roles { get; internal set; } = default!;
     }
 }
