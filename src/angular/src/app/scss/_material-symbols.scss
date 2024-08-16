@@ -15,6 +15,8 @@ i.ms {
 
   -webkit-font-smoothing: antialiased;
 
+  &-xxl { font-size: 3.5em; }
+
   &-10k::before { content: "\e951"; }
   &-10mp::before { content: "\e952"; }
   &-11mp::before { content: "\e953"; }

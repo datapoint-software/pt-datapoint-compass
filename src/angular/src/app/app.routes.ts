@@ -39,7 +39,8 @@ export const routes: Routes = [
             path: "",
             pathMatch: "full",
             title: $localize `:@@app-workspace-home:Workspace`,
-            component: WorkspaceHomeComponent
+            component: WorkspaceHomeComponent,
+            resolve: ({ model: WorkspaceHomeComponent.model })
           },
           {
             path: "enrollments",

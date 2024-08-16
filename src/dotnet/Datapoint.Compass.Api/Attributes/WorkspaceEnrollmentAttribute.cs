@@ -1,11 +1,10 @@
 ﻿using Datapoint.Compass.Enumerations;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Datapoint.Compass.Api.Attributes
 {
-    public sealed class WorkspaceEnrollmentAttribute : AuthorizeAttribute
+    public sealed class WorkspaceEnrollmentAttribute : WorkspaceAttribute
     {
-        public WorkspaceEnrollmentAttribute() : base ("Employee")
+        public WorkspaceEnrollmentAttribute() : base()
         {
             Roles = Permission.WorkspaceEnrollment.ToString("G");
         }
