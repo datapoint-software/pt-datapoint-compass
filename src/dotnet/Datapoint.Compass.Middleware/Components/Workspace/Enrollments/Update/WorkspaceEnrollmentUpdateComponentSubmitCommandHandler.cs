@@ -73,6 +73,8 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                 $"{command.Creation.UtcDateTime.Year}/{service.Code}".ToUpper(),
                 ct);
 
+            var number = $"{sequence.Name}/{sequence.NextValue}";
+
             sequence.NextValue += 1;
             sequence.RowVersionId = Guid.NewGuid();
 
@@ -81,7 +83,7 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                 Id = Guid.NewGuid(),
                 RowVersionId = Guid.NewGuid(),
                 Service = service,
-                Number = $"{sequence.Name}/{sequence.NextValue}",
+                Number = number,
                 Status = EnrollmentStatus.Draft,
                 Creation = command.Creation
             })
