@@ -63,6 +63,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   enrollmentId?: string;
   enrollmentRowVersionId?: string;
   number?: string;
+  countryCode!: string;
   countries!: WorkspaceEnrollmentUpdateComponentCountryModel[];
   facilities!: WorkspaceEnrollmentUpdateComponentFacilityModel[];
   services!: WorkspaceEnrollmentUpdateComponentServiceModel[];
@@ -70,7 +71,8 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   addStudent(): void {
     this.form.addControl("student", this._fb.group({
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
-      birth: this._fb.control("", [])
+      birth: this._fb.control("", []),
+      nationality: this._fb.control(this.countryCode, [ Validators.required ])
     }));
   }
 
@@ -86,6 +88,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
         this.enrollmentId = model.enrollmentId;
         this.enrollmentRowVersionId = model.enrollmentRowVersionId;
         this.number = model.number;
+        this.countryCode = model.countryCode;
         this.countries = model.countries;
         this.facilities = model.facilities;
         this.services = model.services;

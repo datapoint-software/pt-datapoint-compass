@@ -2,6 +2,7 @@
 using Datapoint.Compass.Middleware.Helpers;
 using Datapoint.Mediator;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,10 +11,13 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
 {
     public sealed class WorkspaceEnrollmentUpdateComponentQueryHandler : IQueryHandler<WorkspaceEnrollmentUpdateComponentQuery, WorkspaceEnrollmentUpdateComponent>
     {
+        private readonly IMemoryCache _memoryCache;
+
         private readonly CompassContext _compass;
 
-        public WorkspaceEnrollmentUpdateComponentQueryHandler(CompassContext compass)
+        public WorkspaceEnrollmentUpdateComponentQueryHandler(IMemoryCache memoryCache, CompassContext compass)
         {
+            _memoryCache = memoryCache;
             _compass = compass;
         }
 
@@ -21,6 +25,10 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
         {
             var languageCode = query.LanguageCode 
                 ?? LanguageCodeHelper.DefaultLanguageCode;
+
+            var countryCode = await _compass.GetCountryCodeAsync(
+                _memoryCache, 
+                ct);
 
             var countries = await _compass.Countries
                 .AsNoTracking()
@@ -48,6 +56,7 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
             return new WorkspaceEnrollmentUpdateComponent(
                 enrollment?.Id,
                 enrollment?.RowVersionId,
+                countryCode,
                 countries.Select(c => new WorkspaceEnrollmentUpdateComponentCountry(
                     c.Code,
                     CountryNameHelper.GetName(c, languageCode))),

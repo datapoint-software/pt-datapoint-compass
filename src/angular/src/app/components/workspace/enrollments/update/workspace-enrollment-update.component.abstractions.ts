@@ -8,6 +8,7 @@ export type WorkspaceEnrollmentUpdateComponentForm = FormGroup<{
   student?: FormGroup<{
     name: FormControl<string | null>;
     birth: FormControl<string | null>;
+    nationality: FormControl<string | null>;
   }>;
 }>;
 

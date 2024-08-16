@@ -28,7 +28,7 @@ namespace Datapoint.Compass.Middleware.Features.Identity
 
         public async Task<IdentityFeature> HandleCommandAsync(IdentityFeatureSignInCommand command, CancellationToken ct)
         {
-            var timeSpan = await _compass.Parameters.GetUserPasswordHashTimeSpanAsync(
+            var timeSpan = await _compass.GetUserPasswordHashTimeSpanAsync(
                 _memoryCache,
                 ct);
 
@@ -57,7 +57,7 @@ namespace Datapoint.Compass.Middleware.Features.Identity
             if (!PasswordHashHelper.VerifyPassword(command.Password, employee.PasswordHash))
                 throw new BusinessException(GenericBusinessExceptionMessage);
 
-            var userPasswordHashWorkFactor = await _compass.Parameters.GetUserPasswordHashWorkFactorAsync(
+            var userPasswordHashWorkFactor = await _compass.GetUserPasswordHashWorkFactorAsync(
                 _memoryCache,
                 ct);
 
@@ -78,7 +78,7 @@ namespace Datapoint.Compass.Middleware.Features.Identity
                 Expiration = command.RememberMe
                     ? null
                     : command.Creation.AddMinutes(
-                        await _compass.Parameters.GetUserSessionExpirationAsync(
+                        await _compass.GetUserSessionExpirationAsync(
                             _memoryCache,
                             ct))
             })

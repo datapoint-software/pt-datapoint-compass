@@ -62,7 +62,7 @@ namespace Datapoint.Compass.Middleware.Features.Identity
 
             if (employeeSession.Expiration.HasValue)
                 employeeSession.Expiration = command.Creation.AddMinutes(
-                    await _compass.Parameters.GetUserSessionExpirationAsync(
+                    await _compass.GetUserSessionExpirationAsync(
                         _memoryCache,
                         ct));
 

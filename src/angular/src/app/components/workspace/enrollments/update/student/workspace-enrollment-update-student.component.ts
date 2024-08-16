@@ -18,6 +18,7 @@ export class WorkspaceEnrollmentUpdateStudentComponent implements OnInit, AfterV
   private readonly _update: WorkspaceEnrollmentUpdateComponent = inject(WorkspaceEnrollmentUpdateComponent);
 
   form = this._update.form;
+  nationalities = this._update.countries;
 
   ngAfterViewChecked(): void {
     if (!this.form.controls.student)
