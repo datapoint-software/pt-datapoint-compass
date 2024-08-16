@@ -1,0 +1,214 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Datapoint.Compass.Migrator.Migrations
+{
+    /// <inheritdoc />
+    public partial class Countries_Population : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AF", "Afghanistan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AL", "Albania"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["DZ", "Algeria"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AD", "Andorra"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AO", "Angola"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AG", "Antigua and Barbuda"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AR", "Argentina"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AM", "Armenia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AU", "Australia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AT", "Austria"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AZ", "Azerbaijan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BS", "Bahamas"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BH", "Bahrain"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BD", "Bangladesh"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BB", "Barbados"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BY", "Belarus"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BE", "Belgium"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BZ", "Belize"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BJ", "Benin"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BT", "Bhutan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BO", "Bolivia, Plurinational State of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BA", "Bosnia and Herzegovina"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BW", "Botswana"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BR", "Brazil"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BN", "Brunei Darussalam"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BG", "Bulgaria"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BF", "Burkina Faso"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["BI", "Burundi"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CV", "Cabo Verde"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KH", "Cambodia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CM", "Cameroon"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CA", "Canada"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CF", "Central African Republic"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TD", "Chad"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CL", "Chile"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CN", "China"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CO", "Colombia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KM", "Comoros"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CG", "Congo"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CD", "Congo, Democratic Republic of the"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CR", "Costa Rica"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CI", "Côte d'Ivoire"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["HR", "Croatia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CU", "Cuba"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CY", "Cyprus"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CZ", "Czechia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["DK", "Denmark"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["DJ", "Djibouti"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["DM", "Dominica"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["DO", "Dominican Republic"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["EC", "Ecuador"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["EG", "Egypt"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SV", "El Salvador"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GQ", "Equatorial Guinea"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ER", "Eritrea"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["EE", "Estonia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SZ", "Eswatini"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ET", "Ethiopia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["FJ", "Fiji"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["FI", "Finland"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["FR", "France"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GA", "Gabon"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GM", "Gambia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GE", "Georgia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["DE", "Germany"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GH", "Ghana"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GR", "Greece"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GD", "Grenada"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GT", "Guatemala"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GN", "Guinea"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GW", "Guinea-Bissau"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GY", "Guyana"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["HT", "Haiti"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["HN", "Honduras"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["HU", "Hungary"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IS", "Iceland"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IN", "India"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ID", "Indonesia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IR", "Iran, Islamic Republic of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IQ", "Iraq"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IE", "Ireland"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IL", "Israel"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["IT", "Italy"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["JM", "Jamaica"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["JP", "Japan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["JO", "Jordan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KZ", "Kazakhstan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KE", "Kenya"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KI", "Kiribati"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KP", "Korea, Democratic People's Republic of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KR", "Korea, Republic of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KW", "Kuwait"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KG", "Kyrgyzstan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LA", "Lao People's Democratic Republic"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LV", "Latvia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LB", "Lebanon"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LS", "Lesotho"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LR", "Liberia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LY", "Libya"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LI", "Liechtenstein"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LT", "Lithuania"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LU", "Luxembourg"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MG", "Madagascar"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MW", "Malawi"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MY", "Malaysia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MV", "Maldives"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ML", "Mali"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MT", "Malta"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MH", "Marshall Islands"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MR", "Mauritania"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MU", "Mauritius"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MX", "Mexico"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["FM", "Micronesia, Federated States of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MD", "Moldova, Republic of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MC", "Monaco"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MN", "Mongolia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ME", "Montenegro"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MA", "Morocco"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MZ", "Mozambique"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MM", "Myanmar"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NA", "Namibia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NR", "Nauru"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NP", "Nepal"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NL", "Netherlands"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NZ", "New Zealand"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NI", "Nicaragua"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NE", "Niger"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NG", "Nigeria"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["MK", "North Macedonia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["NO", "Norway"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["OM", "Oman"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PK", "Pakistan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PW", "Palau"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PA", "Panama"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PG", "Papua New Guinea"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PY", "Paraguay"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PE", "Peru"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PH", "Philippines"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PL", "Poland"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["PT", "Portugal"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["QA", "Qatar"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["RO", "Romania"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["RU", "Russian Federation"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["RW", "Rwanda"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["KN", "Saint Kitts and Nevis"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LC", "Saint Lucia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["VC", "Saint Vincent and the Grenadines"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["WS", "Samoa"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SM", "San Marino"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ST", "Sao Tome and Principe"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SA", "Saudi Arabia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SN", "Senegal"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["RS", "Serbia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SC", "Seychelles"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SL", "Sierra Leone"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SG", "Singapore"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SK", "Slovakia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SI", "Slovenia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SB", "Solomon Islands"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SO", "Somalia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ZA", "South Africa"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SS", "South Sudan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ES", "Spain"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["LK", "Sri Lanka"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SD", "Sudan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SR", "Suriname"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SE", "Sweden"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["CH", "Switzerland"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["SY", "Syrian Arab Republic"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TJ", "Tajikistan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TZ", "Tanzania, United Republic of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TH", "Thailand"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TL", "Timor-Leste"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TG", "Togo"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TO", "Tonga"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TT", "Trinidad and Tobago"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TN", "Tunisia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TR", "Türkiye"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TM", "Turkmenistan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["TV", "Tuvalu"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["UG", "Uganda"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["UA", "Ukraine"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["AE", "United Arab Emirates"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["GB", "United Kingdom of Great Britain and Northern Ireland"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["US", "United States of America"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["UY", "Uruguay"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["UZ", "Uzbekistan"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["VU", "Vanuatu"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["VE", "Venezuela, Bolivarian Republic of"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["VN", "Viet Nam"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["YE", "Yemen"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ZM", "Zambia"]);
+            migrationBuilder.InsertData("Countries", ["Code", "Name"], ["ZW", "Zimbabwe"]);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+
+        }
+    }
+}

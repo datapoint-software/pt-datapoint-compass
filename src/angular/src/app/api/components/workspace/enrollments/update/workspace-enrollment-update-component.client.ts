@@ -11,7 +11,8 @@ export class WorkspaceEnrollmentUpdateComponentClient {
   private readonly _httpClient: HttpClient = inject(HttpClient);
 
   get(params: {
-    enrollmentId?: string
+    enrollmentId?: string,
+    languageCode?: string
   }): Promise<WorkspaceEnrollmentUpdateComponentModel> {
     return firstValueFrom(
       this._httpClient.get<WorkspaceEnrollmentUpdateComponentModel>(

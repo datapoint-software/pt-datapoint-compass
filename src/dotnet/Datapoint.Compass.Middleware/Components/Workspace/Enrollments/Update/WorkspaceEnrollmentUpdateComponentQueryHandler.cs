@@ -1,4 +1,5 @@
 ﻿using Datapoint.Compass.EntityFrameworkCore;
+using Datapoint.Compass.Middleware.Helpers;
 using Datapoint.Mediator;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -18,6 +19,14 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
 
         public async Task<WorkspaceEnrollmentUpdateComponent> HandleQueryAsync(WorkspaceEnrollmentUpdateComponentQuery query, CancellationToken ct)
         {
+            var languageCode = query.LanguageCode 
+                ?? LanguageCodeHelper.DefaultLanguageCode;
+
+            var countries = await _compass.Countries
+                .AsNoTracking()
+                .OrderBy(c => c.Name)
+                .ToListAsync(ct);
+
             var facilities = await _compass.Facilities
                 .AsNoTracking()
                 .Select(f => new { f.Id, f.Name })
@@ -39,6 +48,9 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
             return new WorkspaceEnrollmentUpdateComponent(
                 enrollment?.Id,
                 enrollment?.RowVersionId,
+                countries.Select(c => new WorkspaceEnrollmentUpdateComponentCountry(
+                    c.Code,
+                    CountryNameHelper.GetName(c, languageCode))),
                 facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacility(
                     f.Id,
                     f.Name)),

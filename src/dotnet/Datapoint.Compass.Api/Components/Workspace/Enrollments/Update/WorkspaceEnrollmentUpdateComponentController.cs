@@ -23,16 +23,21 @@ namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
         [WorkspaceEnrollment]
         public async Task<WorkspaceEnrollmentUpdateComponentModel> GetAsync(
             [FromQuery] Guid? enrollmentId,
+            [FromQuery] string? languageCode,
             CancellationToken ct)
         {
             var result = await _mediator.HandleQueryAsync<WorkspaceEnrollmentUpdateComponentQuery, WorkspaceEnrollmentUpdateComponent>(
                 new WorkspaceEnrollmentUpdateComponentQuery(
-                    enrollmentId),
+                    enrollmentId,
+                    languageCode),
                 ct);
 
             return new WorkspaceEnrollmentUpdateComponentModel(
                 result.EnrollmentId,
                 result.EnrollmentRowVersionId,
+                result.Countries.Select(c => new WorkspaceEnrollmentUpdateComponentCountryModel(
+                    c.Code,
+                    c.Name)),
                 result.Facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacilityModel(
                     f.Id,
                     f.Name)),

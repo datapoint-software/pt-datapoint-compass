@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Datapoint.Compass.Middleware.Helpers;
+using FluentValidation;
 
 namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
 {
@@ -7,6 +8,9 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
         public WorkspaceEnrollmentUpdateComponentQueryValidator()
         {
             RuleFor(q => q.EnrollmentId);
+
+            RuleFor(q => q.LanguageCode)
+                .LanguageCode();
         }
     }
 }

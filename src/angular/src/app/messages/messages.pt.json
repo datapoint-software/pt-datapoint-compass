@@ -1,6 +1,7 @@
 {
   "locale": "pt",
   "translations": {
+    "app-locale": "pt",
     "app-sign-in": "Iniciar sessão",
     "app-workspace": "Ambiente de Trabalho",
     "app-workspace-enrollment-search": "Inscrições",

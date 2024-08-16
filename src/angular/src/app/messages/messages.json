@@ -1,6 +1,7 @@
 {
   "locale": "en",
   "translations": {
+    "app-locale": "en",
     "app-sign-in": "Sign in",
     "app-workspace": "Workspace",
     "app-workspace-home": "Workspace",
