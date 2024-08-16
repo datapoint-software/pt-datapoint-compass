@@ -73,6 +73,8 @@
     "workspace-enrollment-update-success-modal-message": "A inscrição foi guardada com sucesso.",
     "workspace-enrollment-update-success-modal-title": "Sucesso",
     "workspace-enrollment-update-title": "Nova inscrição",
+    "workspace-home-card-enrollment-count": "Inscrições",
+    "workspace-home-card-enrollment-count-description": "Número total de inscrições",
     "workspace-nav-link-enrollments": "Inscrições",
     "workspace-nav-link-enrollments-new": "Nova",
     "workspace-nav-link-enrollments-search": "Procurar",

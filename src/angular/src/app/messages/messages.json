@@ -76,6 +76,8 @@
     "workspace-enrollment-update-success-modal-title": "Success",
     "workspace-enrollment-update-success-modal-message": "Enrollment has been saved successfully.",
     "workspace-enrollment-update-success-modal-go-to-search": "Go to search",
+    "workspace-home-card-enrollment-count": "Enrollments",
+    "workspace-home-card-enrollment-count-description": "Total enrollment processes",
     "workspace-quick-search-aria-label": "Search for any term",
     "workspace-quick-search-placeholder": "Quick search...",
     "enrollment-status-draft": "Draft"
