@@ -57,9 +57,6 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                 enrollment?.Id,
                 enrollment?.RowVersionId,
                 countryCode,
-                countries.Select(c => new WorkspaceEnrollmentUpdateComponentCountry(
-                    c.Code,
-                    CountryNameHelper.GetName(c, languageCode))),
                 facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacility(
                     f.Id,
                     f.Name)),

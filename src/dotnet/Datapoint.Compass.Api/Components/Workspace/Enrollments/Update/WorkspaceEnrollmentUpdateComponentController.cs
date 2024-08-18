@@ -36,9 +36,6 @@ namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
                 result.EnrollmentId,
                 result.EnrollmentRowVersionId,
                 result.CountryCode,
-                result.Countries.Select(c => new WorkspaceEnrollmentUpdateComponentCountryModel(
-                    c.Code,
-                    c.Name)),
                 result.Facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacilityModel(
                     f.Id,
                     f.Name)),

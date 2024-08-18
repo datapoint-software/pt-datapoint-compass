@@ -67,7 +67,7 @@
             @if (!form.controls.student)
             {
               <li>
-                <a [routerLink]="[ 'student' ]" class="dropdown-item" href="javascript: void(0);">
+                <a [routerLink]="[ '/workspace/enrollments', (enrollmentId ?? '_'), 'student' ]" class="dropdown-item" href="javascript: void(0);">
                   <ng-container i18n="@@workspace-enrollment-update-add-student">Student</ng-container>
                 </a>
               </li>
@@ -77,7 +77,18 @@
       </div>
     </div>
     <div class="card-body">
-      <router-outlet />
+      @switch (section) {
+        @case ("enrollment") {
+          @defer {
+            <app-workspace-enrollment-update-enrollment />
+          }
+        }
+        @case ("student") {
+          @defer {
+            <app-workspace-enrollment-update-student />
+          }
+        }
+      }
     </div>
     <div class="card-footer d-flex align-items-center justify-content-end">
       <button [disabled]="form.invalid" class="btn btn-primary" type="submit">

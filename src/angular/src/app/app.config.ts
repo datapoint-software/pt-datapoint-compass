@@ -5,6 +5,8 @@ import { provideRouter } from "@angular/router";
 import { WorkspaceEnrollmentSearchComponentClient } from "@app/api/components/workspace/enrollments/search/workspace-enrollment-search-component.client";
 import { WorkspaceEnrollmentUpdateComponentClient } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client";
 import { WorkspaceHomeComponentClient } from "@app/api/components/workspace/home/workspace-home-component.client";
+import { CountryClient } from "@app/api/countries/country.client";
+import { DistrictClient } from "@app/api/districts/district.client";
 import { IdentityFeatureClient } from "@app/api/features/identity/identity-feature.client";
 import { AppErrorHandler } from "@app/app.handlers";
 import { routes } from "@app/app.routes";
@@ -23,6 +25,8 @@ export const appConfig: ApplicationConfig = {
     { useClass: AppErrorHandler, provide: ErrorHandler },
 
     // Clients
+    CountryClient,
+    DistrictClient,
     IdentityFeatureClient,
     WorkspaceEnrollmentSearchComponentClient,
     WorkspaceEnrollmentUpdateComponentClient,

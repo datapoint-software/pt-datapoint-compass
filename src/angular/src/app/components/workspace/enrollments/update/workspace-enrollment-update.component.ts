@@ -1,36 +1,52 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, ContentChild, inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ActivatedRoute, NavigationEnd, ResolveFn, Router, RouterLink, RouterOutlet } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveData, Router, RouterLink, RouterOutlet } from "@angular/router";
 import { WorkspaceEnrollmentUpdateComponentClient } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client";
-import { WorkspaceEnrollmentUpdateComponentCountryModel, WorkspaceEnrollmentUpdateComponentFacilityModel, WorkspaceEnrollmentUpdateComponentModel, WorkspaceEnrollmentUpdateComponentServiceModel } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client.abstractions";
-import { WorkspaceEnrollmentUpdateEnrollmentComponent } from "@app/components/workspace/enrollments/update/enrollment/workspace-enrollment-update-enrollment.component";
+import { WorkspaceEnrollmentUpdateComponentFacilityModel, WorkspaceEnrollmentUpdateComponentServiceModel } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client.abstractions";
 import { WorkspaceEnrollmentUpdateComponentForm } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.abstractions";
 import { DataBsToggleDropdownDirective } from "@app/directives/data-bs-toggle-dropdown/data-bs-toggle-dropdown.directive";
 import { LoadingOverlayFeature } from "@app/features/loading-overlay/loading-overlay.feature";
 import { badRequestOrConflict } from "@app/helpers/api.helpers";
 import { applyErrorResponse, fromValueOf } from "@app/helpers/form.helpers";
-import { filter, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 import { SuiModalComponent } from "../../../sui/modal/sui-modal.component";
 import { SuiModalComponentAction } from "@app/components/sui/modal/sui-modal.component.abstractions";
 import { APP_LOCALE } from "@app/app.constants";
+import { CountryModel } from "@app/api/countries/country.client.abstractions";
+import { CountryClient } from "@app/api/countries/country.client";
+import { WorkspaceEnrollmentUpdateStudentComponent } from "@app/components/workspace/enrollments/update/student/workspace-enrollment-update-student.component";
+import { WorkspaceEnrollmentUpdateEnrollmentComponent } from "@app/components/workspace/enrollments/update/enrollment/workspace-enrollment-update-enrollment.component";
 
 @Component({
-  imports: [DataBsToggleDropdownDirective, ReactiveFormsModule, RouterLink, RouterOutlet, WorkspaceEnrollmentUpdateEnrollmentComponent, SuiModalComponent],
+  imports: [
+    DataBsToggleDropdownDirective,
+    ReactiveFormsModule,
+    RouterLink,
+    RouterOutlet,
+    SuiModalComponent,
+    WorkspaceEnrollmentUpdateEnrollmentComponent,
+    WorkspaceEnrollmentUpdateStudentComponent
+  ],
   selector: "app-workspace-enrollment-update",
   standalone: true,
   templateUrl: "workspace-enrollment-update.component.html"
 })
 export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
-  static readonly model: ResolveFn<WorkspaceEnrollmentUpdateComponentModel> = async (route) => {
+  static readonly resolve: ResolveData = ({
 
-    let enrollmentId = route.paramMap.get("enrollmentId");
+    countries: () => inject(CountryClient).search(),
 
-    return inject(WorkspaceEnrollmentUpdateComponentClient).get({
-      ...((enrollmentId && enrollmentId.length > 1) ? ({ enrollmentId }) : ({})),
-      languageCode: APP_LOCALE
-    });
-  }
+    model: async (route: ActivatedRouteSnapshot) => {
+
+      let enrollmentId = route.paramMap.get("enrollmentId");
+
+      return inject(WorkspaceEnrollmentUpdateComponentClient).get({
+        ...((enrollmentId && enrollmentId.length > 1) ? ({ enrollmentId }) : ({})),
+        languageCode: APP_LOCALE
+      });
+    }
+  });
 
   private readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly _destroy$: Subject<true> = new Subject();
@@ -39,9 +55,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   private readonly _router: Router = inject(Router);
   private readonly _workspaceEnrollmentUpdateComponentClient: WorkspaceEnrollmentUpdateComponentClient = inject(WorkspaceEnrollmentUpdateComponentClient);
 
-  section!: string;
-
-  @ViewChild("success") success!: SuiModalComponent;
+   @ViewChild("success") success!: SuiModalComponent;
   successActions: SuiModalComponentAction[] = [
     {
       label: $localize `:@@workspace-enrollment-update-success-modal-go-to-search:Go to search`,
@@ -64,9 +78,13 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   enrollmentRowVersionId?: string;
   number?: string;
   countryCode!: string;
-  countries!: WorkspaceEnrollmentUpdateComponentCountryModel[];
+  countries!: CountryModel[];
   facilities!: WorkspaceEnrollmentUpdateComponentFacilityModel[];
+  section!: string;
   services!: WorkspaceEnrollmentUpdateComponentServiceModel[];
+
+  @ContentChild(WorkspaceEnrollmentUpdateStudentComponent)
+  student?: WorkspaceEnrollmentUpdateStudentComponent;
 
   addStudent(): void {
     this.form.addControl("student", this._fb.group({
@@ -84,12 +102,12 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this._activatedRoute.data
       .pipe(takeUntil(this._destroy$))
-      .subscribe(({ model }) => {
+      .subscribe(({ countries, model }) => {
         this.enrollmentId = model.enrollmentId;
         this.enrollmentRowVersionId = model.enrollmentRowVersionId;
         this.number = model.number;
         this.countryCode = model.countryCode;
-        this.countries = model.countries;
+        this.countries = countries;
         this.facilities = model.facilities;
         this.services = model.services;
 
@@ -100,12 +118,11 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
           this.form.controls.serviceId.disable();
       });
 
-    this._router.events
+    this._activatedRoute.paramMap
       .pipe(takeUntil(this._destroy$))
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((e) => this._updateSectionFromUrl(e.url));
-
-    this._updateSectionFromUrl(this._router.url);
+      .subscribe((params) => {
+        this._sectionChanges(params.get("section")!)
+      });
   }
 
   async submit(): Promise<void> {
@@ -142,9 +159,11 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
     });
   }
 
-  private _updateSectionFromUrl(url: string) {
-    this.section =
-      url.endsWith("student") ? "student" :
-        "enrollment";
+  private _sectionChanges(section: string) {
+
+    this.section = section;
+
+    if (section === "student" && !this.form.controls.student)
+      this.addStudent();
   }
 }

@@ -14,16 +14,10 @@ export type WorkspaceEnrollmentUpdateComponentModel = {
   enrollmentId?: string;
   enrollmentRowVersionId?: string;
   countryCode: string;
-  countries: WorkspaceEnrollmentUpdateComponentCountryModel[];
   facilities: WorkspaceEnrollmentUpdateComponentFacilityModel[];
   services: WorkspaceEnrollmentUpdateComponentServiceModel[];
   number?: string;
   form?: WorkspaceEnrollmentUpdateComponentFormModel;
-};
-
-export type WorkspaceEnrollmentUpdateComponentCountryModel = {
-  code: string;
-  name: string;
 };
 
 export type WorkspaceEnrollmentUpdateComponentServiceModel = {

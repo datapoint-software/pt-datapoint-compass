@@ -11,6 +11,8 @@ namespace Datapoint.Compass.EntityFrameworkCore
 
         public DbSet<Country> Countries => Set<Country>();
 
+        public DbSet<District> Districts => Set<District>();
+
         public DbSet<EmployeeRole> EmployeeRoles => Set<EmployeeRole>();
 
         public DbSet<Employee> Employees => Set<Employee>();
