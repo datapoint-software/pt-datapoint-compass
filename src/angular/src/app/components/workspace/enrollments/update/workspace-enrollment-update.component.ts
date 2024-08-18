@@ -1,4 +1,4 @@
-import { Component, ContentChild, inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, ActivatedRouteSnapshot, ResolveData, Router, RouterLink, RouterOutlet } from "@angular/router";
 import { WorkspaceEnrollmentUpdateComponentClient } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client";
@@ -16,9 +16,11 @@ import { CountryModel } from "@app/api/countries/country.client.abstractions";
 import { CountryClient } from "@app/api/countries/country.client";
 import { WorkspaceEnrollmentUpdateStudentComponent } from "@app/components/workspace/enrollments/update/student/workspace-enrollment-update-student.component";
 import { WorkspaceEnrollmentUpdateEnrollmentComponent } from "@app/components/workspace/enrollments/update/enrollment/workspace-enrollment-update-enrollment.component";
+import { NgComponentOutlet } from "@angular/common";
 
 @Component({
   imports: [
+    NgComponentOutlet,
     DataBsToggleDropdownDirective,
     ReactiveFormsModule,
     RouterLink,
@@ -79,19 +81,21 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   number?: string;
   countryCode!: string;
   countries!: CountryModel[];
+  districtCode?: string;
   facilities!: WorkspaceEnrollmentUpdateComponentFacilityModel[];
   section!: string;
   services!: WorkspaceEnrollmentUpdateComponentServiceModel[];
 
-  @ContentChild(WorkspaceEnrollmentUpdateStudentComponent)
-  student?: WorkspaceEnrollmentUpdateStudentComponent;
-
   addStudent(): void {
-    this.form.addControl("student", this._fb.group({
+
+    this.form.controls.student = this._fb.group({
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
       birth: this._fb.control("", []),
       nationality: this._fb.control(this.countryCode, [ Validators.required ])
-    }));
+    });
+
+    if (this.districtCode)
+      this.form.controls.student.controls.birthplace = this._fb.control(this.districtCode, [ Validators.required ]);
   }
 
   ngOnDestroy(): void {
@@ -108,6 +112,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
         this.number = model.number;
         this.countryCode = model.countryCode;
         this.countries = countries;
+        this.districtCode = model.districtCode;
         this.facilities = model.facilities;
         this.services = model.services;
 
@@ -118,10 +123,10 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
           this.form.controls.serviceId.disable();
       });
 
-    this._activatedRoute.paramMap
+    this._activatedRoute.queryParamMap
       .pipe(takeUntil(this._destroy$))
       .subscribe((params) => {
-        this._sectionChanges(params.get("section")!)
+        this._sectionChanges(params.get("section") ?? "enrollment")
       });
   }
 

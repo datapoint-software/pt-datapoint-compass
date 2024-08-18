@@ -30,6 +30,10 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                 _memoryCache, 
                 ct);
 
+            var districtCode = await _compass.GetDistrictCodeAsync(
+                _memoryCache,
+                ct);
+
             var countries = await _compass.Countries
                 .AsNoTracking()
                 .OrderBy(c => c.Name)
@@ -57,6 +61,7 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                 enrollment?.Id,
                 enrollment?.RowVersionId,
                 countryCode,
+                districtCode,
                 facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacility(
                     f.Id,
                     f.Name)),

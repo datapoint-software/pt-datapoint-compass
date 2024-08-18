@@ -5,11 +5,13 @@ export type WorkspaceEnrollmentUpdateComponentForm = FormGroup<{
   facilityId: FormControl<string | null>;
   start: FormControl<string | null>;
   comments: FormControl<string | null>;
-  student?: FormGroup<{
-    name: FormControl<string | null>;
-    birth: FormControl<string | null>;
-    nationality: FormControl<string | null>;
-    birthplace?: FormControl<string | null>;
-  }>;
+  student?: WorkspaceEnrollmentUpdateComponentStudentForm;
+}>;
+
+export type WorkspaceEnrollmentUpdateComponentStudentForm = FormGroup<{
+  name: FormControl<string | null>;
+  birth: FormControl<string | null>;
+  nationality: FormControl<string | null>;
+  birthplace?: FormControl<string | null>;
 }>;
 

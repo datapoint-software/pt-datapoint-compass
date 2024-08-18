@@ -14,6 +14,7 @@ export type WorkspaceEnrollmentUpdateComponentModel = {
   enrollmentId?: string;
   enrollmentRowVersionId?: string;
   countryCode: string;
+  districtCode?: string;
   facilities: WorkspaceEnrollmentUpdateComponentFacilityModel[];
   services: WorkspaceEnrollmentUpdateComponentServiceModel[];
   number?: string;

@@ -19,6 +19,10 @@ namespace Datapoint.Compass.Middleware.Helpers
 
             (await GetValueOrDefault<string?>(compass, memoryCache, "CountryCode", ct)) ?? "US";
 
+        internal static async Task<string?> GetDistrictCodeAsync(this CompassContext compass, IMemoryCache memoryCache, CancellationToken ct) =>
+
+            (await GetValueOrDefault<string?>(compass, memoryCache, "DistrictCode", ct));
+
         internal static async Task<int> GetUserSessionExpirationAsync(this CompassContext compass, IMemoryCache memoryCache, CancellationToken ct) =>
 
             (await GetValueOrDefault<int?>(compass, memoryCache, "UserSessionExpiration", ct)) ?? 45;

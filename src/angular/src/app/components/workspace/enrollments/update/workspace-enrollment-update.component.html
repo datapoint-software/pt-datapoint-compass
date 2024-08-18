@@ -45,14 +45,14 @@
     <div class="d-flex align-items-center justify-content-between bg-body border-light border-top border-bottom">
       <ul class="nav nav-tabs fs-5 px-5 border-0">
         <li class="nav-item">
-          <a [class.active]="section === 'enrollment'" [routerLink]="[ '/workspace/enrollments', (enrollmentId ?? '_') ]" class="nav-link">
+          <a [class.active]="section === 'enrollment'" [routerLink]="[ './' ]" [queryParams]="{ section: 'enrollment' }" class="nav-link">
             <ng-container i18n="@@workspace-enrollment-update-nav-link-enrollment">Enrollment</ng-container>
           </a>
         </li>
         @if (form.controls.student)
         {
           <li class="nav-item">
-            <a [class.active]="section === 'student'" [routerLink]="[ '/workspace/enrollments', (enrollmentId ?? '_'), 'student' ]" class="nav-link">
+            <a [class.active]="section === 'student'" [routerLink]="[ './' ]" [queryParams]="{ section: 'student' }" class="nav-link">
               <ng-container i18n="@@workspace-enrollment-update-nav-link-student">Student</ng-container>
             </a>
           </li>
@@ -67,7 +67,7 @@
             @if (!form.controls.student)
             {
               <li>
-                <a [routerLink]="[ '/workspace/enrollments', (enrollmentId ?? '_'), 'student' ]" class="dropdown-item" href="javascript: void(0);">
+                <a [routerLink]="[ './' ]" [queryParams]="{ section: 'student' }" class="dropdown-item" href="javascript: void(0);">
                   <ng-container i18n="@@workspace-enrollment-update-add-student">Student</ng-container>
                 </a>
               </li>
@@ -77,18 +77,16 @@
       </div>
     </div>
     <div class="card-body">
-      @switch (section) {
-        @case ("enrollment") {
-          @defer {
-            <app-workspace-enrollment-update-enrollment />
-          }
+      <section [class.d-none]="!(section === 'enrollment')" class="enrollment-section">
+        @defer (when (section === 'enrollment'))  {
+          <app-workspace-enrollment-update-enrollment />
         }
-        @case ("student") {
-          @defer {
-            <app-workspace-enrollment-update-student />
-          }
+      </section>
+      <section [class.d-none]="!(section === 'student')" class="student-section">
+        @defer (when (section === 'student'))  {
+          <app-workspace-enrollment-update-student />
         }
-      }
+      </section>
     </div>
     <div class="card-footer d-flex align-items-center justify-content-end">
       <button [disabled]="form.invalid" class="btn btn-primary" type="submit">

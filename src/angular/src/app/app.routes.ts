@@ -55,10 +55,6 @@ export const routes: Routes = [
               },
               {
                 path: ":enrollmentId",
-                redirectTo: ":enrollmentId/enrollment"
-              },
-              {
-                path: ":enrollmentId/:section",
                 title: $localize `:@@app-workspace-enrollment-update:Enrollment`,
                 component: WorkspaceEnrollmentUpdateComponent,
                 resolve: WorkspaceEnrollmentUpdateComponent.resolve
