@@ -1,16 +1,18 @@
-﻿using System;
+﻿using Datapoint.Compass.Enumerations;
+using System;
 using System.Collections.Generic;
 
 namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
 {
     public sealed class WorkspaceEnrollmentUpdateComponentModel
     {
-        public WorkspaceEnrollmentUpdateComponentModel(Guid? enrollmentId, Guid? enrollmentRowVersionId, string countryCode, string? districtCode, IEnumerable<WorkspaceEnrollmentUpdateComponentFacilityModel> facilities, IEnumerable<WorkspaceEnrollmentUpdateComponentServiceModel> services, string? number, WorkspaceEnrollmentUpdateComponentFormModel? form)
+        public WorkspaceEnrollmentUpdateComponentModel(Guid? enrollmentId, Guid? enrollmentRowVersionId, string countryCode, string? districtCode, EnrollmentStatus status, IEnumerable<WorkspaceEnrollmentUpdateComponentFacilityModel> facilities, IEnumerable<WorkspaceEnrollmentUpdateComponentServiceModel> services, string? number, WorkspaceEnrollmentUpdateComponentFormModel? form)
         {
             EnrollmentId = enrollmentId;
             EnrollmentRowVersionId = enrollmentRowVersionId;
             CountryCode = countryCode;
             DistrictCode = districtCode;
+            Status = status;
             Facilities = facilities;
             Services = services;
             Number = number;
@@ -24,6 +26,8 @@ namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
         public string CountryCode { get; }
 
         public string? DistrictCode { get; }
+
+        public EnrollmentStatus Status { get; }
 
         public IEnumerable<WorkspaceEnrollmentUpdateComponentFacilityModel> Facilities { get; }
 

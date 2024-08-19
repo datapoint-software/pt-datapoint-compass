@@ -37,6 +37,7 @@ namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
                 result.EnrollmentRowVersionId,
                 result.CountryCode,
                 result.DistrictCode,
+                result.Status,
                 result.Facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacilityModel(
                     f.Id,
                     f.Name)),
@@ -48,6 +49,7 @@ namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
                     ? new WorkspaceEnrollmentUpdateComponentFormModel(
                         result.Form.ServiceId,
                         result.Form.FacilityId,
+                        result.Form.FacilityIds,
                         result.Form.Start,
                         result.Form.Comments)
                     : null);
@@ -66,6 +68,7 @@ namespace Datapoint.Compass.Api.Components.Workspace.Enrollments.Update
                     new WorkspaceEnrollmentUpdateComponentForm(
                         model.Form.ServiceId,
                         model.Form.FacilityId,
+                        model.Form.FacilityIds,
                         model.Form.Start,
                         model.Form.Comments)),
                 ct);

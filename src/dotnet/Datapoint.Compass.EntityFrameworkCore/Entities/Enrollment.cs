@@ -1,5 +1,6 @@
 ﻿using Datapoint.Compass.Enumerations;
 using System;
+using System.Collections.Generic;
 
 namespace Datapoint.Compass.EntityFrameworkCore.Entities
 {

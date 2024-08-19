@@ -43,6 +43,8 @@ export const fromValueOf = (fg: { value: { [k: string]: unknown } }): any => {
     for (let k in value)
       if (!value[k])
         delete value[k];
+      else if (value[k] instanceof Array)
+        value[k] = value[k].filter(v => !!v);
       else if ("object" === typeof value[k])
         value[k] = prune(value[k] as {});
     return value;

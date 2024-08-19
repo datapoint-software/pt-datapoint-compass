@@ -1,4 +1,5 @@
 ﻿using Datapoint.Compass.EntityFrameworkCore;
+using Datapoint.Compass.Enumerations;
 using Datapoint.Compass.Middleware.Helpers;
 using Datapoint.Mediator;
 using Microsoft.EntityFrameworkCore;
@@ -57,11 +58,22 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                     .FirstAsync(ct)
                 : null;
 
+            var enrollmentFacilityIds = enrollment is not null
+                ? enrollment.Status is EnrollmentStatus.Draft
+                    ? await _compass.EnrollmentFacilities
+                        .Where(ef => ef.EnrollmentId == enrollment.Id)
+                        .OrderBy(ef => ef.Priority)
+                        .Select(ef => ef.FacilityId)
+                        .ToListAsync(ct)
+                    : null
+                : [];
+
             return new WorkspaceEnrollmentUpdateComponent(
                 enrollment?.Id,
                 enrollment?.RowVersionId,
                 countryCode,
                 districtCode,
+                enrollment?.Status ?? EnrollmentStatus.Draft,
                 facilities.Select(f => new WorkspaceEnrollmentUpdateComponentFacility(
                     f.Id,
                     f.Name)),
@@ -73,6 +85,7 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                     ? new WorkspaceEnrollmentUpdateComponentForm(
                         enrollment.ServiceId,
                         enrollment.FacilityId,
+                        enrollmentFacilityIds,
                         enrollment.Start,
                         enrollment.Comments)
                     : null);

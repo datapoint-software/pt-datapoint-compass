@@ -1,6 +1,7 @@
 ﻿using Datapoint.Compass.EntityFrameworkCore;
 using Datapoint.Compass.EntityFrameworkCore.Entities;
 using Datapoint.Compass.Enumerations;
+using Datapoint.Compass.Middleware.Helpers;
 using Datapoint.Mediator;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,6 +31,33 @@ namespace Datapoint.Compass.Middleware.Components.Workspace.Enrollments.Update
                     .Where(f => f.Id == command.Form.FacilityId)
                     .FirstAsync(ct)
                 : null;
+
+            if (enrollment.Status is EnrollmentStatus.Draft)
+            {
+                if (command.EnrollmentId.HasValue)
+                {
+                    _compass.EnrollmentFacilities.RemoveRange(
+                        await _compass.EnrollmentFacilities
+                            .Where(ef => ef.EnrollmentId == enrollment.Id)
+                            .ToListAsync(ct));
+                }
+
+                if (command.Form.FacilityIds?.Any() ?? false)
+                {
+                    var facilityIds = command.Form.FacilityIds.ToArray();
+
+                    var facilities = await _compass.Facilities
+                        .Where(f => facilityIds.Contains(f.Id))
+                        .ToDictionaryAsync(f => f.Id, ct);
+
+                    facilityIds.ForEach((f, i) => _compass.EnrollmentFacilities.Add(new()
+                    {
+                        Enrollment = enrollment,
+                        Facility = facilities[f],
+                        Priority = i
+                    }));
+                }
+            }
 
             enrollment.Facility = facility;
             enrollment.Start = command.Form.Start;

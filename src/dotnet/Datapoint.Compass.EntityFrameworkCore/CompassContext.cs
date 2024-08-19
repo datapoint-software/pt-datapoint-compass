@@ -19,6 +19,8 @@ namespace Datapoint.Compass.EntityFrameworkCore
 
         public DbSet<EmployeeSession> EmployeeSessions => Set<EmployeeSession>();
 
+        public DbSet<EnrollmentFacility> EnrollmentFacilities => Set<EnrollmentFacility>();
+
         public DbSet<Enrollment> Enrollments => Set<Enrollment>();
 
         public DbSet<Facility> Facilities => Set<Facility>();

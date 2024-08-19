@@ -1,8 +1,9 @@
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormArray, FormControl, FormGroup } from "@angular/forms";
 
 export type WorkspaceEnrollmentUpdateComponentForm = FormGroup<{
   serviceId: FormControl<string | null>;
-  facilityId: FormControl<string | null>;
+  facilityId?: FormControl<string | null>;
+  facilityIds?: FormArray<FormControl<string | null>>;
   start: FormControl<string | null>;
   comments: FormControl<string | null>;
   student?: WorkspaceEnrollmentUpdateComponentStudentForm;

@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, ActivatedRouteSnapshot, ResolveData, Router, RouterLink, RouterOutlet } from "@angular/router";
 import { WorkspaceEnrollmentUpdateComponentClient } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client";
 import { WorkspaceEnrollmentUpdateComponentFacilityModel, WorkspaceEnrollmentUpdateComponentServiceModel } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client.abstractions";
@@ -8,7 +8,7 @@ import { DataBsToggleDropdownDirective } from "@app/directives/data-bs-toggle-dr
 import { LoadingOverlayFeature } from "@app/features/loading-overlay/loading-overlay.feature";
 import { badRequestOrConflict } from "@app/helpers/api.helpers";
 import { applyErrorResponse, fromValueOf } from "@app/helpers/form.helpers";
-import { Subject, takeUntil } from "rxjs";
+import { filter, Subject, takeUntil } from "rxjs";
 import { SuiModalComponent } from "../../../sui/modal/sui-modal.component";
 import { SuiModalComponentAction } from "@app/components/sui/modal/sui-modal.component.abstractions";
 import { APP_LOCALE } from "@app/app.constants";
@@ -17,6 +17,7 @@ import { CountryClient } from "@app/api/countries/country.client";
 import { WorkspaceEnrollmentUpdateStudentComponent } from "@app/components/workspace/enrollments/update/student/workspace-enrollment-update-student.component";
 import { WorkspaceEnrollmentUpdateEnrollmentComponent } from "@app/components/workspace/enrollments/update/enrollment/workspace-enrollment-update-enrollment.component";
 import { NgComponentOutlet } from "@angular/common";
+import { EnrollmentStatus } from "@app/app.enums";
 
 @Component({
   imports: [
@@ -71,7 +72,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
   form: WorkspaceEnrollmentUpdateComponentForm = this._fb.group({
     serviceId: this._fb.control("", [ Validators.required ]),
-    facilityId: this._fb.control("", [ ]),
     start: this._fb.control("", [ ]),
     comments: this._fb.control("", [ Validators.maxLength(4096) ])
   });
@@ -85,6 +85,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   facilities!: WorkspaceEnrollmentUpdateComponentFacilityModel[];
   section!: string;
   services!: WorkspaceEnrollmentUpdateComponentServiceModel[];
+  status!: EnrollmentStatus;
 
   addStudent(): void {
 
@@ -104,6 +105,7 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+
     this._activatedRoute.data
       .pipe(takeUntil(this._destroy$))
       .subscribe(({ countries, model }) => {
@@ -115,6 +117,22 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
         this.districtCode = model.districtCode;
         this.facilities = model.facilities;
         this.services = model.services;
+        this.status = model.status;
+
+        if (this.status === EnrollmentStatus.Draft) {
+
+          this.form.controls.facilityIds = this._fb.array<FormControl<string | null>>([]);
+
+          if (model.form?.facilityIds) {
+            model.form.facilityIds.forEach((f: string) => {
+              this.form.controls.facilityIds!.push(
+                this._fb.control(f, [])
+              )
+            });
+          }
+
+          this._facilityControls();
+        }
 
         if (model.form)
           this.form.reset(model.form);
@@ -131,6 +149,8 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   }
 
   async submit(): Promise<void> {
+
+    this.form.updateValueAndValidity();
 
     if (this.form.invalid)
       return;
@@ -162,6 +182,58 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
       this.success.open();
     });
+  }
+
+  private _facilityControls() {
+
+    const facilities = this.form.controls.facilityIds!;
+
+    if (facilities.controls.length < 1)
+      facilities.push(this._fb.control("", [ ]));
+
+    for (const formControl of facilities.controls)
+      this._facilityControlSubcriptions(facilities, formControl);
+  }
+
+  private _facilityControlSubcriptions(facilities: FormArray<FormControl<string | null>>, formControl: FormControl<string | null>): void {
+
+    const push = () => {
+      const nextFormControl = this._fb.control("", [ ]);
+      this._facilityControlSubcriptions(facilities, nextFormControl);
+      facilities.push(nextFormControl);
+    };
+
+    // Delete this form control when the value is empty unless
+    // it is the only one in the array.
+    formControl.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .pipe(filter((value) => !value))
+      .subscribe(() => {
+
+        if (facilities.controls.length < 2)
+          return;
+
+        const index = facilities.controls.findIndex(fc => fc === formControl);
+
+        if (-1 < index)
+          facilities.removeAt(index);
+
+        if (!facilities.controls.find(fc => !fc.value))
+          push();
+      });
+
+    // Appends a new form control when the value is not empty
+    // unless all facilities are already present.
+    formControl.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .pipe(filter((value) => !!value))
+      .subscribe(() => {
+
+        if (facilities.controls.length === this.facilities.length)
+          return;
+
+        push();
+      });
   }
 
   private _sectionChanges(section: string) {

@@ -15,21 +15,52 @@
         </select>
       </app-sui-form-group>
     </div>
-    <div class="col-lg-4 col-xxl-3">
-      <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
-        <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
-          [for]="facilityId.id" class="form-label">
-          <ng-container i18n="@@workspace-enrollment-update-enrollment-facility">Facility</ng-container>
-        </label>
-        <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
-          [formControl]="facilityId.formControl" [id]="facilityId.id" type="date" class="form-select" tab-index="1">
-          <option></option>
-          @for (option of facilities; track option.id) {
-            <option [value]="option.id">{{ option.name }}</option>
-          }
-        </select>
-      </app-sui-form-group>
-    </div>
+    @if (form.controls.facilityId)
+    {
+      <div class="col-lg-4 col-xxl-3">
+        <app-sui-form-group #facilityId [name]="'facilityId'" class="d-block mb-4">
+          <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+            [for]="facilityId.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-enrollment-facility">Facility</ng-container>
+          </label>
+          <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+            [formControl]="facilityId.formControl" [id]="facilityId.id" type="date" class="form-select" tab-index="1">
+            <option></option>
+            @for (option of facilities; track option.id) {
+              <option [value]="option.id">{{ option.name }}</option>
+            }
+          </select>
+        </app-sui-form-group>
+      </div>
+    }
+    @if (form.controls.facilityIds)
+    {
+      @for (facility of form.controls.facilityIds.controls; track $index)
+      {
+        <div class="col-lg-4 col-xxl-3">
+          <app-sui-form-group #facilityId [formControlContext]="facility" class="d-block mb-4">
+            <label [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+              [for]="facilityId.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-enrollment-facility">Facility</ng-container>
+              @if (form.controls.facilityIds.controls.length > 1 && $index > 0)
+              {
+                (OP. {{ ($index + 1) }})
+              }
+            </label>
+            <select [class.is-invalid]="facilityId.invalid" [class.is-required]="facilityId.required"
+              [formControl]="facilityId.formControl" [id]="facilityId.id" type="date" class="form-select" tab-index="1">
+              <option></option>
+              @for (option of facilities; track option.id) {
+                @if (formControlFacilityEnabled(form.controls.facilityIds, facilityId.formControl, option.id))
+                {
+                  <option [value]="option.id">{{ option.name }}</option>
+                }
+              }
+            </select>
+          </app-sui-form-group>
+        </div>
+      }
+    }
     <div class="col-lg-4 col-xxl-3">
       <app-sui-form-group #start [name]="'start'" class="d-block mb-4">
         <label [class.is-invalid]="start.invalid" [class.is-required]="start.required"

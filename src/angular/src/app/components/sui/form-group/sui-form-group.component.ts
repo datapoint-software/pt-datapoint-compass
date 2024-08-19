@@ -15,7 +15,7 @@ export class SuiFormGroupComponent implements OnDestroy, OnInit {
   private readonly _destroy$: Subject<true> = new Subject();
   private readonly _formGroup: FormGroupDirective = inject(FormGroupDirective);
 
-  @Input() formControl!: FormControl<unknown | null>;
+  @Input({ alias: "formControlContext" }) formControl!: FormControl<unknown | null>;
   @Input() id!: string;
   @Input() name!: string;
 
