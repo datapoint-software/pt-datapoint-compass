@@ -11,3 +11,8 @@ export enum Permission {
   Workspace = 870835,
   WorkspaceEnrollment = 876993
 };
+
+export enum Filiation {
+  Father = 702033,
+  Mother = 779541
+};

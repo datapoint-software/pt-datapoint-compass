@@ -1,0 +1,161 @@
+@for (filiation of filiations.controls; track $index)
+{
+  @if ($index > 0)
+  {
+    <div class="py-4">
+      <hr />
+    </div>
+  }
+
+  <ng-container [formGroup]="filiation">
+    <section class="identification-section mb-4">
+      <div class="border-bottom fs-5 fw-bold mb-4 py-2">
+        <ng-container i18n="@@workspace-enrollment-update-filiation-identification">Identification</ng-container>
+      </div>
+      <div class="row">
+        <div class="col-lg-9">
+          <app-sui-form-group #name [name]="'name'" class="d-block mb-4">
+            <label [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+              [for]="name.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-name">Name</ng-container>
+            </label>
+            <input [class.is-invalid]="name.invalid" [class.is-required]="name.required"
+              [formControl]="name.formControl" [id]="name.id" type="text" class="form-control" tab-index="1"
+              placeholder="Full name" i18n-placeholder="@@workspace-enrollment-update-filiation-name-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #birth [name]="'birth'" class="d-block mb-4">
+            <label [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+              [for]="birth.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-birth">Birth</ng-container>
+            </label>
+            <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
+              [formControl]="birth.formControl" [id]="birth.id" type="date" class="form-control" tab-index="1"
+              placeholder="Birthday" i18n-placeholder="@@workspace-enrollment-update-filiation-birth-placeholder">
+          </app-sui-form-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <app-sui-form-group #nationality [name]="'nationality'" class="d-block mb-4">
+            <label [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+              [for]="nationality.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-nationality">Nationality</ng-container>
+            </label>
+            <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
+              [formControl]="nationality.formControl" [id]="nationality.id" type="date" class="form-select" tab-index="1">
+              <option disabled></option>
+              @for (option of nationalities; track option.countryCode) {
+                <option [value]="option.countryCode">{{ option.name }}</option>
+              }
+            </select>
+          </app-sui-form-group>
+        </div>
+        @if (filiation.controls.birthplace) {
+          <div class="col-lg-3">
+            <app-sui-form-group #birthplace [name]="'birthplace'" class="d-block mb-4">
+              <label [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
+                [for]="birthplace.id" class="form-label">
+                <ng-container i18n="@@workspace-enrollment-update-filiation-birthplace">Birthplace</ng-container>
+              </label>
+              <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
+                [formControl]="birthplace.formControl" [id]="birthplace.id" type="date" class="form-select" tab-index="1">
+                <option disabled></option>
+                @for (option of birthplaces; track option.districtCode) {
+                  <option [value]="option.districtCode">{{ option.name }}</option>
+                }
+              </select>
+            </app-sui-form-group>
+          </div>
+        }
+        <div class="col-lg-3">
+          <app-sui-form-group #citizenCardNumber [name]="'citizenCardNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="citizenCardNumber.invalid" [class.is-required]="citizenCardNumber.required"
+              [for]="citizenCardNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-citizen-card">Citizen Card</ng-container>
+            </label>
+            <input [class.is-invalid]="citizenCardNumber.invalid" [class.is-required]="citizenCardNumber.required"
+              [formControl]="citizenCardNumber.formControl" [id]="citizenCardNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Citizen card" i18n-placeholder="@@workspace-enrollment-update-filiation-citizen-card-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #citizenCardExpiration [name]="'citizenCardExpiration'" class="d-block mb-4">
+            <label [class.is-invalid]="citizenCardExpiration.invalid" [class.is-required]="citizenCardExpiration.required"
+              [for]="citizenCardExpiration.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-citizen-card-expiration">Expiration</ng-container>
+            </label>
+            <input [class.is-invalid]="citizenCardExpiration.invalid" [class.is-required]="citizenCardExpiration.required"
+              [formControl]="citizenCardExpiration.formControl" [id]="citizenCardExpiration.id" type="date" class="form-control" tab-index="1"
+              placeholder="Expiration" i18n-placeholder="@@workspace-enrollment-update-filiation-citizen-card-expiration-placeholder">
+          </app-sui-form-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <app-sui-form-group #socialSecurityNumber [name]="'socialSecurityNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
+              [for]="socialSecurityNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-social-security-number">Social Security</ng-container>
+            </label>
+            <input [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
+              [formControl]="socialSecurityNumber.formControl" [id]="socialSecurityNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Social security number" i18n-placeholder="@@workspace-enrollment-update-filiation-social-security-number-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #taxNumber [name]="'taxNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+              [for]="taxNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-tax-number">Tax Number</ng-container>
+            </label>
+            <input [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+              [formControl]="taxNumber.formControl" [id]="taxNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-filiation-tax-number-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #nationalHealthcareNumber [name]="'nationalHealthcareNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="nationalHealthcareNumber.invalid" [class.is-required]="nationalHealthcareNumber.required"
+              [for]="nationalHealthcareNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-tax-number">Tax Number</ng-container>
+            </label>
+            <input [class.is-invalid]="nationalHealthcareNumber.invalid" [class.is-required]="nationalHealthcareNumber.required"
+              [formControl]="nationalHealthcareNumber.formControl" [id]="nationalHealthcareNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-filiation-tax-number-placeholder">
+          </app-sui-form-group>
+        </div>
+      </div>
+    </section>
+    <section class="postal-address-section mb-4">
+      <div class="border-bottom fs-5 fw-bold mb-4 py-2">
+        <ng-container i18n="@@workspace-enrollment-update-filiation-home-postal-address">Residence</ng-container>
+      </div>
+      @if (filiation.controls.residence)
+      {
+        <app-sui-postal-address-form [formGroupContext]="filiation.controls.residence" />
+      }
+      @else
+      {
+        <div class="d-flex align-items-center justify-content-end">
+          <button (click)="addResidence($index)" class="btn btn-light">
+            <ng-container i18n="@@workspace-enrollment-update-filiation-home-postal-address-add">Add residential postal address</ng-container>
+          </button>
+        </div>
+      }
+    </section>
+  </ng-container>
+
+  @if (filiations.length < 2)
+  {
+    <div class="py-4">
+      <hr />
+      <div class="d-flex align-items-center justify-content-end">
+        <button class="btn btn-light" (click)="pushFiliation()">
+          Adicionar filiação
+        </button>
+      </div>
+    </div>
+  }
+}

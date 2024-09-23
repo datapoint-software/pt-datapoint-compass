@@ -1,9 +1,9 @@
 import { Component, inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, ActivatedRouteSnapshot, ResolveData, Router, RouterLink, RouterOutlet } from "@angular/router";
 import { WorkspaceEnrollmentUpdateComponentClient } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client";
 import { WorkspaceEnrollmentUpdateComponentFacilityModel, WorkspaceEnrollmentUpdateComponentServiceModel } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client.abstractions";
-import { WorkspaceEnrollmentUpdateComponentForm } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.abstractions";
+import { WorkspaceEnrollmentUpdateComponentFiliationForm, WorkspaceEnrollmentUpdateComponentForm } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.abstractions";
 import { DataBsToggleDropdownDirective } from "@app/directives/data-bs-toggle-dropdown/data-bs-toggle-dropdown.directive";
 import { LoadingOverlayFeature } from "@app/features/loading-overlay/loading-overlay.feature";
 import { badRequestOrConflict } from "@app/helpers/api.helpers";
@@ -18,6 +18,8 @@ import { WorkspaceEnrollmentUpdateStudentComponent } from "@app/components/works
 import { WorkspaceEnrollmentUpdateEnrollmentComponent } from "@app/components/workspace/enrollments/update/enrollment/workspace-enrollment-update-enrollment.component";
 import { NgComponentOutlet } from "@angular/common";
 import { EnrollmentStatus } from "@app/app.enums";
+import { PostalAddressFormGroup } from "@app/components/sui/postal-address-form/sui-postal-address-form.component.abstractions";
+import { WorkspaceEnrollmentUpdateFiliationComponent } from "@app/components/workspace/enrollments/update/filiation/workspace-enrollment-update-filiation.component";
 
 @Component({
   imports: [
@@ -28,6 +30,7 @@ import { EnrollmentStatus } from "@app/app.enums";
     RouterOutlet,
     SuiModalComponent,
     WorkspaceEnrollmentUpdateEnrollmentComponent,
+    WorkspaceEnrollmentUpdateFiliationComponent,
     WorkspaceEnrollmentUpdateStudentComponent
   ],
   selector: "app-workspace-enrollment-update",
@@ -86,6 +89,58 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
   section!: string;
   services!: WorkspaceEnrollmentUpdateComponentServiceModel[];
   status!: EnrollmentStatus;
+
+  addFiliation(): void {
+
+    const item =
+
+    this.form.controls.filiation = this._fb.array([] as FormGroup<{
+      filiation: FormControl<string | null>;
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      birthplace?: FormControl<string | null>;
+      citizenCardNumber: FormControl<string | null>;
+      citizenCardExpiration: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+      socialSecurityNumber: FormControl<string | null>;
+      nationalHealthcareNumber: FormControl<string | null>;
+      residence?: PostalAddressFormGroup;
+    }>[]);
+
+    this.pushFiliation();
+  }
+
+  pushFiliation(): void {
+    const filiation: FormGroup<{
+      filiation: FormControl<string | null>;
+      name: FormControl<string | null>;
+      birth: FormControl<string | null>;
+      nationality: FormControl<string | null>;
+      birthplace?: FormControl<string | null>;
+      citizenCardNumber: FormControl<string | null>;
+      citizenCardExpiration: FormControl<string | null>;
+      taxNumber: FormControl<string | null>;
+      socialSecurityNumber: FormControl<string | null>;
+      nationalHealthcareNumber: FormControl<string | null>;
+      residence?: PostalAddressFormGroup;
+    }> = this._fb.group({
+      filiation: this._fb.control("", [ Validators.required ]),
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", []),
+      nationality: this._fb.control(this.countryCode, [ Validators.required ]),
+      citizenCardNumber: this._fb.control("", [ ]),
+      citizenCardExpiration: this._fb.control("", [ ]),
+      taxNumber: this._fb.control("", [ ]),
+      socialSecurityNumber: this._fb.control("", [ ]),
+      nationalHealthcareNumber: this._fb.control("", [ ])
+    });
+
+    if (this.districtCode)
+      filiation.controls.birthplace = this._fb.control(this.districtCode, [ Validators.required ]);
+
+    this.form.controls.filiation!.push(filiation);
+  }
 
   addStudent(): void {
 
@@ -194,5 +249,8 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
     if (section === "student" && !this.form.controls.student)
       this.addStudent();
+
+    if (section === "filiation" && !this.form.controls.filiation)
+      this.addFiliation();
   }
 }

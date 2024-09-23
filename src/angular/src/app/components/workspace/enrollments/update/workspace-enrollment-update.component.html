@@ -57,6 +57,14 @@
             </a>
           </li>
         }
+        @if (form.controls.filiation)
+        {
+          <li class="nav-item">
+            <a [class.active]="section === 'filiation'" [routerLink]="[ './' ]" [queryParams]="{ section: 'filiation' }" class="nav-link">
+              <ng-container i18n="@@workspace-enrollment-update-nav-link-filiation">Filiation</ng-container>
+            </a>
+          </li>
+        }
       </ul>
       <div class="me-5">
         <div class="dropdown">
@@ -69,6 +77,14 @@
               <li>
                 <a [routerLink]="[ './' ]" [queryParams]="{ section: 'student' }" class="dropdown-item" href="javascript: void(0);">
                   <ng-container i18n="@@workspace-enrollment-update-add-student">Student</ng-container>
+                </a>
+              </li>
+            }
+            @if (!form.controls.filiation)
+            {
+              <li>
+                <a [routerLink]="[ './' ]" [queryParams]="{ section: 'filiation' }" class="dropdown-item" href="javascript: void(0);">
+                  <ng-container i18n="@@workspace-enrollment-update-add-filiation">Filiation</ng-container>
                 </a>
               </li>
             }
@@ -89,6 +105,11 @@
       <section [class.d-none]="!(section === 'student')" class="student-section">
         @defer (when (section === 'student'))  {
           <app-workspace-enrollment-update-student />
+        }
+      </section>
+      <section [class.d-none]="!(section === 'filiation')" class="filiation-section">
+        @defer (when (section === 'filiation'))  {
+          <app-workspace-enrollment-update-filiation />
         }
       </section>
     </div>
