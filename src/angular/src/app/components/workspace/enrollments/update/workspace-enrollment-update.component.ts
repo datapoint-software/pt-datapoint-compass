@@ -20,6 +20,7 @@ import { NgComponentOutlet } from "@angular/common";
 import { EnrollmentStatus } from "@app/app.enums";
 import { PostalAddressFormGroup } from "@app/components/sui/postal-address-form/sui-postal-address-form.component.abstractions";
 import { WorkspaceEnrollmentUpdateFiliationComponent } from "@app/components/workspace/enrollments/update/filiation/workspace-enrollment-update-filiation.component";
+import { WorkspaceEnrollmentUpdateGuardianComponent } from "@app/components/workspace/enrollments/update/guardian/workspace-enrollment-update-guardian.component";
 
 @Component({
   imports: [
@@ -31,6 +32,7 @@ import { WorkspaceEnrollmentUpdateFiliationComponent } from "@app/components/wor
     SuiModalComponent,
     WorkspaceEnrollmentUpdateEnrollmentComponent,
     WorkspaceEnrollmentUpdateFiliationComponent,
+    WorkspaceEnrollmentUpdateGuardianComponent,
     WorkspaceEnrollmentUpdateStudentComponent
   ],
   selector: "app-workspace-enrollment-update",
@@ -105,6 +107,10 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       taxNumber: FormControl<string | null>;
       socialSecurityNumber: FormControl<string | null>;
       nationalHealthcareNumber: FormControl<string | null>;
+      emailAddress: FormControl<string | null>;
+      mobilePhoneNumber: FormControl<string | null>;
+      homePhoneNumber: FormControl<string | null>;
+      workPhoneNumber: FormControl<string | null>;
       residence?: PostalAddressFormGroup;
     }>[]);
 
@@ -123,6 +129,10 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       taxNumber: FormControl<string | null>;
       socialSecurityNumber: FormControl<string | null>;
       nationalHealthcareNumber: FormControl<string | null>;
+      emailAddress: FormControl<string | null>;
+      mobilePhoneNumber: FormControl<string | null>;
+      homePhoneNumber: FormControl<string | null>;
+      workPhoneNumber: FormControl<string | null>;
       residence?: PostalAddressFormGroup;
     }> = this._fb.group({
       filiation: this._fb.control("", [ Validators.required ]),
@@ -133,13 +143,38 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       citizenCardExpiration: this._fb.control("", [ ]),
       taxNumber: this._fb.control("", [ ]),
       socialSecurityNumber: this._fb.control("", [ ]),
-      nationalHealthcareNumber: this._fb.control("", [ ])
+      nationalHealthcareNumber: this._fb.control("", [ ]),
+      emailAddress: this._fb.control("", []),
+      mobilePhoneNumber: this._fb.control("", []),
+      homePhoneNumber: this._fb.control("", []),
+      workPhoneNumber: this._fb.control("", [])
     });
 
     if (this.districtCode)
       filiation.controls.birthplace = this._fb.control(this.districtCode, [ Validators.required ]);
 
     this.form.controls.filiation!.push(filiation);
+  }
+
+  addGuardian(): void {
+
+    this.form.controls.guardian = this._fb.group({
+      name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
+      birth: this._fb.control("", []),
+      nationality: this._fb.control(this.countryCode, [ Validators.required ]),
+      citizenCardNumber: this._fb.control("", [ ]),
+      citizenCardExpiration: this._fb.control("", [ ]),
+      taxNumber: this._fb.control("", [ ]),
+      socialSecurityNumber: this._fb.control("", [ ]),
+      nationalHealthcareNumber: this._fb.control("", [ ]),
+      emailAddress: this._fb.control("", []),
+      mobilePhoneNumber: this._fb.control("", []),
+      homePhoneNumber: this._fb.control("", []),
+      workPhoneNumber: this._fb.control("", [])
+    });
+
+    if (this.districtCode)
+      this.form.controls.guardian.controls.birthplace = this._fb.control(this.districtCode, [ Validators.required ]);
   }
 
   addStudent(): void {
@@ -252,5 +287,8 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
     if (section === "filiation" && !this.form.controls.filiation)
       this.addFiliation();
+
+    if (section === "guardian" && !this.form.controls.guardian)
+      this.addGuardian();
   }
 }

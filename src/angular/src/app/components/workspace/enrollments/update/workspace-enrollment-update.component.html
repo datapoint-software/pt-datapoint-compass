@@ -65,6 +65,14 @@
             </a>
           </li>
         }
+        @if (form.controls.guardian)
+        {
+          <li class="nav-item">
+            <a [class.active]="section === 'guardian'" [routerLink]="[ './' ]" [queryParams]="{ section: 'guardian' }" class="nav-link">
+              <ng-container i18n="@@workspace-enrollment-update-nav-link-guardian">Guardian</ng-container>
+            </a>
+          </li>
+        }
       </ul>
       <div class="me-5">
         <div class="dropdown">
@@ -85,6 +93,14 @@
               <li>
                 <a [routerLink]="[ './' ]" [queryParams]="{ section: 'filiation' }" class="dropdown-item" href="javascript: void(0);">
                   <ng-container i18n="@@workspace-enrollment-update-add-filiation">Filiation</ng-container>
+                </a>
+              </li>
+            }
+            @if (!form.controls.guardian)
+            {
+              <li>
+                <a [routerLink]="[ './' ]" [queryParams]="{ section: 'guardian' }" class="dropdown-item" href="javascript: void(0);">
+                  <ng-container i18n="@@workspace-enrollment-update-add-guardian">Guardian</ng-container>
                 </a>
               </li>
             }
@@ -110,6 +126,11 @@
       <section [class.d-none]="!(section === 'filiation')" class="filiation-section">
         @defer (when (section === 'filiation'))  {
           <app-workspace-enrollment-update-filiation />
+        }
+      </section>
+      <section [class.d-none]="!(section === 'guardian')" class="guardian-section">
+        @defer (when (section === 'guardian'))  {
+          <app-workspace-enrollment-update-guardian />
         }
       </section>
     </div>

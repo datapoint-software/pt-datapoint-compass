@@ -1,23 +1,20 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DistrictClient } from "@app/api/districts/district.client";
 import { DistrictModel } from "@app/api/districts/district.client.abstractions";
-import { Filiation } from "@app/app.enums";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
 import { SuiPostalAddressFormComponent } from "@app/components/sui/postal-address-form/sui-postal-address-form.component";
 import { WorkspaceEnrollmentUpdateComponent } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component";
 import { DateInputDirective } from "@app/directives/date-input/date-input.directive";
-import { optionsOf } from "@app/helpers/enum.helpers";
-import { fromValueOf } from "@app/helpers/form.helpers";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
   imports: [ DateInputDirective, ReactiveFormsModule, SuiFormGroupComponent, SuiPostalAddressFormComponent ],
-  selector: "app-workspace-enrollment-update-filiation",
+  selector: "app-workspace-enrollment-update-guardian",
   standalone: true,
-  templateUrl: "workspace-enrollment-update-filiation.component.html"
+  templateUrl: "workspace-enrollment-update-guardian.component.html"
 })
-export class WorkspaceEnrollmentUpdateFiliationComponent {
+export class WorkspaceEnrollmentUpdateGuardianComponent implements OnDestroy, OnInit {
 
   private readonly _destroy$: Subject<true> = new Subject();
   private readonly _fb: FormBuilder = inject(FormBuilder);
@@ -27,22 +24,31 @@ export class WorkspaceEnrollmentUpdateFiliationComponent {
   birthplaces?: DistrictModel[];
   countryCode = this._update.countryCode;
   nationalities = this._update.countries;
-  filiations = this._update.form.controls.filiation!;
-  filiationOptions = optionsOf(Filiation);
+  guardian = this._update.form.controls.guardian!;
 
-  addResidence(index: number): void {
+  get filiation() {
+    return this._update.form.controls.filiation;
+  }
+
+  addResidence(): void {
 
     const residence = this._fb.group({
       countryCode: this._fb.control(this.countryCode, [])
     });
 
-    const filiation = this.filiations.at(index);
-
-    filiation!.addControl("residence", residence);
+    this._update.form.controls.guardian!.addControl("residence", residence);
   }
 
-  lookupResidenceByAreaCode(areaCode: string): void {
-    alert(areaCode);
+  importGuardian(index: number): void {
+
+    const parent = this.filiation!.at(index).value;
+
+    if (parent.residence && !this.guardian.controls.residence)
+      this.addResidence();
+
+    this.guardian.reset(parent);
+
+    this._birthplaceOptions();
   }
 
   ngOnDestroy(): void {
@@ -52,27 +58,18 @@ export class WorkspaceEnrollmentUpdateFiliationComponent {
 
   ngOnInit(): void {
 
-    this.filiations.controls.forEach((filiation, index) => {
+    console.log(this._update.form.value);
 
-      filiation.controls.nationality.valueChanges
-        .pipe(takeUntil(this._destroy$))
-        .subscribe((nationality) => this._nationalityChanges(nationality, index));
+    this.guardian.controls.nationality.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((nationality) => this._nationalityChanges(nationality));
 
-      this._birthplaceOptions(index);
-    });
-
-
+    this._birthplaceOptions();
   }
 
-  pushFiliation(): void {
-    this._update.pushFiliation();
-  }
+  private async _birthplaceOptions(): Promise<void> {
 
-  private async _birthplaceOptions(index: number): Promise<void> {
-
-    const filiation = this.filiations.at(index);
-
-    const countryCode = filiation.controls.nationality.value;
+    const countryCode = this.guardian.controls.nationality.value;
 
     if (countryCode)
       this.birthplaces = await this._districtClient.search({ countryCode });
@@ -80,21 +77,26 @@ export class WorkspaceEnrollmentUpdateFiliationComponent {
       delete this.birthplaces;
   }
 
-  private async _nationalityChanges(nationality: string | null, index: number): Promise<void> {
+  private async _nationalityChanges(nationality: string | null): Promise<void> {
 
-    const filiation = this.filiations.at(index);
+    const birthplace = this.guardian.controls.birthplace?.value;
 
-    filiation.removeControl("birthplace");
+    this.guardian.removeControl("birthplace");
 
     if (!nationality)
       return;
 
-    await this._birthplaceOptions(index);
+    await this._birthplaceOptions();
 
     if (this.birthplaces?.length) {
-      filiation.addControl(
+
+      const defaultBirthplace = birthplace && this.birthplaces.find(option => option.districtCode === birthplace)
+        ? birthplace
+        : "";
+
+      this.guardian.addControl(
         "birthplace",
-        this._fb.control("", [ Validators.required ])
+        this._fb.control(defaultBirthplace, [ Validators.required ])
       );
     }
   }

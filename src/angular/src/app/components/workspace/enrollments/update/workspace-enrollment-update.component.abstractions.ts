@@ -8,8 +8,26 @@ export type WorkspaceEnrollmentUpdateComponentForm = FormGroup<{
   facilityIds?: FormArray<FormControl<string | null>>;
   start: FormControl<string | null>;
   comments: FormControl<string | null>;
+  guardian?: WorkspaceEnrollmentUpdateComponentGuardianForm;
   filiation?: WorkspaceEnrollmentUpdateComponentFiliationForm;
   student?: WorkspaceEnrollmentUpdateComponentStudentForm;
+}>;
+
+export type WorkspaceEnrollmentUpdateComponentGuardianForm = FormGroup<{
+  name: FormControl<string | null>;
+  birth: FormControl<string | null>;
+  nationality: FormControl<string | null>;
+  birthplace?: FormControl<string | null>;
+  citizenCardNumber: FormControl<string | null>;
+  citizenCardExpiration: FormControl<string | null>;
+  taxNumber: FormControl<string | null>;
+  socialSecurityNumber: FormControl<string | null>;
+  nationalHealthcareNumber: FormControl<string | null>;
+  emailAddress: FormControl<string | null>;
+  mobilePhoneNumber: FormControl<string | null>;
+  homePhoneNumber: FormControl<string | null>;
+  workPhoneNumber: FormControl<string | null>;
+  residence?: PostalAddressFormGroup;
 }>;
 
 export type WorkspaceEnrollmentUpdateComponentFiliationForm = FormArray<FormGroup<{
@@ -23,6 +41,10 @@ export type WorkspaceEnrollmentUpdateComponentFiliationForm = FormArray<FormGrou
   taxNumber: FormControl<string | null>;
   socialSecurityNumber: FormControl<string | null>;
   nationalHealthcareNumber: FormControl<string | null>;
+  emailAddress: FormControl<string | null>;
+  mobilePhoneNumber: FormControl<string | null>;
+  homePhoneNumber: FormControl<string | null>;
+  workPhoneNumber: FormControl<string | null>;
   residence?: PostalAddressFormGroup;
 }>>;
 

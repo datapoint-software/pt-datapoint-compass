@@ -13,7 +13,7 @@
         <ng-container i18n="@@workspace-enrollment-update-filiation-identification">Identification</ng-container>
       </div>
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-6">
           <app-sui-form-group #name [name]="'name'" class="d-block mb-4">
             <label [class.is-invalid]="name.invalid" [class.is-required]="name.required"
               [for]="name.id" class="form-label">
@@ -33,6 +33,20 @@
             <input [class.is-invalid]="birth.invalid" [class.is-required]="birth.required"
               [formControl]="birth.formControl" [id]="birth.id" type="date" class="form-control" tab-index="1"
               placeholder="Birthday" i18n-placeholder="@@workspace-enrollment-update-filiation-birth-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #filiation2 [name]="'filiation'" class="d-block mb-4">
+            <label [class.is-invalid]="filiation2.invalid" [class.is-required]="filiation2.required"
+              [for]="filiation2.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation">Filiation</ng-container>
+            </label>
+            <select [class.is-invalid]="filiation2.invalid" [class.is-required]="filiation2.required"
+              [formControl]="filiation2.formControl" [id]="filiation2.id" class="form-select" tab-index="1">
+              <option disabled></option>
+              <option [value]="779541">Mãe</option>
+              <option [value]="702033">Pai</option>
+            </select>
           </app-sui-form-group>
         </div>
       </div>
@@ -124,6 +138,52 @@
             <input [class.is-invalid]="nationalHealthcareNumber.invalid" [class.is-required]="nationalHealthcareNumber.required"
               [formControl]="nationalHealthcareNumber.formControl" [id]="nationalHealthcareNumber.id" type="text" class="form-control" tab-index="1"
               placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-filiation-tax-number-placeholder">
+          </app-sui-form-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <app-sui-form-group #emailAddress [name]="'emailAddress'" class="d-block mb-4">
+            <label [class.is-invalid]="emailAddress.invalid" [class.is-required]="emailAddress.required"
+              [for]="emailAddress.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-email-address">Email address</ng-container>
+            </label>
+            <input [class.is-invalid]="emailAddress.invalid" [class.is-required]="emailAddress.required"
+              [formControl]="emailAddress.formControl" [id]="emailAddress.id" type="email" class="form-control" tab-index="1"
+              placeholder="Personal email address" i18n-placeholder="@@workspace-enrollment-update-filiation-email-address-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #mobilePhoneNumber [name]="'mobilePhoneNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="mobilePhoneNumber.invalid" [class.is-required]="mobilePhoneNumber.required"
+              [for]="mobilePhoneNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-mobile-phone-number">Mobile</ng-container>
+            </label>
+            <input [class.is-invalid]="mobilePhoneNumber.invalid" [class.is-required]="mobilePhoneNumber.required"
+              [formControl]="mobilePhoneNumber.formControl" [id]="mobilePhoneNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Mobile phone number" i18n-placeholder="@@workspace-enrollment-update-filiation-mobile-phone-number-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #workPhoneNumber [name]="'workPhoneNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="workPhoneNumber.invalid" [class.is-required]="workPhoneNumber.required"
+              [for]="workPhoneNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-work-phone-number">Work</ng-container>
+            </label>
+            <input [class.is-invalid]="workPhoneNumber.invalid" [class.is-required]="workPhoneNumber.required"
+              [formControl]="workPhoneNumber.formControl" [id]="workPhoneNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Work phone number" i18n-placeholder="@@workspace-enrollment-update-filiation-work-phone-number-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #homePhoneNumber [name]="'homePhoneNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="homePhoneNumber.invalid" [class.is-required]="homePhoneNumber.required"
+              [for]="homePhoneNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-filiation-home-phone-number">Home</ng-container>
+            </label>
+            <input [class.is-invalid]="homePhoneNumber.invalid" [class.is-required]="homePhoneNumber.required"
+              [formControl]="homePhoneNumber.formControl" [id]="homePhoneNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Home phone number" i18n-placeholder="@@workspace-enrollment-update-filiation-home-phone-number-placeholder">
           </app-sui-form-group>
         </div>
       </div>
