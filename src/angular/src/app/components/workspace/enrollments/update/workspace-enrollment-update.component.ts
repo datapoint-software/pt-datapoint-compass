@@ -92,7 +92,12 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
     this.form.controls.student = this._fb.group({
       name: this._fb.control("", [ Validators.maxLength(128), Validators.required ]),
       birth: this._fb.control("", []),
-      nationality: this._fb.control(this.countryCode, [ Validators.required ])
+      nationality: this._fb.control(this.countryCode, [ Validators.required ]),
+      citizenCardNumber: this._fb.control("", [ ]),
+      citizenCardExpiration: this._fb.control("", [ ]),
+      taxNumber: this._fb.control("", [ ]),
+      socialSecurityNumber: this._fb.control("", [ ]),
+      nationalHealthcareNumber: this._fb.control("", [ ])
     });
 
     if (this.districtCode)

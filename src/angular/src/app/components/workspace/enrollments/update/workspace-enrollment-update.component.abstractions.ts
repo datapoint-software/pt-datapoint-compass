@@ -15,6 +15,12 @@ export type WorkspaceEnrollmentUpdateComponentStudentForm = FormGroup<{
   birth: FormControl<string | null>;
   nationality: FormControl<string | null>;
   birthplace?: FormControl<string | null>;
+  citizenCardNumber: FormControl<string | null>;
+  citizenCardExpiration: FormControl<string | null>;
+  taxNumber: FormControl<string | null>;
+  socialSecurityNumber: FormControl<string | null>;
+  nationalHealthcareNumber: FormControl<string | null>;
+
   residence?: PostalAddressFormGroup;
 }>;
 

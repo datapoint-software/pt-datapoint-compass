@@ -60,6 +60,63 @@
           </app-sui-form-group>
         </div>
       }
+      <div class="col-lg-3">
+        <app-sui-form-group #citizenCardNumber [name]="'citizenCardNumber'" class="d-block mb-4">
+          <label [class.is-invalid]="citizenCardNumber.invalid" [class.is-required]="citizenCardNumber.required"
+            [for]="citizenCardNumber.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-citizen-card">Citizen Card</ng-container>
+          </label>
+          <input [class.is-invalid]="citizenCardNumber.invalid" [class.is-required]="citizenCardNumber.required"
+            [formControl]="citizenCardNumber.formControl" [id]="citizenCardNumber.id" type="text" class="form-control" tab-index="1"
+            placeholder="Citizen card" i18n-placeholder="@@workspace-enrollment-update-student-citizen-card-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-3">
+        <app-sui-form-group #citizenCardExpiration [name]="'citizenCardExpiration'" class="d-block mb-4">
+          <label [class.is-invalid]="citizenCardExpiration.invalid" [class.is-required]="citizenCardExpiration.required"
+            [for]="citizenCardExpiration.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-citizen-card-expiration">Expiration</ng-container>
+          </label>
+          <input [class.is-invalid]="citizenCardExpiration.invalid" [class.is-required]="citizenCardExpiration.required"
+            [formControl]="citizenCardExpiration.formControl" [id]="citizenCardExpiration.id" type="date" class="form-control" tab-index="1"
+            placeholder="Expiration" i18n-placeholder="@@workspace-enrollment-update-student-citizen-card-expiration-placeholder">
+        </app-sui-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <app-sui-form-group #socialSecurityNumber [name]="'socialSecurityNumber'" class="d-block mb-4">
+          <label [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
+            [for]="socialSecurityNumber.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-social-security-number">Social Security</ng-container>
+          </label>
+          <input [class.is-invalid]="socialSecurityNumber.invalid" [class.is-required]="socialSecurityNumber.required"
+            [formControl]="socialSecurityNumber.formControl" [id]="socialSecurityNumber.id" type="text" class="form-control" tab-index="1"
+            placeholder="Social security number" i18n-placeholder="@@workspace-enrollment-update-student-social-security-number-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-3">
+        <app-sui-form-group #taxNumber [name]="'taxNumber'" class="d-block mb-4">
+          <label [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+            [for]="taxNumber.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-tax-number">Tax Number</ng-container>
+          </label>
+          <input [class.is-invalid]="taxNumber.invalid" [class.is-required]="taxNumber.required"
+            [formControl]="taxNumber.formControl" [id]="taxNumber.id" type="text" class="form-control" tab-index="1"
+            placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-student-tax-number-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-3">
+        <app-sui-form-group #nationalHealthcareNumber [name]="'nationalHealthcareNumber'" class="d-block mb-4">
+          <label [class.is-invalid]="nationalHealthcareNumber.invalid" [class.is-required]="nationalHealthcareNumber.required"
+            [for]="nationalHealthcareNumber.id" class="form-label">
+            <ng-container i18n="@@workspace-enrollment-update-student-tax-number">Tax Number</ng-container>
+          </label>
+          <input [class.is-invalid]="nationalHealthcareNumber.invalid" [class.is-required]="nationalHealthcareNumber.required"
+            [formControl]="nationalHealthcareNumber.formControl" [id]="nationalHealthcareNumber.id" type="text" class="form-control" tab-index="1"
+            placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-student-tax-number-placeholder">
+        </app-sui-form-group>
+      </div>
     </div>
   </section>
   <section class="postal-address-section mb-4">
