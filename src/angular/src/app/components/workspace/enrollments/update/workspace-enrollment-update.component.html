@@ -79,7 +79,11 @@
     <div class="card-body">
       <section [class.d-none]="!(section === 'enrollment')" class="enrollment-section">
         @defer (when (section === 'enrollment'))  {
-          <app-workspace-enrollment-update-enrollment />
+          <app-workspace-enrollment-update-enrollment
+            [facilities]="facilities"
+            [form]="form"
+            [services]="services"
+            [status]="status" />
         }
       </section>
       <section [class.d-none]="!(section === 'student')" class="student-section">

@@ -2,16 +2,16 @@
 {
     public sealed class District
     {
-        public District(string code, string countryCode, string name)
+        public District(string countryCode, string districtCode, string name)
         {
-            Code = code;
             CountryCode = countryCode;
+            DistrictCode = districtCode;
             Name = name;
         }
 
-        public string Code { get; }
-
         public string CountryCode { get; }
+
+        public string DistrictCode { get; }
 
         public string Name { get; }
     }

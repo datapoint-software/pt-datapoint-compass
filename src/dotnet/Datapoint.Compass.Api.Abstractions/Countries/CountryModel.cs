@@ -2,13 +2,13 @@
 {
     public sealed class CountryModel
     {
-        public CountryModel(string code, string name)
+        public CountryModel(string countryCode, string name)
         {
-            Code = code;
+            CountryCode = countryCode;
             Name = name;
         }
 
-        public string Code { get; }
+        public string CountryCode { get; }
 
         public string Name { get; }
     }

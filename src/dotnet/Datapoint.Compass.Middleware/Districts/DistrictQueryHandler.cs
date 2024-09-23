@@ -23,11 +23,11 @@ namespace Datapoint.Compass.Middleware.Districts
                 .OrderBy(d => d.Name)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(query.Code))
-                queryable = queryable.Where(d => d.Code == query.Code);
-
             if (!string.IsNullOrEmpty(query.CountryCode))
                 queryable = queryable.Where(d => d.CountryCode == query.CountryCode);
+
+            if (!string.IsNullOrEmpty(query.DistrictCode))
+                queryable = queryable.Where(d => d.DistrictCode == query.DistrictCode);
 
             if (!string.IsNullOrEmpty(query.Name))
                 queryable = queryable.Where(d => d.Name == query.Name);
@@ -41,8 +41,8 @@ namespace Datapoint.Compass.Middleware.Districts
             var districts = await queryable.ToListAsync(ct);
 
             return districts.Select(d => new District(
-                d.Code,
                 d.CountryCode,
+                d.DistrictCode,
                 d.Name));
         }
     }

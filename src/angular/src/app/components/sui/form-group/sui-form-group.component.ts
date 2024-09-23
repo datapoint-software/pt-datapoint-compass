@@ -38,9 +38,9 @@ export class SuiFormGroupComponent implements OnDestroy, OnInit {
       this.formControl = this._formGroup.control.get(this.name)! as FormControl<unknown | null>;
 
     else if (this.formControl)
-      this.name ??= `sui-form-group-control-${id}`;
+      this.name ??= `form-group-control-${id}`;
 
-    this.id ??= `sui-form-group-control-${id}`;
+    this.id ??= `form-group-control-${id}`;
 
     this.formControl.events
       .pipe(takeUntil(this._destroy$))

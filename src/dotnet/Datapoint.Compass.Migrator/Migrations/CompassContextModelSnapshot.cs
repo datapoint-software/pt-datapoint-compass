@@ -21,36 +21,60 @@ namespace Datapoint.Compass.Migrator.Migrations
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Country", b =>
                 {
-                    b.Property<string>("Code")
-                        .HasMaxLength(2)
-                        .HasColumnType("varchar(2)");
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.HasKey("Code");
+                    b.HasKey("CountryCode");
 
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.District", b =>
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.County", b =>
                 {
-                    b.Property<string>("Code")
+                    b.Property<string>("CountryCode")
                         .HasMaxLength(16)
                         .HasColumnType("varchar(16)");
 
-                    b.Property<string>("CountryCode")
-                        .HasMaxLength(2)
-                        .HasColumnType("varchar(2)");
+                    b.Property<string>("DistrictCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("CountyCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.HasKey("Code", "CountryCode");
+                    b.HasKey("CountryCode", "DistrictCode", "CountyCode");
+
+                    b.ToTable("Counties");
+                });
+
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.District", b =>
+                {
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("DistrictCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("CountryCode", "DistrictCode");
 
                     b.ToTable("Districts");
                 });
@@ -231,6 +255,34 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.ToTable("Facilities");
                 });
 
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Locality", b =>
+                {
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("DistrictCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("CountyCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("LocalityCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("CountryCode", "DistrictCode", "CountyCode", "LocalityCode");
+
+                    b.ToTable("Localities");
+                });
+
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Parameter", b =>
                 {
                     b.Property<string>("Name")
@@ -350,6 +402,98 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.ToTable("Services");
                 });
 
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Street", b =>
+                {
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("DistrictCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("CountyCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("LocalityCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("StreetCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
+
+                    b.HasKey("CountryCode", "DistrictCode", "CountyCode", "LocalityCode", "PostalCode", "StreetCode");
+
+                    b.ToTable("Streets");
+                });
+
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Zone", b =>
+                {
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("DistrictCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("CountyCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("LocalityCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("CountryCode", "DistrictCode", "CountyCode", "LocalityCode", "PostalCode");
+
+                    b.ToTable("Zones");
+                });
+
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.County", b =>
+                {
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.District", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.District", b =>
+                {
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.EmployeeRole", b =>
                 {
                     b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Employee", "Employee")
@@ -417,6 +561,27 @@ namespace Datapoint.Compass.Migrator.Migrations
                     b.Navigation("Facility");
                 });
 
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Locality", b =>
+                {
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.District", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.County", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode", "CountyCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.RolePermission", b =>
                 {
                     b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Role", "Role")
@@ -426,6 +591,66 @@ namespace Datapoint.Compass.Migrator.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Street", b =>
+                {
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.District", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.County", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode", "CountyCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Locality", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode", "CountyCode", "LocalityCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Zone", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode", "CountyCode", "LocalityCode", "PostalCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Zone", b =>
+                {
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.District", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.County", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode", "CountyCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Datapoint.Compass.EntityFrameworkCore.Entities.Locality", null)
+                        .WithMany()
+                        .HasForeignKey("CountryCode", "DistrictCode", "CountyCode", "LocalityCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Datapoint.Compass.EntityFrameworkCore.Entities.Role", b =>

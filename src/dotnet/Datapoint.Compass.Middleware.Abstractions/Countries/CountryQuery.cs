@@ -7,13 +7,13 @@ namespace Datapoint.Compass.Middleware.Countries
     {
         public CountryQuery(string? code, string? name, int? skip, int? take)
         {
-            Code = code;
+            CountryCode = code;
             Name = name;
             Skip = skip;
             Take = take;
         }
 
-        public string? Code { get; }
+        public string? CountryCode { get; }
 
         public string? Name { get; }
 

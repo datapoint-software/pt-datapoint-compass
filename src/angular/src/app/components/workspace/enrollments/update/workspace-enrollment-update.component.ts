@@ -123,15 +123,14 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
           this.form.controls.facilityIds = this._fb.array<FormControl<string | null>>([]);
 
-          if (model.form?.facilityIds) {
-            model.form.facilityIds.forEach((f: string) => {
-              this.form.controls.facilityIds!.push(
-                this._fb.control(f, [])
-              )
-            });
-          }
+          model.form?.facilityIds?.forEach((f: string) => {
+            this.form.controls.facilityIds!.push(
+              this._fb.control(f, [ Validators.required ])
+            )
+          });
 
-          this._facilityControls();
+          if (this.form.controls.facilityIds.length < 1)
+            this.form.controls.facilityIds.push(this._fb.control("", [ Validators.required ]));
         }
 
         if (model.form)
@@ -182,58 +181,6 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
 
       this.success.open();
     });
-  }
-
-  private _facilityControls() {
-
-    const facilities = this.form.controls.facilityIds!;
-
-    if (facilities.controls.length < 1)
-      facilities.push(this._fb.control("", [ ]));
-
-    for (const formControl of facilities.controls)
-      this._facilityControlSubcriptions(facilities, formControl);
-  }
-
-  private _facilityControlSubcriptions(facilities: FormArray<FormControl<string | null>>, formControl: FormControl<string | null>): void {
-
-    const push = () => {
-      const nextFormControl = this._fb.control("", [ ]);
-      this._facilityControlSubcriptions(facilities, nextFormControl);
-      facilities.push(nextFormControl);
-    };
-
-    // Delete this form control when the value is empty unless
-    // it is the only one in the array.
-    formControl.valueChanges
-      .pipe(takeUntil(this._destroy$))
-      .pipe(filter((value) => !value))
-      .subscribe(() => {
-
-        if (facilities.controls.length < 2)
-          return;
-
-        const index = facilities.controls.findIndex(fc => fc === formControl);
-
-        if (-1 < index)
-          facilities.removeAt(index);
-
-        if (!facilities.controls.find(fc => !fc.value))
-          push();
-      });
-
-    // Appends a new form control when the value is not empty
-    // unless all facilities are already present.
-    formControl.valueChanges
-      .pipe(takeUntil(this._destroy$))
-      .pipe(filter((value) => !!value))
-      .subscribe(() => {
-
-        if (facilities.controls.length === this.facilities.length)
-          return;
-
-        push();
-      });
   }
 
   private _sectionChanges(section: string) {

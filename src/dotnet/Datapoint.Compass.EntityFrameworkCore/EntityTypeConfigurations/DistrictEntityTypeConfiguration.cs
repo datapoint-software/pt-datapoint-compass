@@ -8,19 +8,29 @@ namespace Datapoint.Compass.EntityFrameworkCore.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<District> builder)
         {
-            builder.Property(e => e.Code)
+            builder.Property(e => e.CountryCode)
                 .HasMaxLength(16)
                 .IsRequired();
 
-            builder.Property(e => e.CountryCode)
-                .HasMaxLength(2)
+            builder.Property(e => e.DistrictCode)
+                .HasMaxLength(16)
                 .IsRequired();
 
             builder.Property(e => e.Name)
                 .HasMaxLength(64)
                 .IsRequired();
 
-            builder.HasKey(e => new { e.Code, e.CountryCode });
+            builder.HasKey(e => new
+            {
+                e.CountryCode,
+                e.DistrictCode
+            });
+
+            builder.HasOne<Country>()
+                .WithMany()
+                .HasForeignKey(e => e.CountryCode)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
     }
 }

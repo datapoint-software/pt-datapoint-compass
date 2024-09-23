@@ -38,7 +38,7 @@ namespace Datapoint.Compass.Api.Countries
                 ct);
 
             return result.Select(c => new CountryModel(
-                c.Code,
+                c.CountryCode,
                 c.Name));
         }
     }

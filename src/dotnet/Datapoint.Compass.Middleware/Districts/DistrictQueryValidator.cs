@@ -6,7 +6,7 @@ namespace Datapoint.Compass.Middleware.Districts
     {
         public DistrictQueryValidator()
         {
-            RuleFor(q => q.Code)
+            RuleFor(q => q.DistrictCode)
                 .MaximumLength(16);
 
             RuleFor(q => q.CountryCode)

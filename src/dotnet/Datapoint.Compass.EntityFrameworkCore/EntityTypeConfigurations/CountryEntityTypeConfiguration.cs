@@ -8,15 +8,15 @@ namespace Datapoint.Compass.EntityFrameworkCore.EntityTypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {
-            builder.Property(e => e.Code)
-                .HasMaxLength(2)
+            builder.Property(e => e.CountryCode)
+                .HasMaxLength(16)
                 .IsRequired();
 
             builder.Property(e => e.Name)
                 .HasMaxLength(64)
                 .IsRequired();
 
-            builder.HasKey(e => e.Code);
+            builder.HasKey(e => e.CountryCode);
         }
     }
 }

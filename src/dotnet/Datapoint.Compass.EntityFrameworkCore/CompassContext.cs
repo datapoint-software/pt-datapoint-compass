@@ -9,6 +9,8 @@ namespace Datapoint.Compass.EntityFrameworkCore
         {
         }
 
+        public DbSet<County> Counties => Set<County>();
+
         public DbSet<Country> Countries => Set<Country>();
 
         public DbSet<District> Districts => Set<District>();
@@ -25,6 +27,8 @@ namespace Datapoint.Compass.EntityFrameworkCore
 
         public DbSet<Facility> Facilities => Set<Facility>();
 
+        public DbSet<Locality> Localities => Set<Locality>();
+
         public DbSet<Parameter> Parameters => Set<Parameter>();
 
         public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
@@ -34,6 +38,10 @@ namespace Datapoint.Compass.EntityFrameworkCore
         public DbSet<Sequence> Sequences => Set<Sequence>();
 
         public DbSet<Service> Services => Set<Service>();
+
+        public DbSet<Street> Streets => Set<Street>();
+
+        public DbSet<Zone> Zones => Set<Zone>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

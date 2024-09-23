@@ -73,6 +73,14 @@
       </app-sui-form-group>
     </div>
   </div>
+  <!-- TODO <joao.pl.lopes> remove this -->
+  <div class="alert alert-info mt-8">
+    <div class="mb-2"><strong>OLHAR POENTE ⚠️</strong></div>
+    <div>
+      Coloque aqui toda a informação que ainda não tenha os respetivos campos disponíveis
+      para que sejam incluídos na próxima atualização semanal.
+    </div>
+  </div>
   <app-sui-form-group #comments [name]="'comments'" class="d-block mb-4">
     <label [class.is-invalid]="comments.invalid" [class.is-required]="comments.required"
       [for]="comments.id" class="form-label">
@@ -83,4 +91,12 @@
       rows="10"
       placeholder="Write any comments relevant for this enrollment..." i18n-placeholder="@@workspace-enrollment-update-enrollment-comments-placeholder"></textarea>
   </app-sui-form-group>
+  <div class="d-flex d-none-if-empty align-items-center justify-content-end border-top border-light bg-soft">
+    @if (addFacilityEnabled)
+    {
+      <button (click)="addFacility()" class="btn btn-light mt-4" type="button" role="button">
+        <ng-container i18n="@@workspace-enrollment-update-enrollment-add-facility">Add facility</ng-container>
+      </button>
+    }
+  </div>
 </ng-container>

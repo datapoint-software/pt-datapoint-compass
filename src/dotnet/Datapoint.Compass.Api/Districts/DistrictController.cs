@@ -21,10 +21,10 @@ namespace Datapoint.Compass.Api.Districts
 
         [AllowAnonymous]
         [HttpGet]
-        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client, VaryByQueryKeys = ["code", "countryCode", "name", "skip", "take"])]
+        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client, VaryByQueryKeys = ["countryCode", "districtCode", "name", "skip", "take"])]
         public async Task<IEnumerable<DistrictModel>> SearchAsync(
-            [FromQuery] string? code,
             [FromQuery] string? countryCode,
+            [FromQuery] string? districtCode,
             [FromQuery] string? name,
             [FromQuery] int? skip,
             [FromQuery] int? take,
@@ -32,16 +32,16 @@ namespace Datapoint.Compass.Api.Districts
         {
             var result = await _mediator.HandleQueryAsync<DistrictQuery, IEnumerable<District>>(
                 new DistrictQuery(
-                    code,
                     countryCode,
+                    districtCode,
                     name,
                     skip,
                     take),
                 ct);
 
             return result.Select(d => new DistrictModel(
-                d.Code,
                 d.CountryCode,
+                d.DistrictCode,
                 d.Name));
         }
     }

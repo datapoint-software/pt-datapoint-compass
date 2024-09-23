@@ -215,7 +215,7 @@ namespace Datapoint.Compass.Middleware.Helpers
         internal static string GetName(Country country, string languageCode)
         {
             if (Names.TryGetValue(languageCode, out var translations))
-                if (translations.TryGetValue(country.Code, out var translation))
+                if (translations.TryGetValue(country.CountryCode, out var translation))
                     return translation;
 
             return country.Name;

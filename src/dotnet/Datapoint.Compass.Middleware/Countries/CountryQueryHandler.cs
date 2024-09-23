@@ -23,8 +23,8 @@ namespace Datapoint.Compass.Middleware.Countries
                 .OrderBy(c => c.Name)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(query.Code))
-                queryable = queryable.Where(c => c.Code == query.Code);
+            if (!string.IsNullOrEmpty(query.CountryCode))
+                queryable = queryable.Where(c => c.CountryCode == query.CountryCode);
 
             if (!string.IsNullOrEmpty(query.Name))
                 queryable = queryable.Where(c => c.Name == query.Name);
@@ -38,7 +38,7 @@ namespace Datapoint.Compass.Middleware.Countries
             var countries = await queryable.ToListAsync(ct);
 
             return countries.Select(c => new Country(
-                c.Code,
+                c.CountryCode,
                 c.Name));
         }
     }

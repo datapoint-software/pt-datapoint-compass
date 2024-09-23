@@ -1,15 +1,15 @@
-import { Component, inject, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DistrictClient } from "@app/api/districts/district.client";
 import { DistrictModel } from "@app/api/districts/district.client.abstractions";
 import { SuiFormGroupComponent } from "@app/components/sui/form-group/sui-form-group.component";
+import { SuiPostalAddressFormComponent } from "@app/components/sui/postal-address-form/sui-postal-address-form.component";
 import { WorkspaceEnrollmentUpdateComponent } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component";
-import { WorkspaceEnrollmentUpdateComponentForm, WorkspaceEnrollmentUpdateComponentStudentForm } from "@app/components/workspace/enrollments/update/workspace-enrollment-update.component.abstractions";
 import { DateInputDirective } from "@app/directives/date-input/date-input.directive";
-import { startWith, Subject, takeUntil } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
-  imports: [ DateInputDirective, ReactiveFormsModule, SuiFormGroupComponent ],
+  imports: [ DateInputDirective, ReactiveFormsModule, SuiFormGroupComponent, SuiPostalAddressFormComponent ],
   selector: "app-workspace-enrollment-update-student",
   standalone: true,
   templateUrl: "workspace-enrollment-update-student.component.html"
@@ -22,8 +22,22 @@ export class WorkspaceEnrollmentUpdateStudentComponent implements OnDestroy, OnI
   private readonly _update: WorkspaceEnrollmentUpdateComponent = inject(WorkspaceEnrollmentUpdateComponent);
 
   birthplaces?: DistrictModel[];
+  countryCode = this._update.countryCode;
   nationalities = this._update.countries;
   student = this._update.form.controls.student!;
+
+  addResidence(): void {
+
+    const residence = this._fb.group({
+      countryCode: this._fb.control(this.countryCode, [])
+    });
+
+    this._update.form.controls.student!.addControl("residence", residence);
+  }
+
+  lookupResidenceByAreaCode(areaCode: string): void {
+    alert(areaCode);
+  }
 
   ngOnDestroy(): void {
     this._destroy$.next(true);

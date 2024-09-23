@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { PostalAddressFormGroup } from "@app/components/sui/postal-address-form/sui-postal-address-form.component.abstractions";
 
 export type WorkspaceEnrollmentUpdateComponentForm = FormGroup<{
   serviceId: FormControl<string | null>;
@@ -14,5 +15,6 @@ export type WorkspaceEnrollmentUpdateComponentStudentForm = FormGroup<{
   birth: FormControl<string | null>;
   nationality: FormControl<string | null>;
   birthplace?: FormControl<string | null>;
+  residence?: PostalAddressFormGroup;
 }>;
 

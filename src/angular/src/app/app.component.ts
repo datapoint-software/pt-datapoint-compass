@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet } from "@angular/router";
-import { SuiLoadingOverlayComponent } from "@app/components/sui/sui-loading-overlay/sui-loading-overlay.component";
+import { SuiLoadingOverlayComponent } from "@app/components/sui/loading-overlay/sui-loading-overlay.component";
 import { LoadingOverlayFeature } from "@app/features/loading-overlay/loading-overlay.feature";
 import { filter, Subject, takeUntil } from "rxjs";
 

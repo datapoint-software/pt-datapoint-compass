@@ -2,6 +2,7 @@ import { provideHttpClient } from "@angular/common/http";
 import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from "@angular/core";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideRouter } from "@angular/router";
+import { SuiPostalAddressFormPortugalComponentClient } from "@app/api/components/sui/postal-address-form/portugal/postal-address-form-portugal-component.client";
 import { WorkspaceEnrollmentSearchComponentClient } from "@app/api/components/workspace/enrollments/search/workspace-enrollment-search-component.client";
 import { WorkspaceEnrollmentUpdateComponentClient } from "@app/api/components/workspace/enrollments/update/workspace-enrollment-update-component.client";
 import { WorkspaceHomeComponentClient } from "@app/api/components/workspace/home/workspace-home-component.client";
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
     CountryClient,
     DistrictClient,
     IdentityFeatureClient,
+    SuiPostalAddressFormPortugalComponentClient,
     WorkspaceEnrollmentSearchComponentClient,
     WorkspaceEnrollmentUpdateComponentClient,
     WorkspaceHomeComponentClient,

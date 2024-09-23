@@ -6,7 +6,7 @@ namespace Datapoint.Compass.Middleware.Countries
     {
         public CountryQueryValidator()
         {
-            RuleFor(q => q.Code)
+            RuleFor(q => q.CountryCode)
                 .Length(2);
 
             RuleFor(q => q.Name)

@@ -1,0 +1,144 @@
+<ng-container [formGroup]="formGroupContext">
+  <input type="hidden" [formControl]="formGroupContext.controls.countryCode" />
+  <div class="row">
+    <div class="col-lg-3">
+      <app-sui-form-group #postalCode [name]="'postalCode'" class="d-block mb-4">
+        <label [class.is-invalid]="postalCode.invalid" [class.is-required]="postalCode.required"
+          [for]="postalCode.id" class="form-label">
+          <ng-container i18n="@@sui-postal-address-form-portugal-postal">Postal Code</ng-container>
+        </label>
+        <div [class.is-invalid]="postalCode.invalid" [class.is-required]="postalCode.required"
+          class="input-group input-group-merge">
+          <input [class.is-invalid]="postalCode.invalid" [class.is-required]="postalCode.required"
+            [formControl]="postalCode.formControl" [id]="postalCode.id" type="text" class="form-control" tab-index="1"
+            placeholder="0000-000">
+          <button class="btn btn-primary px-4" type="button">
+            <i class="ms ms-download"></i>
+          </button>
+        </div>
+      </app-sui-form-group>
+    </div>
+    @if (streets)
+    {
+      <div class="col-lg-6">
+        <app-sui-form-group #streetCode [name]="'streetCode'" class="d-block mb-4">
+          <label [class.is-invalid]="streetCode.invalid" [class.is-required]="streetCode.required"
+            [for]="streetCode.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-street">Street</ng-container>
+          </label>
+          <select [class.is-invalid]="streetCode.invalid" [class.is-required]="streetCode.required"
+            [formControl]="streetCode.formControl" [id]="streetCode.id" class="form-select" tab-index="1">
+            <option disabled></option>
+            @for (option of streets; track $index) {
+              <option [value]="option.streetCode">{{ option.name }}</option>
+            }
+          </select>
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-6">
+        <app-sui-form-group #location [name]="'location'" class="d-block mb-4">
+          <label [class.is-invalid]="location.invalid" [class.is-required]="location.required"
+            [for]="location.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-location">Location</ng-container>
+          </label>
+          <input [class.is-invalid]="location.invalid" [class.is-required]="location.required"
+            [formControl]="location.formControl" [id]="location.id" type="text" class="form-control" tab-index="1"
+            placeholder="(Opcional)" i18n-placeholder="@@sui-postal-address-form-portugal-location-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-2">
+        <app-sui-form-group #doorNumber [name]="'doorNumber'" class="d-block mb-4">
+          <label [class.is-invalid]="doorNumber.invalid" [class.is-required]="doorNumber.required"
+            [for]="doorNumber.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-door-number">Door</ng-container>
+          </label>
+          <input [class.is-invalid]="doorNumber.invalid" [class.is-required]="doorNumber.required"
+            [formControl]="doorNumber.formControl" [id]="doorNumber.id" type="text" class="form-control" tab-index="1"
+            placeholder="(Optional)" i18n-placeholder="@@sui-postal-address-form-portugal-door-number-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-2">
+        <app-sui-form-group #floorNumber [name]="'floorNumber'" class="d-block mb-4">
+          <label [class.is-invalid]="floorNumber.invalid" [class.is-required]="floorNumber.required"
+            [for]="floorNumber.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-floor-number">Floor</ng-container>
+          </label>
+          <input [class.is-invalid]="floorNumber.invalid" [class.is-required]="floorNumber.required"
+            [formControl]="floorNumber.formControl" [id]="floorNumber.id" type="text" class="form-control" tab-index="1"
+            placeholder="(Optional)" i18n-placeholder="@@sui-postal-address-form-portugal-floor-number-placeholder">
+        </app-sui-form-group>
+      </div>
+      <div class="col-lg-2">
+        <app-sui-form-group #appartment [name]="'appartment'" class="d-block mb-4">
+          <label [class.is-invalid]="appartment.invalid" [class.is-required]="appartment.required"
+            [for]="appartment.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-appartment">Appartment</ng-container>
+          </label>
+          <input [class.is-invalid]="appartment.invalid" [class.is-required]="appartment.required"
+            [formControl]="appartment.formControl" [id]="appartment.id" type="text" class="form-control" tab-index="1"
+            placeholder="(Optional)" i18n-placeholder="@@sui-postal-address-form-portugal-appartment-placeholder">
+        </app-sui-form-group>
+      </div>
+    }
+    @if (districts)
+    {
+      <div class="col-lg-3">
+        <app-sui-form-group #districtCode [name]="'districtCode'" class="d-block mb-4">
+          <label [class.is-invalid]="districtCode.invalid" [class.is-required]="districtCode.required"
+            [for]="districtCode.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-district">District</ng-container>
+          </label>
+          <select [class.is-invalid]="districtCode.invalid" [class.is-required]="districtCode.required"
+            [formControl]="districtCode.formControl" [id]="districtCode.id" class="form-select" tab-index="1">
+            <option disabled></option>
+            @for (option of districts; track $index) {
+              <option [value]="option.districtCode">{{ option.name }}</option>
+            }
+          </select>
+        </app-sui-form-group>
+      </div>
+    }
+    @if (counties)
+    {
+      <div class="col-lg-3">
+        <app-sui-form-group #countyCode [name]="'countyCode'" class="d-block mb-4">
+          <label [class.is-invalid]="countyCode.invalid" [class.is-required]="countyCode.required"
+            [for]="countyCode.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-county">County</ng-container>
+          </label>
+          <select [class.is-invalid]="countyCode.invalid" [class.is-required]="countyCode.required"
+            [formControl]="countyCode.formControl" [id]="countyCode.id" class="form-select" tab-index="1">
+            <option disabled></option>
+            @for (option of counties; track $index) {
+              <option [value]="option.countyCode">{{ option.name }}</option>
+            }
+          </select>
+        </app-sui-form-group>
+      </div>
+    }
+    @if (localities)
+    {
+      <div class="col-lg-3">
+        <app-sui-form-group #localityCode [name]="'localityCode'" class="d-block mb-4">
+          <label [class.is-invalid]="localityCode.invalid" [class.is-required]="localityCode.required"
+            [for]="localityCode.id" class="form-label">
+            <ng-container i18n="@@sui-postal-address-form-portugal-locality">Locality</ng-container>
+          </label>
+          <select [class.is-invalid]="localityCode.invalid" [class.is-required]="localityCode.required"
+            [formControl]="localityCode.formControl" [id]="localityCode.id" class="form-select" tab-index="1">
+            <option disabled></option>
+            @for (option of localities; track $index) {
+              <option [value]="option.localityCode">{{ option.name }}</option>
+            }
+          </select>
+        </app-sui-form-group>
+      </div>
+    }
+  </div>
+</ng-container>
+
+<app-sui-modal #postalCodeUnknown>
+  <ng-container i18n="@@sui-postal-address-form-portugal-postal-unknown">
+    This postal code does not match an known residential address.
+  </ng-container>
+</app-sui-modal>
