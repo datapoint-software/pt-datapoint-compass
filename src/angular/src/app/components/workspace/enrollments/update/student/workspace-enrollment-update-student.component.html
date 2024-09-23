@@ -119,6 +119,58 @@
       </div>
     </div>
   </section>
+  <section class="protection-service-section mb-4">
+    <div class="border-bottom fs-5 fw-bold mb-4 py-2">
+      <ng-container i18n="@@workspace-enrollment-update-student-protection-service-section">Social protection measures</ng-container>
+    </div>
+    <app-sui-form-group #protectionServiceEnabled [name]="'protectionServiceEnabled'" class="d-block mb-4">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" [formControl]="protectionServiceEnabled.formControl" [id]="protectionServiceEnabled.id">
+        <label class="form-check-label" [for]="protectionServiceEnabled.id">
+          <ng-container i18n="@@workspace-enrollment-update-student-protection-service-enabled">Family is under social protection measures</ng-container>
+        </label>
+      </div>
+    </app-sui-form-group>
+    <div class="row">
+      @if (student.controls.protectionServiceEnabled.value)
+      {
+        <div class="col-lg-12">
+          <app-sui-form-group #protectionService [name]="'protectionService'" class="d-block mb-4">
+            <label [class.is-invalid]="protectionService.invalid" [class.is-required]="protectionService.required"
+              [for]="protectionService.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-student-protection-service-entity">Entity</ng-container>
+            </label>
+            <input [class.is-invalid]="protectionService.invalid" [class.is-required]="protectionService.required"
+              [formControl]="protectionService.formControl" [id]="protectionService.id" type="text" class="form-control" tab-index="1"
+              placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-student-protection-service-entity-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-9">
+          <app-sui-form-group #protectionServiceOfficer [name]="'protectionServiceOfficer'" class="d-block mb-4">
+            <label [class.is-invalid]="protectionServiceOfficer.invalid" [class.is-required]="protectionServiceOfficer.required"
+              [for]="protectionServiceOfficer.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-student-protection-service-case-officer">Case officer</ng-container>
+            </label>
+            <input [class.is-invalid]="protectionServiceOfficer.invalid" [class.is-required]="protectionServiceOfficer.required"
+              [formControl]="protectionServiceOfficer.formControl" [id]="protectionServiceOfficer.id" type="text" class="form-control" tab-index="1"
+              placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-student-protection-service-case-officer-placeholder">
+          </app-sui-form-group>
+        </div>
+        <div class="col-lg-3">
+          <app-sui-form-group #protectionServiceOfficerPhoneNumber [name]="'protectionServiceOfficerPhoneNumber'" class="d-block mb-4">
+            <label [class.is-invalid]="protectionServiceOfficerPhoneNumber.invalid" [class.is-required]="protectionServiceOfficerPhoneNumber.required"
+              [for]="protectionServiceOfficerPhoneNumber.id" class="form-label">
+              <ng-container i18n="@@workspace-enrollment-update-student-protection-service-case-officer-phone-number">Phone</ng-container>
+            </label>
+            <input [class.is-invalid]="protectionServiceOfficerPhoneNumber.invalid" [class.is-required]="protectionServiceOfficerPhoneNumber.required"
+              [formControl]="protectionServiceOfficerPhoneNumber.formControl" [id]="protectionServiceOfficerPhoneNumber.id" type="text" class="form-control" tab-index="1"
+              placeholder="Tax number" i18n-placeholder="@@workspace-enrollment-update-student-protection-service-case-officer-phone-number-placeholder">
+          </app-sui-form-group>
+        </div>
+      }
+    </div>
+
+  </section>
   <section class="postal-address-section mb-4">
     <div class="border-bottom fs-5 fw-bold mb-4 py-2">
       <ng-container i18n="@@workspace-enrollment-update-student-home-postal-address">Residence</ng-container>

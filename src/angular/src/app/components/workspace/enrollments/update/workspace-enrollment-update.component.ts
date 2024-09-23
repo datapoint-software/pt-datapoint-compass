@@ -187,7 +187,12 @@ export class WorkspaceEnrollmentUpdateComponent implements OnDestroy, OnInit {
       citizenCardExpiration: this._fb.control("", [ ]),
       taxNumber: this._fb.control("", [ ]),
       socialSecurityNumber: this._fb.control("", [ ]),
-      nationalHealthcareNumber: this._fb.control("", [ ])
+      nationalHealthcareNumber: this._fb.control("", [ ]),
+      pediatrist: this._fb.control("", [ ]),
+      protectionService: this._fb.control("", [ ]),
+      protectionServiceEnabled: this._fb.control(false, [ ]),
+      protectionServiceOfficer: this._fb.control("", [ ]),
+      protectionServiceOfficerPhoneNumber: this._fb.control("", [ ])
     });
 
     if (this.districtCode)

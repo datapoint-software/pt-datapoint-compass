@@ -58,6 +58,11 @@ export type WorkspaceEnrollmentUpdateComponentStudentForm = FormGroup<{
   taxNumber: FormControl<string | null>;
   socialSecurityNumber: FormControl<string | null>;
   nationalHealthcareNumber: FormControl<string | null>;
+  pediatrist: FormControl<string | null>;
+  protectionService: FormControl<string | null>;
+  protectionServiceEnabled: FormControl<boolean | null>;
+  protectionServiceOfficer: FormControl<string | null>;
+  protectionServiceOfficerPhoneNumber: FormControl<string | null>;
   residence?: PostalAddressFormGroup;
 }>;
 
