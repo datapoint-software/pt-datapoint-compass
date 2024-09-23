@@ -1,4 +1,4 @@
 export type CountryModel = {
-  code: string;
+  countryCode: string;
   name: string;
 };

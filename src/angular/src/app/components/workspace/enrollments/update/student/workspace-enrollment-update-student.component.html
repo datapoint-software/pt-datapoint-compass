@@ -37,8 +37,8 @@
           <select [class.is-invalid]="nationality.invalid" [class.is-required]="nationality.required"
             [formControl]="nationality.formControl" [id]="nationality.id" type="date" class="form-select" tab-index="1">
             <option disabled></option>
-            @for (option of nationalities; track option.code) {
-              <option [value]="option.code">{{ option.name }}</option>
+            @for (option of nationalities; track option.countryCode) {
+              <option [value]="option.countryCode">{{ option.name }}</option>
             }
           </select>
         </app-sui-form-group>
@@ -53,8 +53,8 @@
             <select [class.is-invalid]="birthplace.invalid" [class.is-required]="birthplace.required"
               [formControl]="birthplace.formControl" [id]="birthplace.id" type="date" class="form-select" tab-index="1">
               <option disabled></option>
-              @for (option of birthplaces; track option.code) {
-                <option [value]="option.code">{{ option.name }}</option>
+              @for (option of birthplaces; track option.districtCode) {
+                <option [value]="option.districtCode">{{ option.name }}</option>
               }
             </select>
           </app-sui-form-group>

@@ -21,7 +21,7 @@ namespace Datapoint.Compass.Api.Districts
 
         [AllowAnonymous]
         [HttpGet]
-        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client, VaryByQueryKeys = ["countryCode", "districtCode", "name", "skip", "take"])]
+        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client, VaryByQueryKeys = ["countryCode", "districtCode", "name", "skip", "take", "cb"])]
         public async Task<IEnumerable<DistrictModel>> SearchAsync(
             [FromQuery] string? countryCode,
             [FromQuery] string? districtCode,

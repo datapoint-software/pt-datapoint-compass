@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { DistrictModel } from "@app/api/districts/district.client.abstractions";
+import { APP_VERSION_ID } from "@app/app.constants";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
@@ -18,7 +19,7 @@ export class DistrictClient {
     return firstValueFrom(
       this._httpClient.get<DistrictModel[]>(
         `${DistrictClient._baseAddress}`,
-        ({ params })
+        ({ params: { ...params, cb: APP_VERSION_ID } })
       )
     );
   }

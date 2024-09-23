@@ -1,5 +1,5 @@
 export type DistrictModel = {
-  code: string;
   countryCode: string;
+  districtCode: string;
   name: string;
 };

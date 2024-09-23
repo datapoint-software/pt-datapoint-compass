@@ -21,7 +21,7 @@ namespace Datapoint.Compass.Api.Countries
 
         [AllowAnonymous]
         [HttpGet]
-        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client, VaryByQueryKeys = [ "code", "name", "skip", "take" ])]
+        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client, VaryByQueryKeys = [ "code", "name", "skip", "take", "cb"])]
         public async Task<IEnumerable<CountryModel>> SearchAsync(
             [FromQuery] string? code,
             [FromQuery] string? name,
